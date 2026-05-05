@@ -6,8 +6,6 @@
 <title>CRM &amp; Sales Dashboard</title>
 <!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<!-- Zoho CRM Embedded App SDK — gives this page live access to your CRM data when loaded as a web tab -->
-<script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededApp.js"></script>
 <style>
 :root{
   --bg:#0d0f1a;--card:#141624;--border:#252a42;
@@ -348,33 +346,28 @@ const TT = {
 const CHARTS = {};
 
 // ════════════════════════════════════════════════════════
-// ZOHO SDK BOOTSTRAP
+// DATA LOADING — calls our own Railway backend proxy
 // ════════════════════════════════════════════════════════
-ZOHO.embeddedApp.on('PageLoad', function() {
-  loadData();
-});
-ZOHO.embeddedApp.init();
-
 async function loadData() {
   setStatus('Fetching CRM data…', false);
   hideError();
   try {
-    const [lRes, dRes] = await Promise.all([
-      ZOHO.CRM.API.getRecords({ Entity:'Leads',  sort_by:'Created_Time', sort_order:'desc', per_page:200 }),
-      ZOHO.CRM.API.getRecords({ Entity:'Deals',  sort_by:'Created_Time', sort_order:'desc', per_page:200 })
-    ]);
-
-    const leads = (lRes && lRes.data) ? lRes.data : [];
-    const deals = (dRes && dRes.data) ? dRes.data : [];
+    const res = await fetch('/api/data');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: res.statusText }));
+      throw new Error(err.error || res.statusText);
+    }
+    const { leads, deals, fetchedAt } = await res.json();
 
     if (!leads.length && !deals.length) {
-      showError('No records returned. Make sure this page is loaded inside Zoho CRM as a Web Tab.');
+      showError('No records returned — check your Zoho OAuth env vars in Railway.');
       setStatus('No data', false);
       return;
     }
 
     renderDashboard(leads, deals);
-    setStatus(`${leads.length} leads · ${deals.length} deals · refreshed ${now()}`, true);
+    const t = fetchedAt ? new Date(fetchedAt).toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit'}) : now();
+    setStatus(`${leads.length} leads · ${deals.length} deals · refreshed ${t}`, true);
   } catch(e) {
     showError('Error fetching CRM data: ' + (e.message || e));
     setStatus('Error', false);
@@ -382,9 +375,10 @@ async function loadData() {
   }
 }
 
-function refreshData() {
-  loadData();
-}
+function refreshData() { loadData(); }
+
+// Auto-load on page open
+loadData();
 
 // ════════════════════════════════════════════════════════
 // DATA PROCESSING
