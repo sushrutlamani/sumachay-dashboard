@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM &amp; Sales Dashboard</title>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Zoho CRM Embedded App SDK — gives this page live access to your CRM data when loaded as a web tab -->
+<script src="https://live.zwidgets.com/js-sdk/1.2/ZohoEmbededApp.js"></script>
+<style>
+:root{
+  --bg:#0d0f1a;--card:#141624;--border:#252a42;
+  --primary:#6366f1;--pl:#818cf8;
+  --green:#10b981;--red:#ef4444;--amber:#f59e0b;
+  --blue:#3b82f6;--purple:#a855f7;--teal:#14b8a6;--orange:#f97316;
+  --shopify:#96bf48;
+  --text:#e2e8f0;--muted:#64748b;--sub:#94a3b8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow-x:hidden}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}
+
+/* ── Header ── */
+header{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:13px 28px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,var(--primary),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.logo h1{font-size:16px;font-weight:700}
+.logo span{font-size:11px;color:var(--muted)}
+.hdr-right{display:flex;align-items:center;gap:12px}
+#statusLine{font-size:12px;color:var(--muted)}
+.live-dot{
+  background:rgba(16,185,129,.15);color:var(--green);
+  border:1px solid rgba(16,185,129,.3);
+  padding:3px 11px;border-radius:20px;font-size:11px;font-weight:600;
+}
+#refreshBtn{
+  background:rgba(99,102,241,.15);color:var(--pl);
+  border:1px solid rgba(99,102,241,.3);
+  padding:5px 14px;border-radius:7px;font-size:12px;font-weight:600;
+  cursor:pointer;transition:background .2s;
+}
+#refreshBtn:hover{background:rgba(99,102,241,.25)}
+
+/* ── Layout ── */
+main{padding:22px 28px;max-width:1600px;margin:0 auto}
+.section-hdr{display:flex;align-items:center;gap:9px;margin:28px 0 14px}
+.section-hdr:first-child{margin-top:0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0}
+.dot.g{background:var(--green)}.dot.s{background:var(--shopify)}
+.section-hdr h2{font-size:14px;font-weight:600}
+
+/* ── KPI cards ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:13px}
+.kpi{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:11px;padding:16px 18px;position:relative;
+  overflow:hidden;transition:border-color .2s,transform .2s;
+}
+.kpi:hover{border-color:var(--pl);transform:translateY(-2px)}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi.blue::before   {background:linear-gradient(90deg,#6366f1,#3b82f6)}
+.kpi.green::before  {background:linear-gradient(90deg,#10b981,#34d399)}
+.kpi.red::before    {background:linear-gradient(90deg,#ef4444,#f97316)}
+.kpi.amber::before  {background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+.kpi.purple::before {background:linear-gradient(90deg,#a855f7,#6366f1)}
+.kpi.teal::before   {background:linear-gradient(90deg,#14b8a6,#3b82f6)}
+.kpi.shopify::before{background:linear-gradient(90deg,#96bf48,#5a8e00)}
+.kpi.indigo::before {background:linear-gradient(90deg,#6366f1,#818cf8)}
+.kpi-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:7px}
+.kpi-val{font-size:26px;font-weight:700;line-height:1;margin-bottom:5px}
+.kpi-sub{font-size:11px;color:var(--sub)}
+
+/* ── Chart cards ── */
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.ccard{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:18px}
+.ccard.wide{grid-column:span 2}
+.ctitle{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--sub);margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;
+}
+.ctitle em{font-style:normal;font-size:11px;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0}
+.cwrap{position:relative;height:215px}
+.cwrap.tall{height:270px}
+
+/* ── Loading overlay per chart ── */
+.cwrap .loader{
+  position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;background:var(--card);border-radius:8px;z-index:5;
+}
+.spinner{
+  width:22px;height:22px;border:2px solid var(--border);
+  border-top-color:var(--primary);border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── KPI skeleton ── */
+.skel{
+  background:linear-gradient(90deg,var(--border) 25%,rgba(255,255,255,.05) 50%,var(--border) 75%);
+  background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:5px;
+}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* ── Table ── */
+.twrap{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-top:16px}
+table{width:100%;border-collapse:collapse}
+thead th{
+  background:rgba(99,102,241,.08);padding:10px 15px;text-align:left;
+  font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--muted);border-bottom:1px solid var(--border);
+}
+tbody tr{border-bottom:1px solid rgba(37,42,66,.5);transition:background .15s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(99,102,241,.05)}
+tbody td{padding:10px 15px;font-size:12.5px}
+.bs{padding:3px 9px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap}
+.s-won    {background:rgba(16,185,129,.15);color:#10b981}
+.s-lost   {background:rgba(239,68,68,.15); color:#ef4444}
+.s-pre    {background:rgba(99,102,241,.15);color:#818cf8}
+.s-quote  {background:rgba(59,130,246,.15);color:#60a5fa}
+.s-fu     {background:rgba(245,158,11,.15);color:#fbbf24}
+.s-cart   {background:rgba(168,85,247,.15);color:#c084fc}
+.s-na     {background:rgba(20,184,166,.15);color:#2dd4bf}
+
+/* ── Shopify section ── */
+.shopify-wrap{
+  background:var(--card);border:1px solid rgba(150,191,72,.22);
+  border-radius:11px;padding:24px 28px;position:relative;overflow:hidden;
+}
+.shopify-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#96bf48,#5a8e00)}
+.shopify-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
+.shopify-info h3{font-size:17px;font-weight:700;margin-bottom:6px}
+.shopify-info p{font-size:12.5px;color:var(--muted);line-height:1.65;max-width:480px}
+.sh-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:18px}
+.sh-stat{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:13px}
+.sh-stat .sl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:5px;font-weight:600}
+.sh-stat .sv{font-size:20px;font-weight:700;color:var(--shopify)}
+.sh-stat .ss{font-size:10.5px;color:var(--muted);margin-top:2px}
+.conn-panel{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:18px;min-width:270px}
+.conn-panel h4{font-size:12.5px;font-weight:600;margin-bottom:11px;color:var(--sub)}
+.cred-grid{display:flex;flex-direction:column;gap:7px}
+.cred-grid input{
+  background:var(--card);border:1px solid var(--border);border-radius:7px;
+  padding:8px 11px;color:var(--text);font-size:12px;width:100%;transition:border-color .2s;
+}
+.cred-grid input:focus{outline:none;border-color:var(--shopify)}
+.cred-grid input::placeholder{color:var(--muted)}
+.btn-conn{
+  margin-top:9px;width:100%;
+  background:linear-gradient(135deg,#96bf48,#5a8e00);
+  color:#fff;border:none;border-radius:7px;
+  padding:9px;font-size:12.5px;font-weight:600;cursor:pointer;transition:opacity .2s;
+}
+.btn-conn:hover{opacity:.88}
+.conn-note{font-size:10px;color:var(--muted);margin-top:7px;text-align:center}
+
+/* ── Error banner ── */
+#errorBanner{
+  display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
+  color:#fca5a5;border-radius:9px;padding:14px 18px;margin-bottom:16px;font-size:13px;
+}
+
+footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:36px}
+
+@media(max-width:900px){
+  main{padding:14px}header{padding:11px 14px}
+  .cgrid{grid-template-columns:1fr}.ccard.wide{grid-column:span 1}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .shopify-grid{grid-template-columns:1fr}
+  .sh-stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">📊</div>
+    <div>
+      <h1>Business Intelligence Dashboard</h1>
+      <span>Zoho CRM &amp; Shopify Analytics</span>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <span id="statusLine">Loading data…</span>
+    <span class="live-dot" id="liveDot">● Loading</span>
+    <button id="refreshBtn" onclick="refreshData()">↻ Refresh</button>
+  </div>
+</header>
+
+<main>
+  <div id="errorBanner"></div>
+
+  <!-- ══════════════ LEADS ══════════════ -->
+  <div class="section-hdr">
+    <div class="dot"></div>
+    <h2>Lead Performance — Zoho CRM</h2>
+  </div>
+  <div class="kpi-grid" id="leadKPIs">
+    <!-- Filled by JS -->
+    <div class="kpi blue"><div class="kpi-lbl">Total Leads</div><div class="kpi-val skel" style="height:32px;width:60px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:110px"> </div></div>
+    <div class="kpi red" ><div class="kpi-lbl">Not Contacted</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:90px"> </div></div>
+    <div class="kpi amber"><div class="kpi-lbl">Attempted Contact</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:90px"> </div></div>
+    <div class="kpi green"><div class="kpi-lbl">Contacted</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:90px"> </div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Contact Rate</div><div class="kpi-val skel" style="height:32px;width:60px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:80px"> </div></div>
+    <div class="kpi teal"><div class="kpi-lbl">Top Source</div><div class="kpi-val skel" style="height:32px;width:80px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+  </div>
+
+  <div class="cgrid">
+    <div class="ccard">
+      <div class="ctitle">Lead Status Breakdown <em id="leadStatusSub">—</em></div>
+      <div class="cwrap"><div class="loader"><div class="spinner"></div></div><canvas id="leadStatusChart"></canvas></div>
+    </div>
+    <div class="ccard">
+      <div class="ctitle">Leads by Source <em>All sources</em></div>
+      <div class="cwrap"><div class="loader"><div class="spinner"></div></div><canvas id="leadSourceChart"></canvas></div>
+    </div>
+    <div class="ccard wide">
+      <div class="ctitle">New Leads — Daily Volume <em id="leadTimelineSub">Last 30 days</em></div>
+      <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="leadsTimelineChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ══════════════ DEALS ══════════════ -->
+  <div class="section-hdr">
+    <div class="dot g"></div>
+    <h2>Deal Pipeline — Zoho CRM</h2>
+  </div>
+  <div class="kpi-grid" id="dealKPIs">
+    <div class="kpi blue"  ><div class="kpi-lbl">Total Deals</div><div class="kpi-val skel" style="height:32px;width:60px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Active Pipeline</div><div class="kpi-val skel" style="height:32px;width:80px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:120px"> </div></div>
+    <div class="kpi green" ><div class="kpi-lbl">Closed Won</div><div class="kpi-val skel" style="height:32px;width:70px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+    <div class="kpi red"   ><div class="kpi-lbl">Closed Lost</div><div class="kpi-val skel" style="height:32px;width:70px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+    <div class="kpi amber" ><div class="kpi-lbl">Win Rate</div><div class="kpi-val skel" style="height:32px;width:60px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:90px"> </div></div>
+    <div class="kpi indigo"><div class="kpi-lbl">PreOrder Value</div><div class="kpi-val skel" style="height:32px;width:70px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+    <div class="kpi teal"  ><div class="kpi-lbl">Follow-Up Pipeline</div><div class="kpi-val skel" style="height:32px;width:70px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:110px"> </div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Shopify-Origin Deals</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub skel" style="height:14px;width:100px"> </div></div>
+  </div>
+
+  <div class="cgrid">
+    <div class="ccard">
+      <div class="ctitle">Pipeline Stage — Deal Count <em>By stage</em></div>
+      <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="dealStageCountChart"></canvas></div>
+    </div>
+    <div class="ccard">
+      <div class="ctitle">Pipeline Stage — Total Value <em>CAD $</em></div>
+      <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="dealStageValueChart"></canvas></div>
+    </div>
+    <div class="ccard">
+      <div class="ctitle">Won vs Lost <em>By value (CAD)</em></div>
+      <div class="cwrap"><div class="loader"><div class="spinner"></div></div><canvas id="wonLostChart"></canvas></div>
+    </div>
+    <div class="ccard">
+      <div class="ctitle">Deal Source Distribution <em>By count</em></div>
+      <div class="cwrap"><div class="loader"><div class="spinner"></div></div><canvas id="dealSourceChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Recent deals table -->
+  <div class="ctitle" style="margin:18px 0 4px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
+    Recent Deals <em style="font-size:11px;color:var(--muted);text-transform:none;letter-spacing:0">Most recently created</em>
+  </div>
+  <div class="twrap"><table>
+    <thead><tr><th>Deal Name</th><th>Stage</th><th>Amount</th><th>Source</th><th>Created</th></tr></thead>
+    <tbody id="dealsTableBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading deals…</td></tr></tbody>
+  </table></div>
+
+  <!-- ══════════════ SHOPIFY ══════════════ -->
+  <div class="section-hdr">
+    <div class="dot s"></div>
+    <h2>Shopify Store Analytics</h2>
+  </div>
+  <div class="shopify-wrap">
+    <div class="shopify-grid">
+      <div class="shopify-info">
+        <h3>🛍️ Shopify Data</h3>
+        <p>
+          Shopify abandoned cart leads already flow into your CRM.
+          The metrics below are derived from Zoho CRM records with
+          <strong style="color:var(--shopify)">Lead Source = "Shopify Abandoned Cart"</strong>.
+          Enter your Shopify API credentials to add live store-side data —
+          total revenue, orders, inventory, and conversion rates.
+        </p>
+        <div class="sh-stats" id="shopifyStats">
+          <div class="sh-stat"><div class="sl">Abandoned Cart Deals</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">In CRM pipeline</div></div>
+          <div class="sh-stat"><div class="sl">Total Cart Value</div><div class="sv skel" style="height:26px;width:80px;margin-bottom:3px"> </div><div class="ss">Across all stages</div></div>
+          <div class="sh-stat"><div class="sl">Recovered (Won)</div><div class="sv skel" style="height:26px;width:40px;margin-bottom:3px"> </div><div class="ss">Closed won carts</div></div>
+          <div class="sh-stat"><div class="sl">Cart Win Rate</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">Won / total carts</div></div>
+        </div>
+      </div>
+      <div class="conn-panel">
+        <h4>🔌 Connect Shopify API</h4>
+        <div class="cred-grid">
+          <input type="text"     id="shStore"  placeholder="yourstore.myshopify.com">
+          <input type="password" id="shToken"  placeholder="Admin API Access Token">
+          <input type="text"     id="shKey"    placeholder="API Key">
+          <input type="password" id="shSecret" placeholder="API Secret">
+        </div>
+        <button class="btn-conn" onclick="connectShopify()">Connect Shopify Store</button>
+        <p class="conn-note">Credentials used in-session only, never stored</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+<footer>Business Intelligence Dashboard &nbsp;·&nbsp; Zoho CRM + Shopify &nbsp;·&nbsp; Live data via Zoho CRM JS SDK</footer>
+
+<script>
+// ════════════════════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════════════════════
+const STAGE_ORDER = [
+  'Needs Analysis','Cart Abandoned','Follow up 1','Quote Sent',
+  'Follow up 2','PreOrder','Closed Won','Closed Lost'
+];
+const STAGE_COLOR = {
+  'Needs Analysis':'#14b8a6','Cart Abandoned':'#a855f7',
+  'Follow up 1':'#f59e0b','Quote Sent':'#3b82f6',
+  'Follow up 2':'#f97316','PreOrder':'#6366f1',
+  'Closed Won':'#10b981','Closed Lost':'#ef4444'
+};
+const STAGE_CLASS = {
+  'Closed Won':'s-won','Closed Lost':'s-lost','PreOrder':'s-pre',
+  'Quote Sent':'s-quote','Follow up 1':'s-fu','Follow up 2':'s-fu',
+  'Cart Abandoned':'s-cart','Needs Analysis':'s-na'
+};
+const CLOSED_ACTIVE = new Set(['Closed Won','Closed Lost']);
+
+// Chart.js defaults
+Chart.defaults.color = '#64748b';
+Chart.defaults.borderColor = '#252a42';
+Chart.defaults.font.family = "'Segoe UI',system-ui,sans-serif";
+const TT = {
+  backgroundColor:'#1a1d2e',borderColor:'#252a42',borderWidth:1,
+  titleColor:'#e2e8f0',bodyColor:'#94a3b8',padding:12,cornerRadius:8
+};
+
+// Track chart instances so we can destroy + redraw on refresh
+const CHARTS = {};
+
+// ════════════════════════════════════════════════════════
+// ZOHO SDK BOOTSTRAP
+// ════════════════════════════════════════════════════════
+ZOHO.embeddedApp.on('PageLoad', function() {
+  loadData();
+});
+ZOHO.embeddedApp.init();
+
+async function loadData() {
+  setStatus('Fetching CRM data…', false);
+  hideError();
+  try {
+    const [lRes, dRes] = await Promise.all([
+      ZOHO.CRM.API.getRecords({ Entity:'Leads',  sort_by:'Created_Time', sort_order:'desc', per_page:200 }),
+      ZOHO.CRM.API.getRecords({ Entity:'Deals',  sort_by:'Created_Time', sort_order:'desc', per_page:200 })
+    ]);
+
+    const leads = (lRes && lRes.data) ? lRes.data : [];
+    const deals = (dRes && dRes.data) ? dRes.data : [];
+
+    if (!leads.length && !deals.length) {
+      showError('No records returned. Make sure this page is loaded inside Zoho CRM as a Web Tab.');
+      setStatus('No data', false);
+      return;
+    }
+
+    renderDashboard(leads, deals);
+    setStatus(`${leads.length} leads · ${deals.length} deals · refreshed ${now()}`, true);
+  } catch(e) {
+    showError('Error fetching CRM data: ' + (e.message || e));
+    setStatus('Error', false);
+    console.error(e);
+  }
+}
+
+function refreshData() {
+  loadData();
+}
+
+// ════════════════════════════════════════════════════════
+// DATA PROCESSING
+// ════════════════════════════════════════════════════════
+function processLeads(leads) {
+  const statusCounts = {}, sourceCounts = {}, byDate = {};
+  leads.forEach(l => {
+    const s = l.Lead_Status || 'Unknown';
+    statusCounts[s] = (statusCounts[s]||0)+1;
+    const src = l.Lead_Source || 'Unknown';
+    sourceCounts[src] = (sourceCounts[src]||0)+1;
+    if (l.Created_Time) {
+      const d = l.Created_Time.substring(0,10);
+      byDate[d] = (byDate[d]||0)+1;
+    }
+  });
+  return { statusCounts, sourceCounts, byDate };
+}
+
+function processDeals(deals) {
+  const stageCounts={}, stageValues={}, sourceCounts={};
+  let wonCount=0, wonValue=0, lostCount=0, lostValue=0;
+  let activePipeline=0;
+  const shopifyDeals=[], recentDeals=[];
+
+  deals.forEach(d => {
+    const stage  = d.Stage || 'Unknown';
+    const amount = parseFloat(d.Amount)||0;
+    const src    = d.Lead_Source || 'Unknown';
+
+    stageCounts[stage] = (stageCounts[stage]||0)+1;
+    stageValues[stage] = (stageValues[stage]||0)+amount;
+    sourceCounts[src]  = (sourceCounts[src]||0)+1;
+
+    if (stage==='Closed Won')  { wonCount++;  wonValue+=amount; }
+    if (stage==='Closed Lost') { lostCount++; lostValue+=amount; }
+    if (!CLOSED_ACTIVE.has(stage)) activePipeline+=amount;
+    if (src==='Shopify Abandoned Cart') shopifyDeals.push(d);
+  });
+
+  // Recent deals table (first 15)
+  deals.slice(0,15).forEach(d => recentDeals.push(d));
+
+  const shopifyWon = shopifyDeals.filter(d=>d.Stage==='Closed Won');
+  const shopifyWonValue = shopifyWon.reduce((a,d)=>a+(parseFloat(d.Amount)||0),0);
+  const shopifyTotal = shopifyDeals.reduce((a,d)=>a+(parseFloat(d.Amount)||0),0);
+
+  const fu1Val = stageValues['Follow up 1']||0;
+  const fu2Val = stageValues['Follow up 2']||0;
+  const preVal = stageValues['PreOrder']||0;
+
+  return {
+    stageCounts, stageValues, sourceCounts,
+    wonCount, wonValue, lostCount, lostValue, activePipeline,
+    winRate: wonCount+lostCount>0 ? (wonCount/(wonCount+lostCount)*100).toFixed(1) : 0,
+    avgWon: wonCount>0 ? wonValue/wonCount : 0,
+    fu1Val, fu2Val, preVal,
+    shopifyCount: shopifyDeals.length,
+    shopifyTotal, shopifyWonCount: shopifyWon.length, shopifyWonValue,
+    shopifyWinRate: shopifyDeals.length>0 ? (shopifyWon.length/shopifyDeals.length*100).toFixed(1) : 0,
+    recentDeals
+  };
+}
+
+// Build a last-N-days date series
+function buildDateSeries(byDate, days=30) {
+  const labels=[], values=[];
+  for (let i=days-1;i>=0;i--) {
+    const d = new Date(); d.setDate(d.getDate()-i);
+    const key = d.toISOString().substring(0,10);
+    const label = (d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getDate().toString().padStart(2,'0');
+    labels.push(label); values.push(byDate[key]||0);
+  }
+  return {labels,values};
+}
+
+// ════════════════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════════════════
+function renderDashboard(leads, deals) {
+  const lp = processLeads(leads);
+  const dp = processDeals(deals);
+
+  renderLeadKPIs(leads.length, lp, dp);
+  renderDealKPIs(deals.length, dp);
+  renderLeadCharts(lp);
+  renderDealCharts(dp);
+  renderTable(dp.recentDeals);
+  renderShopifyStats(dp);
+}
+
+// ── Lead KPIs ──
+function renderLeadKPIs(total, lp) {
+  const sc = lp.statusCounts;
+  const notContacted   = sc['Not Contacted']||0;
+  const attempted      = sc['Attempted to Contact']||0;
+  const contacted      = sc['Contacted']||0;
+  const contactRate    = total>0 ? ((contacted/total)*100).toFixed(0)+'%' : '0%';
+  const topSrc = Object.entries(lp.sourceCounts).sort((a,b)=>b[1]-a[1])[0]||['—',0];
+  const topSrcPct = total>0 ? Math.round(topSrc[1]/total*100) : 0;
+
+  document.getElementById('leadKPIs').innerHTML = `
+    <div class="kpi blue">  <div class="kpi-lbl">Total Leads</div>   <div class="kpi-val">${total}</div>    <div class="kpi-sub">Fetched this session</div></div>
+    <div class="kpi red">   <div class="kpi-lbl">Not Contacted</div> <div class="kpi-val">${notContacted}</div><div class="kpi-sub">Need immediate outreach</div></div>
+    <div class="kpi amber"> <div class="kpi-lbl">Attempted Contact</div><div class="kpi-val">${attempted}</div><div class="kpi-sub">Follow-up pending</div></div>
+    <div class="kpi green"> <div class="kpi-lbl">Contacted</div>     <div class="kpi-val">${contacted}</div><div class="kpi-sub">Active conversations</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Contact Rate</div>  <div class="kpi-val">${contactRate}</div><div class="kpi-sub">Of all fetched leads</div></div>
+    <div class="kpi teal">  <div class="kpi-lbl">Top Source</div>    <div class="kpi-val" style="font-size:18px">${topSrc[0]}</div><div class="kpi-sub">${topSrcPct}% of leads</div></div>
+  `;
+}
+
+// ── Deal KPIs ──
+function renderDealKPIs(total, dp) {
+  document.getElementById('dealKPIs').innerHTML = `
+    <div class="kpi blue"  ><div class="kpi-lbl">Total Deals</div>       <div class="kpi-val">${total}+</div>           <div class="kpi-sub">Page 1 · more may exist</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Active Pipeline</div>   <div class="kpi-val">${fmt(dp.activePipeline)}</div><div class="kpi-sub">Excl. closed deals</div></div>
+    <div class="kpi green" ><div class="kpi-lbl">Closed Won</div>        <div class="kpi-val">${fmt(dp.wonValue)}</div>   <div class="kpi-sub">${dp.wonCount} deals · avg ${fmt(dp.avgWon)}</div></div>
+    <div class="kpi red"   ><div class="kpi-lbl">Closed Lost</div>       <div class="kpi-val">${fmt(dp.lostValue)}</div>  <div class="kpi-sub">${dp.lostCount} deals lost</div></div>
+    <div class="kpi amber" ><div class="kpi-lbl">Win Rate</div>          <div class="kpi-val">${dp.winRate}%</div>        <div class="kpi-sub">${dp.wonCount} won / ${dp.wonCount+dp.lostCount} closed</div></div>
+    <div class="kpi indigo"><div class="kpi-lbl">PreOrder Value</div>    <div class="kpi-val">${fmt(dp.preVal)}</div>     <div class="kpi-sub">${dp.stageCounts['PreOrder']||0} deals in PreOrder</div></div>
+    <div class="kpi teal"  ><div class="kpi-lbl">Follow-Up Pipeline</div><div class="kpi-val">${fmt(dp.fu1Val+dp.fu2Val)}</div><div class="kpi-sub">FU1 ${fmt(dp.fu1Val)} · FU2 ${fmt(dp.fu2Val)}</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Shopify-Origin Deals</div><div class="kpi-val">${dp.shopifyCount}</div><div class="kpi-sub">Abandoned cart leads</div></div>
+  `;
+}
+
+// ── Lead Charts ──
+function renderLeadCharts(lp) {
+  const statusLabels = Object.keys(lp.statusCounts);
+  const statusVals   = Object.values(lp.statusCounts);
+  document.getElementById('leadStatusSub').textContent = statusLabels.join(' · ').substring(0,40)+'…';
+
+  mkChart('leadStatusChart','doughnut',{
+    labels: statusLabels,
+    datasets:[{ data:statusVals,
+      backgroundColor:['#ef4444','#f59e0b','#10b981','#3b82f6','#a855f7','#64748b'],
+      borderColor:'#141624',borderWidth:3,hoverOffset:8
+    }]
+  },{
+    cutout:'68%',
+    plugins:{ legend:{position:'right',labels:{padding:14,usePointStyle:true,pointStyleWidth:8,font:{size:10}}}, tooltip:TT }
+  });
+
+  const srcEntries = Object.entries(lp.sourceCounts).sort((a,b)=>b[1]-a[1]);
+  const srcColors  = ['#6366f1','#818cf8','#3b82f6','#10b981','#f59e0b','#ef4444','#a855f7','#64748b'];
+  mkChart('leadSourceChart','bar',{
+    labels: srcEntries.map(e=>e[0]),
+    datasets:[{ label:'Leads', data:srcEntries.map(e=>e[1]),
+      backgroundColor:srcEntries.map((_,i)=>srcColors[i%srcColors.length]),
+      borderRadius:6,borderSkipped:false }]
+  },{
+    indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:TT},
+    scales:{ x:{grid:{color:'#252a42'},ticks:{font:{size:10}}}, y:{grid:{display:false},ticks:{font:{size:10}}} }
+  });
+
+  const {labels,values} = buildDateSeries(lp.byDate,30);
+  mkChart('leadsTimelineChart','line',{
+    labels,
+    datasets:[{ label:'New Leads', data:values,
+      borderColor:'#6366f1',backgroundColor:'rgba(99,102,241,.12)',
+      borderWidth:2.5,fill:true,tension:0.4,
+      pointBackgroundColor:'#6366f1',pointRadius:3,pointHoverRadius:6 }]
+  },{
+    plugins:{legend:{display:false},tooltip:TT},
+    scales:{
+      x:{grid:{color:'#252a42'},ticks:{font:{size:9},maxRotation:45}},
+      y:{grid:{color:'#252a42'},ticks:{font:{size:10}},beginAtZero:true}
+    }
+  });
+}
+
+// ── Deal Charts ──
+function renderDealCharts(dp) {
+  const stages  = STAGE_ORDER.filter(s => dp.stageCounts[s] !== undefined || dp.stageValues[s] !== undefined);
+  const bgs     = stages.map(s=>(STAGE_COLOR[s]||'#64748b')+'aa');
+  const borders = stages.map(s=>STAGE_COLOR[s]||'#64748b');
+
+  mkChart('dealStageCountChart','bar',{
+    labels:stages,
+    datasets:[{ label:'Deals',data:stages.map(s=>dp.stageCounts[s]||0),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:6,borderSkipped:false }]
+  },{
+    indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:TT},
+    scales:{x:{grid:{color:'#252a42'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10}}}}
+  });
+
+  mkChart('dealStageValueChart','bar',{
+    labels:stages,
+    datasets:[{ label:'Value (CAD)',data:stages.map(s=>dp.stageValues[s]||0),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:6,borderSkipped:false }]
+  },{
+    indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:ctx=>` $${ctx.parsed.x.toLocaleString()}`}}},
+    scales:{
+      x:{grid:{color:'#252a42'},ticks:{font:{size:10},callback:v=>'$'+(v/1000).toFixed(0)+'K'}},
+      y:{grid:{display:false},ticks:{font:{size:10}}}
+    }
+  });
+
+  mkChart('wonLostChart','bar',{
+    labels:[`Closed Won (${dp.wonCount})`,`Closed Lost (${dp.lostCount})`],
+    datasets:[{ label:'Value',data:[dp.wonValue,dp.lostValue],
+      backgroundColor:['rgba(16,185,129,.7)','rgba(239,68,68,.7)'],
+      borderColor:['#10b981','#ef4444'],borderWidth:2,borderRadius:8,borderSkipped:false }]
+  },{
+    plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:ctx=>` $${ctx.parsed.y.toLocaleString()}`}}},
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:11}}},
+      y:{grid:{color:'#252a42'},ticks:{font:{size:10},callback:v=>'$'+(v/1000).toFixed(0)+'K'},beginAtZero:true}
+    }
+  });
+
+  const srcEntries = Object.entries(dp.sourceCounts).sort((a,b)=>b[1]-a[1]);
+  const dColors = ['#96bf48','#6366f1','#3b82f6','#f59e0b','#14b8a6','#ef4444','#64748b'];
+  mkChart('dealSourceChart','doughnut',{
+    labels:srcEntries.map(e=>e[0]),
+    datasets:[{ data:srcEntries.map(e=>e[1]),
+      backgroundColor:srcEntries.map((_,i)=>dColors[i%dColors.length]),
+      borderColor:'#141624',borderWidth:3,hoverOffset:8 }]
+  },{
+    cutout:'68%',
+    plugins:{legend:{position:'right',labels:{padding:12,usePointStyle:true,pointStyleWidth:8,font:{size:10}}},tooltip:TT}
+  });
+}
+
+// ── Table ──
+function renderTable(deals) {
+  const tbody = document.getElementById('dealsTableBody');
+  if (!deals.length) { tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">No deals found</td></tr>'; return; }
+  tbody.innerHTML = deals.map(d=>{
+    const stage = d.Stage||'—';
+    const amt   = d.Amount ? '$'+parseFloat(d.Amount).toLocaleString() : '—';
+    const src   = d.Lead_Source||'—';
+    const date  = d.Created_Time ? d.Created_Time.substring(0,10) : '—';
+    const name  = d.Deal_Name||'Untitled';
+    return `<tr>
+      <td style="font-weight:500;max-width:270px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${name}">${name}</td>
+      <td><span class="bs ${STAGE_CLASS[stage]||''}">${stage}</span></td>
+      <td style="font-weight:600;color:#10b981">${amt}</td>
+      <td style="color:var(--sub)">${src}</td>
+      <td style="color:var(--muted)">${date}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Shopify stats from CRM data ──
+function renderShopifyStats(dp) {
+  document.getElementById('shopifyStats').innerHTML = `
+    <div class="sh-stat"><div class="sl">Abandoned Cart Deals</div><div class="sv">${dp.shopifyCount}</div><div class="ss">In CRM pipeline</div></div>
+    <div class="sh-stat"><div class="sl">Total Cart Value</div><div class="sv">${fmt(dp.shopifyTotal)}</div><div class="ss">Across all stages</div></div>
+    <div class="sh-stat"><div class="sl">Recovered (Won)</div><div class="sv">${dp.shopifyWonCount}</div><div class="ss">${fmt(dp.shopifyWonValue)} recovered</div></div>
+    <div class="sh-stat"><div class="sl">Cart Win Rate</div><div class="sv">${dp.shopifyWinRate}%</div><div class="ss">Won / total carts</div></div>
+  `;
+}
+
+// ════════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════════
+function mkChart(id, type, data, options) {
+  const canvas = document.getElementById(id);
+  if (!canvas) return;
+  // Remove loading spinner
+  const loader = canvas.parentNode.querySelector('.loader');
+  if (loader) loader.remove();
+  // Destroy old chart if exists
+  if (CHARTS[id]) { CHARTS[id].destroy(); delete CHARTS[id]; }
+  CHARTS[id] = new Chart(canvas, {
+    type,
+    data,
+    options:{ responsive:true, maintainAspectRatio:false, ...options }
+  });
+}
+
+function fmt(n) {
+  n = parseFloat(n)||0;
+  if (n >= 1000000) return '$'+(n/1000000).toFixed(1)+'M';
+  if (n >= 1000)    return '$'+(n/1000).toFixed(0)+'K';
+  return '$'+n.toFixed(0);
+}
+
+function now() {
+  return new Date().toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit'});
+}
+
+function setStatus(msg, live) {
+  document.getElementById('statusLine').textContent = msg;
+  const dot = document.getElementById('liveDot');
+  dot.textContent = live ? '● Live' : '● Updating…';
+  dot.style.color = live ? 'var(--green)' : 'var(--amber)';
+  dot.style.background = live ? 'rgba(16,185,129,.15)' : 'rgba(245,158,11,.15)';
+  dot.style.borderColor = live ? 'rgba(16,185,129,.3)' : 'rgba(245,158,11,.3)';
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBanner');
+  el.textContent = '⚠ ' + msg;
+  el.style.display = 'block';
+}
+function hideError() { document.getElementById('errorBanner').style.display='none'; }
+
+// ════════════════════════════════════════════════════════
+// SHOPIFY CONNECT
+// ════════════════════════════════════════════════════════
+function connectShopify() {
+  const store = document.getElementById('shStore').value.trim();
+  const token = document.getElementById('shToken').value.trim();
+  if (!store || !token) {
+    alert('Please enter your Shopify store URL and Admin API Access Token.');
+    return;
+  }
+  alert(`Credentials received for ${store}.\n\nShopify's Admin API requires a backend proxy due to browser CORS policy. Share these credentials with your developer to set up the proxy, then this dashboard will show live orders, revenue, and inventory.`);
+}
+</script>
+</body>
+</html>
