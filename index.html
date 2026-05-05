@@ -423,7 +423,7 @@ function processLeads(leads) {
       byDate[d] = (byDate[d]||0)+1;
     }
   });
-  return { statusCounts, sourceCounts, byDate };
+  return { statusCounts, sourceCounts, byDate, dateRange: getDateRange(leads, 'Created_Time') };
 }
 
 function processDeals(deals) {
@@ -467,7 +467,7 @@ function processDeals(deals) {
     shopifyCount: shopifyDeals.length,
     shopifyTotal, shopifyWonCount: shopifyWon.length, shopifyWonValue,
     shopifyWinRate: shopifyDeals.length>0 ? (shopifyWon.length/shopifyDeals.length*100).toFixed(1) : 0,
-    recentDeals
+    recentDeals, dateRange: getDateRange(deals, 'Created_Time')
   };
 }
 
@@ -536,7 +536,8 @@ function renderDealKPIs(total, dp) {
 function renderLeadCharts(lp) {
   const statusLabels = Object.keys(lp.statusCounts);
   const statusVals   = Object.values(lp.statusCounts);
-  document.getElementById('leadStatusSub').textContent = statusLabels.join(' · ').substring(0,40)+'…';
+  const crmRange = fmtDateRange(lp.dateRange.min, lp.dateRange.max);
+  document.getElementById('leadStatusSub').textContent = crmRange;
 
   mkChart('leadStatusChart','doughnut',{
     labels: statusLabels,
@@ -548,6 +549,8 @@ function renderLeadCharts(lp) {
     cutout:'68%',
     plugins:{ legend:{position:'right',labels:{padding:14,usePointStyle:true,pointStyleWidth:8,font:{size:10}}}, tooltip:TT }
   });
+
+  setChartSubtitle('leadSourceChart', crmRange);
 
   const srcEntries = Object.entries(lp.sourceCounts).sort((a,b)=>b[1]-a[1]);
   const srcColors  = ['#6366f1','#818cf8','#3b82f6','#10b981','#f59e0b','#ef4444','#a855f7','#64748b'];
@@ -561,6 +564,10 @@ function renderLeadCharts(lp) {
     plugins:{legend:{display:false},tooltip:TT},
     scales:{ x:{grid:{color:'#252a42'},ticks:{font:{size:10}}}, y:{grid:{display:false},ticks:{font:{size:10}}} }
   });
+
+  const today30 = new Date().toISOString().substring(0,10);
+  const ago30   = new Date(Date.now() - 29*864e5).toISOString().substring(0,10);
+  document.getElementById('leadTimelineSub').textContent = fmtDateRange(ago30, today30);
 
   const {labels,values} = buildDateSeries(lp.byDate,30);
   mkChart('leadsTimelineChart','line',{
@@ -580,10 +587,12 @@ function renderLeadCharts(lp) {
 
 // ── Deal Charts ──
 function renderDealCharts(dp) {
+  const dealRange = fmtDateRange(dp.dateRange.min, dp.dateRange.max);
   const stages  = STAGE_ORDER.filter(s => dp.stageCounts[s] !== undefined || dp.stageValues[s] !== undefined);
   const bgs     = stages.map(s=>(STAGE_COLOR[s]||'#64748b')+'aa');
   const borders = stages.map(s=>STAGE_COLOR[s]||'#64748b');
 
+  setChartSubtitle('dealStageCountChart', dealRange);
   mkChart('dealStageCountChart','bar',{
     labels:stages,
     datasets:[{ label:'Deals',data:stages.map(s=>dp.stageCounts[s]||0),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:6,borderSkipped:false }]
@@ -593,6 +602,7 @@ function renderDealCharts(dp) {
     scales:{x:{grid:{color:'#252a42'},ticks:{font:{size:10}}},y:{grid:{display:false},ticks:{font:{size:10}}}}
   });
 
+  setChartSubtitle('dealStageValueChart', dealRange);
   mkChart('dealStageValueChart','bar',{
     labels:stages,
     datasets:[{ label:'Value (CAD)',data:stages.map(s=>dp.stageValues[s]||0),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:6,borderSkipped:false }]
@@ -605,6 +615,7 @@ function renderDealCharts(dp) {
     }
   });
 
+  setChartSubtitle('wonLostChart', dealRange);
   mkChart('wonLostChart','bar',{
     labels:[`Closed Won (${dp.wonCount})`,`Closed Lost (${dp.lostCount})`],
     datasets:[{ label:'Value',data:[dp.wonValue,dp.lostValue],
@@ -620,6 +631,7 @@ function renderDealCharts(dp) {
 
   const srcEntries = Object.entries(dp.sourceCounts).sort((a,b)=>b[1]-a[1]);
   const dColors = ['#96bf48','#6366f1','#3b82f6','#f59e0b','#14b8a6','#ef4444','#64748b'];
+  setChartSubtitle('dealSourceChart', dealRange);
   mkChart('dealSourceChart','doughnut',{
     labels:srcEntries.map(e=>e[0]),
     datasets:[{ data:srcEntries.map(e=>e[1]),
@@ -677,6 +689,31 @@ function mkChart(id, type, data, options) {
     data,
     options:{ responsive:true, maintainAspectRatio:false, ...options }
   });
+}
+
+function fmtDateRange(min, max) {
+  if (!min) return '';
+  const d = s => new Date(s + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const yr = new Date((max || min) + 'T12:00:00').getFullYear();
+  return min === max ? `${d(min)}, ${yr}` : `${d(min)} – ${d(max)}, ${yr}`;
+}
+
+function getDateRange(items, field) {
+  let min = '', max = '';
+  items.forEach(item => {
+    const val = (item[field] || '').substring(0, 10);
+    if (val.length < 10) return;
+    if (!min || val < min) min = val;
+    if (!max || val > max) max = val;
+  });
+  return { min, max };
+}
+
+function setChartSubtitle(canvasId, text) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const em = canvas.closest('.ccard')?.querySelector('.ctitle em');
+  if (em) em.textContent = text;
 }
 
 function fmt(n) {
@@ -776,7 +813,8 @@ function processShopifyOrders(orders, products) {
     totalRevenue, totalOrders: orders.length,
     aov: paidCount > 0 ? paidRevenue / paidCount : 0,
     paidCount, statusCounts, byDate,
-    topByRevenue, topByUnits, recentOrders, inventory
+    topByRevenue, topByUnits, recentOrders, inventory,
+    dateRange: getDateRange(orders, 'created_at')
   };
 }
 
@@ -790,6 +828,12 @@ function renderShopifyKPIs(sp) {
 }
 
 function renderShopifyCharts(sp) {
+  const shRange   = fmtDateRange(sp.dateRange.min, sp.dateRange.max);
+  const todaySh   = new Date().toISOString().substring(0,10);
+  const ago30Sh   = new Date(Date.now() - 29*864e5).toISOString().substring(0,10);
+  const win30     = fmtDateRange(ago30Sh, todaySh);
+
+  setChartSubtitle('shopifyRevenueChart', win30);
   const { labels, values } = buildDateSeries(sp.byDate, 30);
   mkChart('shopifyRevenueChart', 'line', {
     labels,
@@ -807,6 +851,7 @@ function renderShopifyCharts(sp) {
 
   const statusEntries = Object.entries(sp.statusCounts).sort((a, b) => b[1] - a[1]);
   const shColors = ['#96bf48','#5a8e00','#f59e0b','#ef4444','#3b82f6','#a855f7','#64748b'];
+  setChartSubtitle('shopifyStatusChart', shRange);
   mkChart('shopifyStatusChart', 'doughnut', {
     labels: statusEntries.map(e => e[0]),
     datasets: [{ data: statusEntries.map(e => e[1]),
@@ -818,6 +863,7 @@ function renderShopifyCharts(sp) {
   });
 
   const revColors = sp.topByRevenue.map((_, i) => shColors[i % shColors.length]);
+  setChartSubtitle('shopifyTopRevenueChart', shRange);
   mkChart('shopifyTopRevenueChart', 'bar', {
     labels: sp.topByRevenue.map(e => e[0]),
     datasets: [{ label: 'Revenue', data: sp.topByRevenue.map(e => e[1]),
@@ -833,6 +879,7 @@ function renderShopifyCharts(sp) {
   });
 
   const unitColors = ['#14b8a6','#3b82f6','#6366f1','#a855f7','#f97316','#f59e0b','#10b981','#ef4444','#96bf48','#64748b'];
+  setChartSubtitle('shopifyTopUnitsChart', shRange);
   mkChart('shopifyTopUnitsChart', 'bar', {
     labels: sp.topByUnits.map(e => e[0]),
     datasets: [{ label: 'Units', data: sp.topByUnits.map(e => e[1]),
