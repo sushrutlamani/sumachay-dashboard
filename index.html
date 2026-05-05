@@ -303,6 +303,36 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         </div>
       </div>
     </div>
+    <!-- Top Products -->
+    <div class="cgrid" style="margin-top:16px">
+      <div class="ccard wide">
+        <div class="ctitle">Top Products by Revenue <em>Aggregated from orders</em></div>
+        <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="shopifyTopRevenueChart"></canvas></div>
+      </div>
+      <div class="ccard">
+        <div class="ctitle">Top Products by Units Sold <em>Quantity</em></div>
+        <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="shopifyTopUnitsChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
+      Recent Shopify Orders <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Last 10</em>
+    </div>
+    <div class="twrap"><table>
+      <thead><tr><th>Order</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Payment</th><th>Fulfillment</th></tr></thead>
+      <tbody id="shopifyOrdersBody"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Loading orders…</td></tr></tbody>
+    </table></div>
+
+    <!-- Inventory -->
+    <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
+      Product Inventory <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">All active products</em>
+    </div>
+    <div class="twrap"><table>
+      <thead><tr><th>Product</th><th>Vendor</th><th>Type</th><th>Status</th><th style="text-align:right">Inventory</th></tr></thead>
+      <tbody id="shopifyInventoryBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading inventory…</td></tr></tbody>
+    </table></div>
+
     <div id="shopifyError" style="display:none;color:var(--amber);font-size:12px;padding:12px;text-align:center;background:rgba(245,158,11,.08);border-radius:8px;margin-top:12px"></div>
   </div>
 
@@ -686,19 +716,20 @@ async function loadShopify() {
       const err = await res.json().catch(() => ({ error: res.statusText }));
       throw new Error(err.error || res.statusText);
     }
-    const { orders } = await res.json();
-    const sp = processShopifyOrders(orders);
+    const { orders, products } = await res.json();
+    const sp = processShopifyOrders(orders, products);
     renderShopifyKPIs(sp);
     renderShopifyCharts(sp);
+    renderShopifyOrders(sp.recentOrders);
+    renderShopifyInventory(sp.inventory);
     document.getElementById('shopifyError').style.display = 'none';
   } catch(e) {
     const el = document.getElementById('shopifyError');
     el.textContent = 'Shopify: ' + e.message;
     el.style.display = 'block';
-    // Clear skeletons on error
     document.getElementById('shopifyKPIs').innerHTML =
       `<p style="color:var(--muted);font-size:12px;grid-column:span 4">Could not load Shopify data — check Railway env vars.</p>`;
-    ['shopifyRevenueChart','shopifyStatusChart'].forEach(id => {
+    ['shopifyRevenueChart','shopifyStatusChart','shopifyTopRevenueChart','shopifyTopUnitsChart'].forEach(id => {
       const c = document.getElementById(id);
       if (c) { const l = c.parentNode.querySelector('.loader'); if (l) l.remove(); }
     });
@@ -706,9 +737,10 @@ async function loadShopify() {
   }
 }
 
-function processShopifyOrders(orders) {
+function processShopifyOrders(orders, products) {
   let totalRevenue = 0, paidRevenue = 0, paidCount = 0;
   const statusCounts = {}, byDate = {};
+  const productRevenue = {}, productUnits = {};
 
   orders.forEach(o => {
     const price = parseFloat(o.total_price) || 0;
@@ -720,12 +752,31 @@ function processShopifyOrders(orders) {
       const d = o.created_at.substring(0, 10);
       byDate[d] = (byDate[d] || 0) + price;
     }
+    (o.line_items || []).forEach(item => {
+      const title = item.title || 'Unknown';
+      const rev = (parseFloat(item.price) || 0) * (item.quantity || 1);
+      productRevenue[title] = (productRevenue[title] || 0) + rev;
+      productUnits[title]   = (productUnits[title]   || 0) + (item.quantity || 1);
+    });
   });
+
+  const topByRevenue = Object.entries(productRevenue).sort((a,b) => b[1]-a[1]).slice(0, 10);
+  const topByUnits   = Object.entries(productUnits).sort((a,b) => b[1]-a[1]).slice(0, 10);
+  const recentOrders = orders.slice(0, 10);
+
+  const inventory = (products || []).map(p => ({
+    title:     p.title,
+    vendor:    p.vendor || '—',
+    type:      p.product_type || '—',
+    status:    p.status,
+    inventory: (p.variants || []).reduce((sum, v) => sum + (v.inventory_quantity || 0), 0)
+  })).sort((a, b) => b.inventory - a.inventory);
 
   return {
     totalRevenue, totalOrders: orders.length,
     aov: paidCount > 0 ? paidRevenue / paidCount : 0,
-    paidCount, statusCounts, byDate
+    paidCount, statusCounts, byDate,
+    topByRevenue, topByUnits, recentOrders, inventory
   };
 }
 
@@ -765,6 +816,92 @@ function renderShopifyCharts(sp) {
     cutout: '68%',
     plugins: { legend: { position: 'right', labels: { padding: 12, usePointStyle: true, pointStyleWidth: 8, font: { size: 10 } } }, tooltip: TT }
   });
+
+  const revColors = sp.topByRevenue.map((_, i) => shColors[i % shColors.length]);
+  mkChart('shopifyTopRevenueChart', 'bar', {
+    labels: sp.topByRevenue.map(e => e[0]),
+    datasets: [{ label: 'Revenue', data: sp.topByRevenue.map(e => e[1]),
+      backgroundColor: revColors.map(c => c + 'bb'), borderColor: revColors,
+      borderWidth: 1, borderRadius: 6, borderSkipped: false }]
+  }, {
+    indexAxis: 'y',
+    plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: ctx => ` $${ctx.parsed.x.toLocaleString()}` } } },
+    scales: {
+      x: { grid: { color: '#252a42' }, ticks: { font: { size: 10 }, callback: v => '$'+(v>=1000?(v/1000).toFixed(0)+'K':v) } },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  });
+
+  const unitColors = ['#14b8a6','#3b82f6','#6366f1','#a855f7','#f97316','#f59e0b','#10b981','#ef4444','#96bf48','#64748b'];
+  mkChart('shopifyTopUnitsChart', 'bar', {
+    labels: sp.topByUnits.map(e => e[0]),
+    datasets: [{ label: 'Units', data: sp.topByUnits.map(e => e[1]),
+      backgroundColor: unitColors.map(c => c + 'bb'), borderColor: unitColors,
+      borderWidth: 1, borderRadius: 6, borderSkipped: false }]
+  }, {
+    indexAxis: 'y',
+    plugins: { legend: { display: false }, tooltip: TT },
+    scales: {
+      x: { grid: { color: '#252a42' }, ticks: { font: { size: 10 } } },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  });
+}
+
+function renderShopifyOrders(orders) {
+  const tbody = document.getElementById('shopifyOrdersBody');
+  if (!orders.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:18px;color:var(--muted)">No orders found</td></tr>';
+    return;
+  }
+  const fsBadge = fs => {
+    const map = { paid:'s-won', refunded:'s-lost', partially_refunded:'s-lost', voided:'s-lost', pending:'s-fu', authorized:'s-quote', partially_paid:'s-cart' };
+    return `<span class="bs ${map[fs]||''}">${fs||'—'}</span>`;
+  };
+  const fulfBadge = f => {
+    const map = { fulfilled:'s-won', partial:'s-fu', restocked:'s-lost' };
+    const label = f || 'unfulfilled';
+    return `<span class="bs ${map[label]||'s-na'}">${label}</span>`;
+  };
+  tbody.innerHTML = orders.map(o => {
+    const customer = o.customer
+      ? `${o.customer.first_name||''} ${o.customer.last_name||''}`.trim() || o.customer.email || '—'
+      : 'Guest';
+    const date  = o.created_at ? o.created_at.substring(0,10) : '—';
+    const items = (o.line_items||[]).length;
+    const total = o.total_price ? '$'+parseFloat(o.total_price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '—';
+    return `<tr>
+      <td style="font-weight:600;color:var(--pl)">${o.name||'—'}</td>
+      <td>${customer}</td>
+      <td style="color:var(--muted)">${date}</td>
+      <td style="color:var(--sub)">${items} item${items!==1?'s':''}</td>
+      <td style="font-weight:600;color:#10b981">${total}</td>
+      <td>${fsBadge(o.financial_status)}</td>
+      <td>${fulfBadge(o.fulfillment_status)}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderShopifyInventory(inventory) {
+  const tbody = document.getElementById('shopifyInventoryBody');
+  if (!inventory.length) {
+    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">No products found</td></tr>';
+    return;
+  }
+  const statusBadge = s => {
+    const map = { active:'s-won', draft:'s-fu', archived:'s-lost' };
+    return `<span class="bs ${map[s]||''}">${s||'—'}</span>`;
+  };
+  tbody.innerHTML = inventory.map(p => {
+    const invColor = p.inventory <= 0 ? '#ef4444' : p.inventory <= 5 ? '#f59e0b' : '#10b981';
+    return `<tr>
+      <td style="font-weight:500">${p.title}</td>
+      <td style="color:var(--sub)">${p.vendor}</td>
+      <td style="color:var(--muted)">${p.type}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td style="text-align:right;font-weight:700;color:${invColor}">${p.inventory}</td>
+    </tr>`;
+  }).join('');
 }
 </script>
 </body>

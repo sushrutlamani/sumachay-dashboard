@@ -22,10 +22,15 @@ async function shopifyGet(endpoint) {
 
 app.get('/api/shopify', async (req, res) => {
   try {
-    const data = await shopifyGet(
-      '/orders.json?status=any&limit=250&fields=id,created_at,total_price,financial_status,fulfillment_status'
-    );
-    res.json({ orders: data.orders || [], fetchedAt: new Date().toISOString() });
+    const [ordersData, productsData] = await Promise.all([
+      shopifyGet('/orders.json?status=any&limit=250&fields=id,name,created_at,total_price,financial_status,fulfillment_status,line_items,customer'),
+      shopifyGet('/products.json?limit=250&fields=id,title,status,variants,vendor,product_type')
+    ]);
+    res.json({
+      orders:   ordersData.orders   || [],
+      products: productsData.products || [],
+      fetchedAt: new Date().toISOString()
+    });
   } catch(e) {
     console.error('Shopify:', e.message);
     res.status(500).json({ error: e.message });
