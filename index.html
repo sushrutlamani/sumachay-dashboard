@@ -278,39 +278,36 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
     <h2>Shopify Store Analytics</h2>
   </div>
   <div class="shopify-wrap">
-    <div class="shopify-grid">
-      <div class="shopify-info">
-        <h3>🛍️ Shopify Data</h3>
-        <p>
-          Shopify abandoned cart leads already flow into your CRM.
-          The metrics below are derived from Zoho CRM records with
-          <strong style="color:var(--shopify)">Lead Source = "Shopify Abandoned Cart"</strong>.
-          Enter your Shopify API credentials to add live store-side data —
-          total revenue, orders, inventory, and conversion rates.
-        </p>
-        <div class="sh-stats" id="shopifyStats">
-          <div class="sh-stat"><div class="sl">Abandoned Cart Deals</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">In CRM pipeline</div></div>
-          <div class="sh-stat"><div class="sl">Total Cart Value</div><div class="sv skel" style="height:26px;width:80px;margin-bottom:3px"> </div><div class="ss">Across all stages</div></div>
-          <div class="sh-stat"><div class="sl">Recovered (Won)</div><div class="sv skel" style="height:26px;width:40px;margin-bottom:3px"> </div><div class="ss">Closed won carts</div></div>
-          <div class="sh-stat"><div class="sl">Cart Win Rate</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">Won / total carts</div></div>
-        </div>
+    <div class="kpi-grid" id="shopifyKPIs">
+      <div class="kpi shopify"><div class="kpi-lbl">Total Revenue</div><div class="kpi-val skel" style="height:32px;width:80px;margin-bottom:5px"> </div><div class="kpi-sub">Last 250 orders</div></div>
+      <div class="kpi shopify"><div class="kpi-lbl">Total Orders</div><div class="kpi-val skel" style="height:32px;width:60px;margin-bottom:5px"> </div><div class="kpi-sub">All statuses</div></div>
+      <div class="kpi shopify"><div class="kpi-lbl">Avg Order Value</div><div class="kpi-val skel" style="height:32px;width:70px;margin-bottom:5px"> </div><div class="kpi-sub">Paid orders</div></div>
+      <div class="kpi shopify"><div class="kpi-lbl">Paid Orders</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">Financial status</div></div>
+    </div>
+    <div class="cgrid" style="margin-top:16px">
+      <div class="ccard wide">
+        <div class="ctitle">Daily Revenue <em>Last 30 days (store currency)</em></div>
+        <div class="cwrap tall"><div class="loader"><div class="spinner"></div></div><canvas id="shopifyRevenueChart"></canvas></div>
       </div>
-      <div class="conn-panel">
-        <h4>🔌 Connect Shopify API</h4>
-        <div class="cred-grid">
-          <input type="text"     id="shStore"  placeholder="yourstore.myshopify.com">
-          <input type="password" id="shToken"  placeholder="Admin API Access Token">
-          <input type="text"     id="shKey"    placeholder="API Key">
-          <input type="password" id="shSecret" placeholder="API Secret">
+      <div class="ccard">
+        <div class="ctitle">Order Financial Status <em>By count</em></div>
+        <div class="cwrap"><div class="loader"><div class="spinner"></div></div><canvas id="shopifyStatusChart"></canvas></div>
+      </div>
+      <div class="ccard">
+        <div class="ctitle">Abandoned Cart — CRM</div>
+        <div class="sh-stats" id="shopifyStats" style="margin-top:12px;grid-template-columns:repeat(2,1fr)">
+          <div class="sh-stat"><div class="sl">Cart Deals</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">In CRM pipeline</div></div>
+          <div class="sh-stat"><div class="sl">Cart Value</div><div class="sv skel" style="height:26px;width:80px;margin-bottom:3px"> </div><div class="ss">Across all stages</div></div>
+          <div class="sh-stat"><div class="sl">Recovered</div><div class="sv skel" style="height:26px;width:40px;margin-bottom:3px"> </div><div class="ss">Closed won</div></div>
+          <div class="sh-stat"><div class="sl">Win Rate</div><div class="sv skel" style="height:26px;width:50px;margin-bottom:3px"> </div><div class="ss">Won / total</div></div>
         </div>
-        <button class="btn-conn" onclick="connectShopify()">Connect Shopify Store</button>
-        <p class="conn-note">Credentials used in-session only, never stored</p>
       </div>
     </div>
+    <div id="shopifyError" style="display:none;color:var(--amber);font-size:12px;padding:12px;text-align:center;background:rgba(245,158,11,.08);border-radius:8px;margin-top:12px"></div>
   </div>
 
 </main>
-<footer>Business Intelligence Dashboard &nbsp;·&nbsp; Zoho CRM + Shopify &nbsp;·&nbsp; Live data via Zoho CRM JS SDK</footer>
+<footer>Business Intelligence Dashboard &nbsp;·&nbsp; Zoho CRM + Shopify &nbsp;·&nbsp; Hosted on Railway</footer>
 
 <script>
 // ════════════════════════════════════════════════════════
@@ -379,6 +376,7 @@ function refreshData() { loadData(); }
 
 // Auto-load on page open
 loadData();
+loadShopify();
 
 // ════════════════════════════════════════════════════════
 // DATA PROCESSING
@@ -679,16 +677,94 @@ function showError(msg) {
 function hideError() { document.getElementById('errorBanner').style.display='none'; }
 
 // ════════════════════════════════════════════════════════
-// SHOPIFY CONNECT
+// SHOPIFY — load, process, render
 // ════════════════════════════════════════════════════════
-function connectShopify() {
-  const store = document.getElementById('shStore').value.trim();
-  const token = document.getElementById('shToken').value.trim();
-  if (!store || !token) {
-    alert('Please enter your Shopify store URL and Admin API Access Token.');
-    return;
+async function loadShopify() {
+  try {
+    const res = await fetch('/api/shopify');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: res.statusText }));
+      throw new Error(err.error || res.statusText);
+    }
+    const { orders } = await res.json();
+    const sp = processShopifyOrders(orders);
+    renderShopifyKPIs(sp);
+    renderShopifyCharts(sp);
+    document.getElementById('shopifyError').style.display = 'none';
+  } catch(e) {
+    const el = document.getElementById('shopifyError');
+    el.textContent = 'Shopify: ' + e.message;
+    el.style.display = 'block';
+    // Clear skeletons on error
+    document.getElementById('shopifyKPIs').innerHTML =
+      `<p style="color:var(--muted);font-size:12px;grid-column:span 4">Could not load Shopify data — check Railway env vars.</p>`;
+    ['shopifyRevenueChart','shopifyStatusChart'].forEach(id => {
+      const c = document.getElementById(id);
+      if (c) { const l = c.parentNode.querySelector('.loader'); if (l) l.remove(); }
+    });
+    console.error('Shopify:', e);
   }
-  alert(`Credentials received for ${store}.\n\nShopify's Admin API requires a backend proxy due to browser CORS policy. Share these credentials with your developer to set up the proxy, then this dashboard will show live orders, revenue, and inventory.`);
+}
+
+function processShopifyOrders(orders) {
+  let totalRevenue = 0, paidRevenue = 0, paidCount = 0;
+  const statusCounts = {}, byDate = {};
+
+  orders.forEach(o => {
+    const price = parseFloat(o.total_price) || 0;
+    totalRevenue += price;
+    const fs = o.financial_status || 'unknown';
+    statusCounts[fs] = (statusCounts[fs] || 0) + 1;
+    if (fs === 'paid') { paidRevenue += price; paidCount++; }
+    if (o.created_at) {
+      const d = o.created_at.substring(0, 10);
+      byDate[d] = (byDate[d] || 0) + price;
+    }
+  });
+
+  return {
+    totalRevenue, totalOrders: orders.length,
+    aov: paidCount > 0 ? paidRevenue / paidCount : 0,
+    paidCount, statusCounts, byDate
+  };
+}
+
+function renderShopifyKPIs(sp) {
+  document.getElementById('shopifyKPIs').innerHTML = `
+    <div class="kpi shopify"><div class="kpi-lbl">Total Revenue</div><div class="kpi-val">${fmt(sp.totalRevenue)}</div><div class="kpi-sub">Last 250 orders</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Total Orders</div><div class="kpi-val">${sp.totalOrders}</div><div class="kpi-sub">All statuses</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Avg Order Value</div><div class="kpi-val">${fmt(sp.aov)}</div><div class="kpi-sub">Paid orders only</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Paid Orders</div><div class="kpi-val">${sp.paidCount}</div><div class="kpi-sub">Financial status: paid</div></div>
+  `;
+}
+
+function renderShopifyCharts(sp) {
+  const { labels, values } = buildDateSeries(sp.byDate, 30);
+  mkChart('shopifyRevenueChart', 'line', {
+    labels,
+    datasets: [{ label: 'Revenue', data: values,
+      borderColor: '#96bf48', backgroundColor: 'rgba(150,191,72,.12)',
+      borderWidth: 2.5, fill: true, tension: 0.4,
+      pointBackgroundColor: '#96bf48', pointRadius: 3, pointHoverRadius: 6 }]
+  }, {
+    plugins: { legend: { display: false }, tooltip: { ...TT, callbacks: { label: ctx => ` $${ctx.parsed.y.toLocaleString()}` } } },
+    scales: {
+      x: { grid: { color: '#252a42' }, ticks: { font: { size: 9 }, maxRotation: 45 } },
+      y: { grid: { color: '#252a42' }, ticks: { font: { size: 10 }, callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v) }, beginAtZero: true }
+    }
+  });
+
+  const statusEntries = Object.entries(sp.statusCounts).sort((a, b) => b[1] - a[1]);
+  const shColors = ['#96bf48','#5a8e00','#f59e0b','#ef4444','#3b82f6','#a855f7','#64748b'];
+  mkChart('shopifyStatusChart', 'doughnut', {
+    labels: statusEntries.map(e => e[0]),
+    datasets: [{ data: statusEntries.map(e => e[1]),
+      backgroundColor: statusEntries.map((_, i) => shColors[i % shColors.length]),
+      borderColor: '#141624', borderWidth: 3, hoverOffset: 8 }]
+  }, {
+    cutout: '68%',
+    plugins: { legend: { position: 'right', labels: { padding: 12, usePointStyle: true, pointStyleWidth: 8, font: { size: 10 } } }, tooltip: TT }
+  });
 }
 </script>
 </body>
