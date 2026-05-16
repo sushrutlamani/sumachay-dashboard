@@ -161,6 +161,23 @@ tbody td{padding:10px 15px;font-size:12.5px}
 .btn-conn:hover{opacity:.88}
 .conn-note{font-size:10px;color:var(--muted);margin-top:7px;text-align:center}
 
+/* ── Date range selector ── */
+.date-range{display:flex;align-items:center;gap:5px}
+.dr-btn{
+  background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.18);
+  color:var(--muted);padding:4px 10px;border-radius:6px;
+  font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.dr-btn:hover{border-color:var(--pl);color:var(--pl)}
+.dr-btn.active{background:rgba(99,102,241,.22);border-color:var(--pl);color:var(--pl)}
+.dr-sep{color:var(--border);padding:0 2px}
+.dr-input{
+  background:var(--card);border:1px solid var(--border);border-radius:6px;
+  color:var(--text);font-size:11px;padding:4px 7px;width:108px;
+  color-scheme:dark;transition:border-color .2s;
+}
+.dr-input:focus{outline:none;border-color:var(--pl)}
+
 /* ── Error banner ── */
 #errorBanner{
   display:none;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);
@@ -190,6 +207,16 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
   </div>
   <div class="hdr-right">
     <span id="statusLine">Loading data…</span>
+    <div class="date-range">
+      <button class="dr-btn active" id="drAll" onclick="setDateRange('all')">All</button>
+      <button class="dr-btn" id="dr90"  onclick="setDateRange(90)">90D</button>
+      <button class="dr-btn" id="dr30"  onclick="setDateRange(30)">30D</button>
+      <button class="dr-btn" id="dr7"   onclick="setDateRange(7)">7D</button>
+      <span class="dr-sep">|</span>
+      <input type="date" id="drFrom" class="dr-input" onchange="onDateChange()">
+      <span style="color:var(--muted);font-size:11px">–</span>
+      <input type="date" id="drTo"   class="dr-input" onchange="onDateChange()">
+    </div>
     <span class="live-dot" id="liveDot">● Loading</span>
     <button id="refreshBtn" onclick="refreshData()">↻ Refresh</button>
   </div>
@@ -372,6 +399,10 @@ const TT = {
 // Track chart instances so we can destroy + redraw on refresh
 const CHARTS = {};
 
+// ── Raw data stores + active date filter ──
+let rawLeads = [], rawDeals = [], rawOrders = [], rawProducts = [];
+let drFrom = null, drTo = null; // YYYY-MM-DD or null
+
 // ════════════════════════════════════════════════════════
 // DATA LOADING — calls our own Railway backend proxy
 // ════════════════════════════════════════════════════════
@@ -392,7 +423,9 @@ async function loadData() {
       return;
     }
 
-    renderDashboard(leads, deals);
+    rawLeads = leads;
+    rawDeals = deals;
+    applyFilter();
     const t = fetchedAt ? new Date(fetchedAt).toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit'}) : now();
     setStatus(`${leads.length} leads · ${deals.length} deals · refreshed ${t}`, true);
   } catch(e) {
@@ -402,11 +435,63 @@ async function loadData() {
   }
 }
 
-function refreshData() { loadData(); }
+function refreshData() { loadData(); loadShopify(); }
 
 // Auto-load on page open
 loadData();
 loadShopify();
+
+// ── Date range filtering ──────────────────────────────────
+function filterItems(items, field) {
+  if (!drFrom && !drTo) return items;
+  return items.filter(item => {
+    const d = (item[field] || '').substring(0, 10);
+    if (drFrom && d < drFrom) return false;
+    if (drTo   && d > drTo)   return false;
+    return true;
+  });
+}
+
+function applyFilter() {
+  if (!rawLeads.length && !rawDeals.length) return;
+  renderDashboard(filterItems(rawLeads, 'Created_Time'), filterItems(rawDeals, 'Created_Time'));
+}
+
+function applyShopifyFilter() {
+  if (!rawOrders.length) return;
+  const sp = processShopifyOrders(filterItems(rawOrders, 'created_at'), rawProducts);
+  renderShopifyKPIs(sp);
+  renderShopifyCharts(sp);
+  renderShopifyOrders(sp.recentOrders);
+  renderShopifyInventory(sp.inventory);
+}
+
+function setDateRange(preset) {
+  const today = new Date().toISOString().substring(0, 10);
+  if (preset === 'all') {
+    drFrom = null; drTo = null;
+  } else {
+    drTo   = today;
+    const f = new Date(); f.setDate(f.getDate() - (preset - 1));
+    drFrom = f.toISOString().substring(0, 10);
+  }
+  document.getElementById('drFrom').value = drFrom || '';
+  document.getElementById('drTo').value   = drTo   || '';
+  document.querySelectorAll('.dr-btn').forEach(b => b.classList.remove('active'));
+  const idMap = { all:'drAll', 90:'dr90', 30:'dr30', 7:'dr7' };
+  const btn = document.getElementById(idMap[preset]);
+  if (btn) btn.classList.add('active');
+  applyFilter();
+  applyShopifyFilter();
+}
+
+function onDateChange() {
+  drFrom = document.getElementById('drFrom').value || null;
+  drTo   = document.getElementById('drTo').value   || null;
+  document.querySelectorAll('.dr-btn').forEach(b => b.classList.remove('active'));
+  applyFilter();
+  applyShopifyFilter();
+}
 
 // ════════════════════════════════════════════════════════
 // DATA PROCESSING
@@ -754,11 +839,9 @@ async function loadShopify() {
       throw new Error(err.error || res.statusText);
     }
     const { orders, products } = await res.json();
-    const sp = processShopifyOrders(orders, products);
-    renderShopifyKPIs(sp);
-    renderShopifyCharts(sp);
-    renderShopifyOrders(sp.recentOrders);
-    renderShopifyInventory(sp.inventory);
+    rawOrders   = orders;
+    rawProducts = products;
+    applyShopifyFilter();
     document.getElementById('shopifyError').style.display = 'none';
   } catch(e) {
     const el = document.getElementById('shopifyError');

@@ -1,10 +1,71 @@
 const express = require('express');
 const path    = require('path');
+const fs      = require('fs');
 const app     = express();
 
-app.get('/api/data', (req, res) => {
-  res.sendFile(path.join(__dirname, 'data.json'));
-});
+// ── CRM in-memory cache ──────────────────────────────────
+let crmCache   = null;
+let zohoToken  = null, zohoTokenExpiry = 0;
+
+function loadDataJson() {
+  try {
+    crmCache = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+    console.log('CRM: loaded data.json snapshot');
+  } catch(e) {
+    crmCache = { leads: [], deals: [], fetchedAt: null };
+  }
+}
+
+async function getZohoToken() {
+  if (zohoToken && Date.now() < zohoTokenExpiry) return zohoToken;
+  const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_ACCOUNTS_URL = 'https://accounts.zoho.com' } = process.env;
+  if (!ZOHO_CLIENT_ID) return null;
+  const res = await fetch(`${ZOHO_ACCOUNTS_URL}/oauth/v2/token`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ grant_type: 'refresh_token', client_id: ZOHO_CLIENT_ID, client_secret: ZOHO_CLIENT_SECRET, refresh_token: ZOHO_REFRESH_TOKEN })
+  });
+  const json = await res.json();
+  if (!json.access_token) throw new Error('Zoho token exchange failed: ' + JSON.stringify(json));
+  zohoToken = json.access_token;
+  zohoTokenExpiry = Date.now() + ((json.expires_in || 3600) - 60) * 1000;
+  return zohoToken;
+}
+
+async function zohoGet(module, fields) {
+  const token = await getZohoToken();
+  if (!token) return null;
+  const apiDomain = process.env.ZOHO_API_DOMAIN || 'https://www.zohoapis.com';
+  const qs = new URLSearchParams({ per_page: '200', sort_by: 'Created_Time', sort_order: 'desc', fields });
+  const res = await fetch(`${apiDomain}/crm/v2/${module}?${qs}`, { headers: { Authorization: `Zoho-oauthtoken ${token}` } });
+  const json = await res.json();
+  return json.data || [];
+}
+
+async function refreshCRM() {
+  try {
+    const [leads, deals] = await Promise.all([
+      zohoGet('Leads', 'Lead_Status,Lead_Source,Created_Time'),
+      zohoGet('Deals', 'Deal_Name,Stage,Amount,Lead_Source,Created_Time')
+    ]);
+    if (leads && deals) {
+      crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
+      console.log(`CRM refreshed: ${leads.length} leads, ${deals.length} deals`);
+    }
+  } catch(e) {
+    console.error('CRM refresh failed:', e.message);
+  }
+}
+
+// Boot: load snapshot, then refresh via API if credentials exist
+loadDataJson();
+if (process.env.ZOHO_CLIENT_ID) {
+  refreshCRM();
+  setInterval(refreshCRM, 24 * 60 * 60 * 1000); // every 24 h
+}
+
+// ── Routes ───────────────────────────────────────────────
+app.get('/api/data', (_req, res) => res.json(crmCache));
 
 async function shopifyGet(endpoint) {
   const store = process.env.SHOPIFY_STORE;
