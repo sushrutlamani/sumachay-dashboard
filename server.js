@@ -56,33 +56,34 @@ async function zohoGet(module, fields) {
 }
 
 async function refreshCRM() {
-  try {
-    const [leads, deals] = await Promise.all([
-      zohoGet('Leads', 'Lead_Status,Lead_Source,Created_Time'),
-      zohoGet('Deals', 'Deal_Name,Stage,Amount,Lead_Source,Created_Time')
-    ]);
-    if (leads && deals) {
-      crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
-      console.log(`CRM refreshed: ${leads.length} leads, ${deals.length} deals`);
-    }
-  } catch(e) {
-    console.error('CRM refresh failed:', e.message);
+  const [leads, deals] = await Promise.all([
+    zohoGet('Leads', 'Lead_Status,Lead_Source,Created_Time'),
+    zohoGet('Deals', 'Deal_Name,Stage,Amount,Lead_Source,Created_Time')
+  ]);
+  if (leads && deals) {
+    crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
+    console.log(`CRM refreshed: ${leads.length} leads, ${deals.length} deals`);
   }
 }
 
 // Boot: load snapshot, then refresh via API if credentials exist
 loadDataJson();
 if (process.env.ZOHO_CLIENT_ID) {
-  refreshCRM();
-  setInterval(refreshCRM, 24 * 60 * 60 * 1000); // every 24 h
+  refreshCRM().catch(e => console.error('CRM refresh failed:', e.message));
+  setInterval(() => refreshCRM().catch(e => console.error('CRM refresh failed:', e.message)), 24 * 60 * 60 * 1000);
 }
 
 // ── Routes ───────────────────────────────────────────────
 app.get('/api/data', (_req, res) => res.json(crmCache));
 
 app.get('/api/refresh', async (_req, res) => {
-  await refreshCRM();
-  res.json(crmCache);
+  try {
+    await refreshCRM();
+    res.json(crmCache);
+  } catch(e) {
+    console.error('CRM refresh failed:', e.message);
+    res.status(500).json({ error: e.message });
+  }
 });
 
 async function shopifyGet(endpoint) {
