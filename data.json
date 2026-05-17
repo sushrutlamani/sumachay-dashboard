@@ -1,402 +1,3738 @@
 {
-  "fetchedAt": "2026-05-16T22:00:00-04:00",
+  "fetchedAt": "2026-05-17T04:49:23.389Z",
   "leads": [
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta","Created_Time":"2026-05-16T16:51:31-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta","Created_Time":"2026-05-16T13:34:38-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-16T11:35:33-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta","Created_Time":"2026-05-16T09:25:12-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta","Created_Time":"2026-05-16T09:16:13-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Meta","Created_Time":"2026-05-16T07:33:53-04:00"},
-    {"Lead_Status":"Not Contacted","Lead_Source":"Contact Us Form","Created_Time":"2026-05-15T16:32:30-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-15T10:28:54-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-05-14T22:10:35-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-05-14T10:43:39-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-14T10:15:49-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-14T03:12:50-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-13T22:19:33-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-13T22:07:43-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-13T18:58:44-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-13T18:51:10-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-13T15:50:50-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Contact Us Form","Created_Time":"2026-05-13T15:42:43-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Contact Us Form","Created_Time":"2026-05-13T15:41:31-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-13T15:37:06-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-13T10:25:58-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-13T06:50:39-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-05-13T05:31:02-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-12T21:18:16-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-12T21:04:44-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-12T20:59:22-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-05-12T20:44:25-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-12T18:00:06-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-12T13:11:03-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Meta Ads","Created_Time":"2026-05-12T10:58:21-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-12T10:55:01-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-12T09:13:42-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-11T16:53:14-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-11T13:29:57-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-11T12:10:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-11T11:39:22-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-11T09:10:25-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-11T09:09:52-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-05-10T23:22:55-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T23:17:07-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T22:43:21-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-05-10T21:16:36-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T12:59:40-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T11:32:23-04:00"},
-    {"Lead_Status":"Not Qualified","Lead_Source":"Meta","Created_Time":"2026-05-10T10:07:23-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-10T10:07:23-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T10:03:41-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-10T08:41:57-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T06:47:44-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-10T02:15:16-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-10T00:07:03-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-09T22:12:09-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-09T18:07:40-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-08T14:26:53-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-08T14:06:59-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-05-08T12:29:42-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta Ads","Created_Time":"2026-05-08T11:11:40-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-05-08T05:37:46-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-08T02:57:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-07T22:30:59-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-07T22:07:48-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-07T20:37:26-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-07T10:43:06-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-07T06:06:36-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-07T03:11:19-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-05-06T23:11:44-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-06T06:25:58-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-06T05:23:28-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-06T02:30:22-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-06T00:59:07-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-06T00:15:00-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-05T23:44:07-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-05T23:38:38-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-05-05T22:32:11-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-05T18:35:29-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-05T11:16:31-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:44:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:35:57-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-05-04T16:35:57-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-05-04T15:53:24-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"RFQ","Created_Time":"2026-05-04T13:17:24-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Contact Us Form","Created_Time":"2026-05-04T09:39:06-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-04T08:05:59-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-03T15:56:37-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-03T14:11:13-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-03T11:43:38-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-03T10:20:31-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-03T06:13:48-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-02T15:26:33-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-05-01T21:08:49-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-05-01T08:40:04-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-30T22:05:18-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-30T18:19:58-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-30T14:05:13-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Contact Us Form","Created_Time":"2026-04-30T13:50:16-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta Ads","Created_Time":"2026-04-30T12:24:29-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-30T11:59:27-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-04-30T09:21:59-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-30T06:39:33-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-29T21:46:48-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-29T18:08:51-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-29T14:25:38-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta Ads","Created_Time":"2026-04-29T12:05:01-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-29T07:03:24-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-29T01:28:03-04:00"},
-    {"Lead_Status":"Contact in Future","Lead_Source":"Meta","Created_Time":"2026-04-28T23:02:04-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-28T20:04:44-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-04-28T16:59:06-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-28T16:19:27-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"RFQ","Created_Time":"2026-04-28T13:02:04-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-28T09:37:01-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-28T08:48:12-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-04-27T14:39:03-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-27T09:39:13-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-26T23:03:23-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-26T16:25:16-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-26T10:03:26-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-26T09:17:53-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-26T07:00:16-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-26T06:50:54-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-26T01:49:31-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-25T22:53:03-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-25T21:31:28-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-25T19:17:46-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Distributor Form","Created_Time":"2026-04-25T11:57:20-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-25T06:31:11-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-24T22:50:01-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-24T22:46:28-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-24T15:45:32-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-24T11:46:23-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-04-23T14:06:54-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-23T00:24:20-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-22T22:50:32-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-22T22:41:06-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-22T22:03:27-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-22T21:16:50-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-22T13:21:50-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-22T10:36:17-04:00"},
-    {"Lead_Status":"Not Qualified","Lead_Source":"Meta","Created_Time":"2026-04-22T08:53:42-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"RFQ","Created_Time":"2026-04-21T20:07:54-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-21T17:57:11-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-21T13:01:47-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"Contact Us Form","Created_Time":"2026-04-21T02:01:41-04:00"},
-    {"Lead_Status":"Not Qualified","Lead_Source":"Meta","Created_Time":"2026-04-21T00:35:37-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-20T23:10:14-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-20T23:06:35-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-20T22:50:52-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-20T17:25:11-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"RFQ","Created_Time":"2026-04-20T04:47:14-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-19T21:46:39-04:00"},
-    {"Lead_Status":"Junk Lead","Lead_Source":"RFQ","Created_Time":"2026-04-19T20:28:51-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-19T16:47:03-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-19T13:32:42-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-19T08:50:44-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-19T08:03:18-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-18T18:42:37-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-18T07:32:58-04:00"},
-    {"Lead_Status":"Attempted to Contact","Lead_Source":"Meta","Created_Time":"2026-04-17T22:17:36-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"Meta","Created_Time":"2026-04-17T14:10:58-04:00"},
-    {"Lead_Status":"Lost Lead","Lead_Source":"RFQ","Created_Time":"2026-04-17T08:56:03-04:00"},
-    {"Lead_Status":"Contacted","Lead_Source":"Meta","Created_Time":"2026-04-17T08:45:31-04:00"}
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-16T16:51:31-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-16T13:34:38-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-16T11:35:33-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-16T09:25:12-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-16T09:16:13-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-16T07:33:53-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-15T16:32:30-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-15T10:28:54-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T22:10:35-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-14T10:43:39-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T10:15:49-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T03:12:50-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-13T22:19:33-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T22:07:43-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T18:58:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T18:51:10-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T15:50:50-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-13T15:42:43-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-13T15:41:31-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T15:37:06-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T10:25:58-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T06:50:39-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-13T05:31:02-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T21:18:16-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T21:04:44-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T20:59:22-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-12T20:44:25-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T18:00:06-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T13:11:03-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-12T10:58:21-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T10:55:01-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T09:13:42-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T16:53:14-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T13:29:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T12:10:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T11:39:22-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T09:10:25-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T09:09:52-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T23:22:55-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T23:17:07-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T22:43:21-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-10T21:16:36-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T12:59:40-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T11:32:23-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T10:07:23-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T10:07:23-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T10:03:41-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T08:41:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T06:47:44-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T02:15:16-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-10T00:07:03-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-09T22:12:09-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-09T18:07:40-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T14:26:53-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T14:06:59-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-08T12:29:42-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-08T11:11:40-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T05:37:46-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T02:57:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T22:30:59-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T22:07:48-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T20:37:26-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T10:43:06-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T06:06:36-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-07T03:11:19-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T23:11:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T06:25:58-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T05:23:28-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T02:30:22-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T00:59:07-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-06T00:15:00-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T23:44:07-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T23:38:38-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T22:32:11-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T18:35:29-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T11:16:31-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:44:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:35:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-04T16:35:57-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-04T15:53:24-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-04T13:17:24-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-04T09:39:06-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-04T08:05:59-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-03T15:56:37-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-03T14:11:13-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-03T11:43:38-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-03T10:20:31-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-03T06:13:48-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-02T15:26:33-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-01T21:08:49-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-01T08:40:04-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-30T22:05:18-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-30T18:19:58-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-30T14:05:13-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-30T13:50:16-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-04-30T12:24:29-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-30T11:59:27-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-30T09:21:59-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-30T06:39:33-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-29T21:46:48-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-29T18:08:51-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-29T14:25:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-04-29T12:05:01-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-29T07:03:24-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-29T01:28:03-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-28T23:02:04-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-28T20:04:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-28T16:59:06-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-28T16:19:27-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-28T13:02:04-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-28T09:37:01-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-28T08:48:12-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-27T14:39:03-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-27T09:39:13-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T23:03:23-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T16:25:16-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T10:03:26-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T09:17:53-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T07:00:16-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T06:50:54-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-26T01:49:31-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-25T22:53:03-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-25T21:31:28-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-25T19:17:46-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Distributor Form",
+      "Created_Time": "2026-04-25T11:57:20-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-25T06:31:11-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-24T22:50:01-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-24T22:46:28-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-24T15:45:32-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-24T11:46:23-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-23T14:06:54-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-23T00:24:20-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T22:50:32-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T22:41:06-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T22:03:27-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T21:16:50-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T13:21:50-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T10:36:17-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-22T08:53:42-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-21T20:07:54-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-21T17:57:11-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-21T13:01:47-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-21T02:01:41-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-21T00:35:37-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T23:10:14-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T23:06:35-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T22:50:52-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T17:25:11-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-20T04:47:14-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-19T21:46:39-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-19T20:28:51-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-19T16:47:03-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-19T13:32:42-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-19T08:50:44-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-19T08:03:18-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-18T18:42:37-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-18T07:32:58-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T22:17:36-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T14:10:58-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-17T08:56:03-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T08:45:31-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T04:21:35-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T04:03:54-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T22:57:45-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-04-16T20:34:16-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T19:15:51-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-16T16:32:16-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-16T14:57:55-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T13:28:58-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T12:55:04-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T12:50:01-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-16T07:58:12-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-15T18:38:06-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-15T15:23:55-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-15T15:01:03-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-15T14:58:34-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-15T13:58:08-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-15T13:56:42-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-15T11:55:28-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-14T21:37:02-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-14T18:43:17-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-14T17:05:59-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-14T16:29:08-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-14T12:38:03-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-13T16:58:56-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-13T16:41:25-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-13T12:15:27-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-11T11:20:51-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-11T11:15:42-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-11T11:15:30-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-11T10:55:17-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-11T10:43:35-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-11T06:25:52-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-10T21:30:23-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-10T18:30:41-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-10T17:17:23-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-10T13:07:22-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-04-09T22:05:43-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-09T12:19:09-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-09T12:12:07-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-09T06:03:11-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-09T04:17:45-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T22:55:08-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T21:44:48-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T19:19:18-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T19:14:07-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T18:58:24-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-08T14:46:35-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-08T13:35:04-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-08T13:26:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T10:25:57-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-08T00:45:56-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-07T20:27:05-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-07T17:56:11-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-07T15:22:58-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-07T10:06:12-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-07T09:43:31-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-06T20:34:31-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-06T16:45:33-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-06T12:31:22-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-06T11:30:15-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-05T23:19:26-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-05T16:24:18-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-05T06:29:27-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-04T18:49:52-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-04T17:27:58-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-04T13:12:07-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-04T11:52:55-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-04-04T10:23:27-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-03T19:53:04-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-03T15:43:26-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-03T10:08:39-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-03T09:16:43-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-02T19:45:47-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-02T16:43:08-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-02T16:25:09-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-02T12:42:25-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-02T08:15:24-04:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-01T15:35:02-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-01T14:05:26-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-01T06:28:56-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T19:58:55-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T18:48:54-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-31T16:19:41-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T08:08:32-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T22:34:58-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T21:02:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T19:23:23-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-30T17:13:02-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-30T17:02:17-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-30T13:42:21-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T12:15:44-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-30T09:25:26-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-29T18:54:55-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-29T17:05:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-29T15:10:56-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-29T14:35:46-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-29T07:50:22-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-03-28T20:01:02-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-28T07:12:08-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T21:33:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T19:36:59-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T19:22:08-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-27T14:20:22-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-27T10:27:37-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T08:11:21-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-26T23:48:46-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-26T23:12:29-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-26T15:11:39-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-26T15:10:59-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-26T12:47:43-04:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-03-26T12:47:43-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-26T12:36:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-26T06:40:01-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T22:58:13-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T20:04:41-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T12:43:10-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-25T10:14:06-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T05:21:33-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T22:59:02-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T17:33:42-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-24T15:51:02-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-24T10:01:39-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T23:04:31-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T20:22:15-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-23T17:15:23-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-22T23:35:57-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-22T11:09:39-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-22T08:50:23-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-22T00:11:55-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-21T17:40:21-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-21T02:49:34-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-20T21:14:40-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-20T18:35:12-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-20T17:21:17-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-20T15:05:10-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-20T09:13:02-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-19T20:34:18-04:00"
+    },
+    {
+      "Lead_Status": "Lost Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-19T14:11:10-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-18T23:58:14-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-18T22:53:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-18T14:58:38-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-17T19:42:11-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-17T18:13:13-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-16T12:40:20-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-16T09:28:43-04:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-16T08:42:57-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-15T17:57:04-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-15T06:20:28-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-14T13:48:52-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-14T12:58:19-04:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-13T23:04:44-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-12T20:20:33-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-12T18:57:37-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-12T09:50:42-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-11T11:05:51-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-11T01:01:53-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-10T23:22:44-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-10T16:25:49-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-10T14:25:54-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-10T13:26:23-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-10T01:00:44-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T23:28:27-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T15:05:21-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T14:56:09-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T11:38:52-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T02:17:42-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T00:48:45-04:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-08T16:56:24-04:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-07T17:25:13-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-07T14:56:09-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-07T03:25:28-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-06T18:57:29-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-05T20:14:16-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-05T19:23:06-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-05T17:48:00-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-05T17:26:18-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-05T10:27:51-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-05T08:14:33-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-05T01:16:36-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-04T09:31:24-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-04T06:32:35-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-03T19:59:48-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-03T19:31:09-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-03T09:48:22-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-03T09:09:31-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-03T08:32:06-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-02T20:37:33-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-02T14:51:38-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-02T10:44:08-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-02T09:49:54-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-01T10:39:42-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-01T10:14:58-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-28T18:36:33-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-28T11:45:09-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-28T10:10:43-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-28T08:31:49-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-27T19:10:36-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-27T18:08:05-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-27T17:55:46-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-27T16:23:36-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": null,
+      "Created_Time": "2026-02-27T11:49:58-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-27T09:24:26-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-27T08:29:05-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T19:53:08-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T18:25:01-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-26T17:03:08-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T15:21:43-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T14:08:32-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-26T14:04:24-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-26T13:16:04-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-26T12:24:07-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T10:02:16-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-26T05:46:18-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-25T17:08:13-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-25T17:07:12-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-25T06:49:02-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T23:20:42-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T22:08:29-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T17:44:50-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T17:13:11-05:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T12:07:41-05:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T12:00:14-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-24T11:08:59-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-24T08:38:07-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-23T21:16:29-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-23T20:36:32-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-23T16:40:08-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-23T16:34:02-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-23T14:46:22-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-23T14:09:58-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-23T13:16:18-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-23T11:20:53-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-23T10:03:41-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-23T03:28:12-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-22T23:53:35-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-22T15:12:48-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-22T13:56:09-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-21T21:08:54-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-21T17:23:16-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-21T15:53:49-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-21T10:24:45-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-20T18:08:07-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-20T13:34:18-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-20T09:32:42-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-20T09:07:54-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-20T07:02:03-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-20T06:07:58-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-20T00:29:13-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-19T19:41:56-05:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-19T15:47:13-05:00"
+    },
+    {
+      "Lead_Status": "Not Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-19T15:34:28-05:00"
+    },
+    {
+      "Lead_Status": null,
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-19T14:37:21-05:00"
+    },
+    {
+      "Lead_Status": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-19T14:26:37-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-19T14:22:07-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Shopify",
+      "Created_Time": "2026-02-19T09:53:21-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-19T08:26:56-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-19T01:25:58-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-18T23:52:49-05:00"
+    },
+    {
+      "Lead_Status": "Contact in Future",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-18T18:15:10-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-18T15:04:35-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-18T15:03:02-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-18T14:50:49-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-18T13:01:40-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-18T12:52:40-05:00"
+    },
+    {
+      "Lead_Status": "Not Qualified",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-18T05:08:30-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-17T23:16:42-05:00"
+    },
+    {
+      "Lead_Status": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-17T17:28:03-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-17T15:26:06-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-17T14:56:51-05:00"
+    },
+    {
+      "Lead_Status": "Junk Lead",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-17T14:48:48-05:00"
+    },
+    {
+      "Lead_Status": "Contacted",
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-02-17T08:10:28-05:00"
+    },
+    {
+      "Lead_Status": "Attempted to Contact",
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-02-17T00:13:52-05:00"
+    }
   ],
   "deals": [
-    {"Deal_Name":"CROPAC EQUIPMENT INC SSE15","Stage":"Quote Sent","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-05-15T11:55:41-04:00"},
-    {"Deal_Name":"TransCraft Logistics SESR15","Stage":"Quote Sent","Amount":1750,"Lead_Source":"Meta","Created_Time":"2026-05-14T12:51:56-04:00"},
-    {"Deal_Name":"Yasir PORT POP SELR20 & SS60","Stage":"Quote Sent","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-14T10:53:21-04:00"},
-    {"Deal_Name":"John SELR20","Stage":"Quote Sent","Amount":4000,"Lead_Source":"Meta","Created_Time":"2026-05-14T10:23:56-04:00"},
-    {"Deal_Name":"Abandoned Cart - EMILY@ALLTURF.CA","Stage":"Follow up 1","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-05-14T00:00:02-04:00"},
-    {"Deal_Name":"Charles SS60","Stage":"Follow up 1","Amount":4000,"Lead_Source":"Meta","Created_Time":"2026-05-13T12:41:38-04:00"},
-    {"Deal_Name":"ASR Cargo System Inc SELR20","Stage":"Follow up 1","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-12T12:24:11-04:00"},
-    {"Deal_Name":"Echo sales SELR20","Stage":"Follow up 1","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-12T10:40:38-04:00"},
-    {"Deal_Name":"Asisjot SELR20","Stage":"Quote Sent","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-11T16:31:02-04:00"},
-    {"Deal_Name":"Dianne SELR20+","Stage":"Follow up 1","Amount":3000,"Lead_Source":"Contact Us Form","Created_Time":"2026-05-11T12:18:31-04:00"},
-    {"Deal_Name":"Everest Signs SELR20","Stage":"Follow up 1","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-11T12:16:50-04:00"},
-    {"Deal_Name":"Turtle Mountain Seed SELR20","Stage":"Follow up 1","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-11T12:02:14-04:00"},
-    {"Deal_Name":"Northern Points Roofing & Exteriors. SELR20","Stage":"Closed Lost","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-11T11:46:08-04:00"},
-    {"Deal_Name":"Silverstar Automotive Solutions SS60","Stage":"Follow up 1","Amount":4000,"Lead_Source":"Meta","Created_Time":"2026-05-11T11:40:41-04:00"},
-    {"Deal_Name":"Abandoned Cart - jon@seffla.com","Stage":"Follow up 1","Amount":4226.13,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-05-09T00:00:02-04:00"},
-    {"Deal_Name":"Beking Family Farms - 18-inch black wrap - skid","Stage":"Quote Sent","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-08T16:43:01-04:00"},
-    {"Deal_Name":"Motorola Solutions - 14- and 18-inch wrap","Stage":"Quote Sent","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-08T16:39:43-04:00"},
-    {"Deal_Name":"citypack paper limited miss Ontario L5T2G6 - 14 inch - 1500ft","Stage":"Negotiation","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-08T16:33:14-04:00"},
-    {"Deal_Name":"Launchpad-copack.com - 80 gauge - all size","Stage":"Quote Sent","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-08T16:28:23-04:00"},
-    {"Deal_Name":"Studying - 14-inch 1200 ft","Stage":"Quote Sent","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-08T16:09:25-04:00"},
-    {"Deal_Name":"Richardo SELR20","Stage":"Follow up 1","Amount":2300,"Lead_Source":"Meta","Created_Time":"2026-05-08T11:28:29-04:00"},
-    {"Deal_Name":"Abacus SESR15N","Stage":"Follow up 1","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-05-08T10:57:32-04:00"},
-    {"Deal_Name":"Mike Epp SEOR30","Stage":"PreOrder","Amount":null,"Lead_Source":"Contact Us Form","Created_Time":"2026-05-07T09:35:10-04:00"},
-    {"Deal_Name":"Tylor SELR20","Stage":"Quote Sent","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-05-06T10:05:30-04:00"},
-    {"Deal_Name":"Living Green Landscaping Inc SEOR30","Stage":"Follow up 1","Amount":null,"Lead_Source":"Meta Ads","Created_Time":"2026-05-05T11:18:57-04:00"},
-    {"Deal_Name":"Gigo sales SESR15","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-05-05T11:02:54-04:00"},
-    {"Deal_Name":"TWO MEN AND A TRUCK Windsor-Sarnia - Stretch Wrap","Stage":"Closed Won","Amount":750,"Lead_Source":"Meta","Created_Time":"2026-05-05T10:34:51-04:00"},
-    {"Deal_Name":"Ahmed Ali SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"Contact Us Form","Created_Time":"2026-05-05T09:21:36-04:00"},
-    {"Deal_Name":"Abandoned Cart - Karmvirsingh2939@gmail.com","Stage":"Follow up 1","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-05-05T00:00:02-04:00"},
-    {"Deal_Name":"Pureflow bottling and packaging SH25+","Stage":"Follow up 2","Amount":450,"Lead_Source":"Meta","Created_Time":"2026-05-04T12:13:01-04:00"},
-    {"Deal_Name":"Rubber Stone Head Office SESR15","Stage":"Quote Sent","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-05-04T10:41:33-04:00"},
-    {"Deal_Name":"Abandoned Cart - awalsaibu@gmail.com","Stage":"Follow up 2","Amount":2415,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-05-04T00:00:01-04:00"},
-    {"Deal_Name":"Cascades Containerboard Packaging - Rexdale SESR15N","Stage":"PreOrder","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-05-01T11:01:11-04:00"},
-    {"Deal_Name":"Antony SH20N","Stage":"Closed Won","Amount":350,"Lead_Source":"JustCall","Created_Time":"2026-04-30T15:28:10-04:00"},
-    {"Deal_Name":"Abandoned Cart - eduardo@purplefarmgenetics.com","Stage":"Quote Sent","Amount":2275.84,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-30T00:00:02-04:00"},
-    {"Deal_Name":"ENTREPRISE CANADIENNE AUTO SEOR30","Stage":"PreOrder","Amount":4500,"Lead_Source":"RFQ","Created_Time":"2026-04-29T15:36:37-04:00"},
-    {"Deal_Name":"Inter Label Systems 2 SESR15-N","Stage":"PreOrder","Amount":4600,"Lead_Source":"RFQ","Created_Time":"2026-04-29T11:41:05-04:00"},
-    {"Deal_Name":"Abandoned Cart - eyal.geiger@3dprimetech.com","Stage":"Closed Won","Amount":732.76,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-29T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - jonathan.leslie15@gmail.com","Stage":"Follow up 1","Amount":508.5,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-29T00:00:02-04:00"},
-    {"Deal_Name":"Boulons Abitibi inc. SEOR30","Stage":"Follow up 1","Amount":4500,"Lead_Source":"RFQ","Created_Time":"2026-04-28T17:08:06-04:00"},
-    {"Deal_Name":"Dominic Provencher SEOR30","Stage":"Follow up 2","Amount":null,"Lead_Source":"Contact Us Form","Created_Time":"2026-04-28T11:28:03-04:00"},
-    {"Deal_Name":"Flex-Pression Ltee SESR15","Stage":"Closed Lost","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-04-28T10:44:53-04:00"},
-    {"Deal_Name":"Abandoned Cart - austin.watson@radville.crs","Stage":"Cart Abandoned","Amount":3623.18,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-28T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - isaac.woitas@radville.crs","Stage":"Follow up 2","Amount":3623.18,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-28T00:00:01-04:00"},
-    {"Deal_Name":"IFS Logistics Ltd SESR15","Stage":"Closed Lost","Amount":1700,"Lead_Source":null,"Created_Time":"2026-04-27T12:56:59-04:00"},
-    {"Deal_Name":"Abandoned Cart - fogoislandfreight@yahoo.ca","Stage":"Cart Abandoned","Amount":2806.78,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-27T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - moe@apsfabricationinc.com","Stage":"Cart Abandoned","Amount":2210.69,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-27T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - EliteEquipSolutions@gmail.com","Stage":"Cart Abandoned","Amount":107.59,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-26T00:00:03-04:00"},
-    {"Deal_Name":"2 SELR20+ Jeremy","Stage":"Follow up 2","Amount":null,"Lead_Source":null,"Created_Time":"2026-04-24T11:57:11-04:00"},
-    {"Deal_Name":"Kingston Metals & Materials Inc. SST15+","Stage":"PreOrder","Amount":7500,"Lead_Source":"RFQ","Created_Time":"2026-04-24T11:05:16-04:00"},
-    {"Deal_Name":"Justin Francois 4 SELR20","Stage":"Follow up 1","Amount":9200,"Lead_Source":null,"Created_Time":"2026-04-24T09:53:23-04:00"},
-    {"Deal_Name":"Abandoned Cart - vaibhav@eiwilliams.com","Stage":"Closed Won","Amount":2826.82,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-24T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - jnwiebe11@gmail.com","Stage":"Closed Won","Amount":1750,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-24T00:00:02-04:00"},
-    {"Deal_Name":"Meunerie St-Frederic SEOR30","Stage":"PreOrder","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-04-23T16:29:12-04:00"},
-    {"Deal_Name":"Alain VSA inc SST15+","Stage":"PreOrder","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-04-23T16:27:38-04:00"},
-    {"Deal_Name":"Prairie Velo Corp SEOR30","Stage":"Follow up 2","Amount":4500,"Lead_Source":"RFQ","Created_Time":"2026-04-23T12:33:01-04:00"},
-    {"Deal_Name":"Entreprise Jf Faucher SEOR30","Stage":"Follow up 2","Amount":4500,"Lead_Source":"RFQ","Created_Time":"2026-04-23T12:11:23-04:00"},
-    {"Deal_Name":"Atelier Morel Leroux inc. SST15+","Stage":"Follow up 2","Amount":7500,"Lead_Source":"RFQ","Created_Time":"2026-04-23T12:04:28-04:00"},
-    {"Deal_Name":"Abandoned Cart - amantindersingh@gmail.com","Stage":"Follow up 2","Amount":6388,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-23T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - hines.dale@tresmondia.com","Stage":"Follow up 2","Amount":4200,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-23T00:00:02-04:00"},
-    {"Deal_Name":"Travis Fortune SSE15","Stage":"Quote Sent","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-04-22T12:40:56-04:00"},
-    {"Deal_Name":"CRANE SUPPLY SESR15N","Stage":"Quote Sent","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-04-22T10:04:04-04:00"},
-    {"Deal_Name":"wasaga beach ministerial food bank SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-21T11:49:24-04:00"},
-    {"Deal_Name":"Amy SESR15-N","Stage":"Closed Lost","Amount":null,"Lead_Source":"Contact Us Form","Created_Time":"2026-04-21T11:43:25-04:00"},
-    {"Deal_Name":"Sanco Supplies Ltd SEOR30","Stage":"PreOrder","Amount":4500,"Lead_Source":"RFQ","Created_Time":"2026-04-21T11:30:06-04:00"},
-    {"Deal_Name":"Andre Champagne SELR20 Spare battery","Stage":"Follow up 2","Amount":null,"Lead_Source":"Contact Us Form","Created_Time":"2026-04-21T10:40:50-04:00"},
-    {"Deal_Name":"Uni-Bond Lighting & Safety Products SSt15+","Stage":"Closed Lost","Amount":7500,"Lead_Source":"RFQ","Created_Time":"2026-04-21T09:55:31-04:00"},
-    {"Deal_Name":"Kevin Jollymore SST15-C","Stage":"PreOrder","Amount":7000,"Lead_Source":"RFQ","Created_Time":"2026-04-20T11:39:07-04:00"},
-    {"Deal_Name":"Billy wfti SELR20","Stage":"Closed Lost","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-20T11:07:41-04:00"},
-    {"Deal_Name":"Mountrust SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-20T09:57:58-04:00"},
-    {"Deal_Name":"Abandoned Cart - debpollack65@gmail.com","Stage":"Needs Analysis","Amount":44.21,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-20T00:00:02-04:00"},
-    {"Deal_Name":"Drive Chain logistics SELR20","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-17T12:24:08-04:00"},
-    {"Deal_Name":"Amir Alberta SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-17T12:16:46-04:00"},
-    {"Deal_Name":"Abandoned Cart - admin@nanocinco.com","Stage":"Follow up 2","Amount":3021.57,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-17T00:00:02-04:00"},
-    {"Deal_Name":"Chris Proshipper SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-16T11:52:07-04:00"},
-    {"Deal_Name":"Abandoned Cart - lulogisticsolutions@gmail.com","Stage":"Needs Analysis","Amount":309.75,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-16T00:00:05-04:00"},
-    {"Deal_Name":"Abandoned Cart - kovacevicb@me.com","Stage":"Follow up 1","Amount":2199.13,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-16T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - li.jeff@valnere.com","Stage":"Needs Analysis","Amount":4600,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-16T00:00:02-04:00"},
-    {"Deal_Name":"India town SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-15T12:43:02-04:00"},
-    {"Deal_Name":"McCaine Electric SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-15T12:13:36-04:00"},
-    {"Deal_Name":"Abandoned Cart - trent@nsscan.com","Stage":"Needs Analysis","Amount":5424,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-15T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - paul@paperland.ca","Stage":"Needs Analysis","Amount":7345,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-15T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - paul@pallisersales.com","Stage":"Needs Analysis","Amount":2339.38,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-15T00:00:01-04:00"},
-    {"Deal_Name":"Angels At Work SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-14T10:10:20-04:00"},
-    {"Deal_Name":"Abandoned Cart - lydia.li@tofba.com","Stage":"Needs Analysis","Amount":1921,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-14T00:00:02-04:00"},
-    {"Deal_Name":"Alexandr CuraleafIn SST15+","Stage":"PreOrder","Amount":7000,"Lead_Source":"RFQ","Created_Time":"2026-04-13T12:29:28-04:00"},
-    {"Deal_Name":"Palazzi Tile SEOR30","Stage":"PreOrder","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-04-13T12:28:37-04:00"},
-    {"Deal_Name":"EsthePodo inc. SSE15","Stage":"Closed Lost","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-04-13T12:24:49-04:00"},
-    {"Deal_Name":"Transport Louis Pouliot SEOR30","Stage":"Follow up 2","Amount":4000,"Lead_Source":"RFQ","Created_Time":"2026-04-13T11:38:20-04:00"},
-    {"Deal_Name":"VYAPKA SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-13T10:41:07-04:00"},
-    {"Deal_Name":"Abandoned Cart - kartnika2123@gmail.com","Stage":"Needs Analysis","Amount":2938,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-12T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - jabbar79@gmail.com","Stage":"Needs Analysis","Amount":1921,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-11T00:00:02-04:00"},
-    {"Deal_Name":"Maple Lodge Farms SST15-C","Stage":"PreOrder","Amount":6500,"Lead_Source":"RFQ","Created_Time":"2026-04-10T09:58:15-04:00"},
-    {"Deal_Name":"Abandoned Cart - DEEP.JAIN@DGLOGISTIC.CA","Stage":"Needs Analysis","Amount":2237.15,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-10T00:00:05-04:00"},
-    {"Deal_Name":"Abandoned Cart - pascal.bouchard@zoosauvage.org","Stage":"Needs Analysis","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-10T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - ericl@langeshow.com","Stage":"Closed Won","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-10T00:00:02-04:00"},
-    {"Deal_Name":"Gene's Evergreen Farm Ltd SESR15","Stage":"Closed Lost","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-04-07T10:55:11-04:00"},
-    {"Deal_Name":"Sairah logistic transport SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-06T10:44:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - jimmylamarche01@hotmail.com","Stage":"Needs Analysis","Amount":4200,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-04T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - aglaee@flirtdrinks.com","Stage":"Needs Analysis","Amount":7345,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-03T00:00:01-04:00"},
-    {"Deal_Name":"Northern Water Service SESR15","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-02T10:56:25-04:00"},
-    {"Deal_Name":"Abandoned Cart - vikrant@nuhorizonplbg.com","Stage":"Needs Analysis","Amount":7345,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-02T00:00:02-04:00"},
-    {"Deal_Name":"Renoliquidation SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-04-01T12:23:15-04:00"},
-    {"Deal_Name":"Abandoned Cart - bakindustrial@rogers.com","Stage":"Needs Analysis","Amount":2176.11,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-04-01T00:00:02-04:00"},
-    {"Deal_Name":"Hybrid buys 3300/4400 lb","Stage":"Closed Won","Amount":2850,"Lead_Source":"Meta","Created_Time":"2026-03-31T12:31:03-04:00"},
-    {"Deal_Name":"Shrigley Trucking Ltd 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-31T11:16:46-04:00"},
-    {"Deal_Name":"Lorene Mittman SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-03-31T11:05:04-04:00"},
-    {"Deal_Name":"P. Ravensbergen & Sons Ltd. SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-03-31T10:56:33-04:00"},
-    {"Deal_Name":"Farah impex Ltd SELR20+","Stage":"Follow up 2","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-31T10:29:43-04:00"},
-    {"Deal_Name":"Abandoned Cart - mecatech@videotron.ca","Stage":"Needs Analysis","Amount":6825,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-31T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - mpatel@novatechgroup.com","Stage":"Needs Analysis","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-31T00:00:02-04:00"},
-    {"Deal_Name":"IGA extra Famille Duchemin 4400lb.","Stage":"Closed Lost","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-30T13:15:19-04:00"},
-    {"Deal_Name":"Momosports SST15+","Stage":"Quote Sent","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-30T13:00:22-04:00"},
-    {"Deal_Name":"Pepco 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-30T12:24:10-04:00"},
-    {"Deal_Name":"Roseland Building Materials SH20N","Stage":"Closed Lost","Amount":350,"Lead_Source":"RFQ","Created_Time":"2026-03-30T11:26:23-04:00"},
-    {"Deal_Name":"HotShot Coffee Sleeves 4400lb.","Stage":"Closed Lost","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-30T11:00:31-04:00"},
-    {"Deal_Name":"Transport Econo-Nord SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-03-30T10:52:38-04:00"},
-    {"Deal_Name":"Abandoned Cart - shaokail@hotmail.com","Stage":"Needs Analysis","Amount":6825,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-30T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - info@sergioolives.com","Stage":"Needs Analysis","Amount":395.5,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-28T00:00:02-04:00"},
-    {"Deal_Name":"Watani & Sons Corp 4400lb","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-27T12:52:27-04:00"},
-    {"Deal_Name":"Altabaa 4400lb","Stage":"Closed Lost","Amount":2000,"Lead_Source":"Meta","Created_Time":"2026-03-27T12:30:53-04:00"},
-    {"Deal_Name":"Somerled seafood inc 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-27T12:04:46-04:00"},
-    {"Deal_Name":"Model Fulfillment SST15+","Stage":"Quote Sent","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-27T11:36:38-04:00"},
-    {"Deal_Name":"CNC QUEBEC INC SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-27T10:30:46-04:00"},
-    {"Deal_Name":"Alstom SST15+","Stage":"Closed Lost","Amount":7000,"Lead_Source":"RFQ","Created_Time":"2026-03-26T09:51:16-04:00"},
-    {"Deal_Name":"As We Do Chocolates 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-25T10:55:18-04:00"},
-    {"Deal_Name":"Vignoble - Le Mas des Patriotes 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-25T10:25:45-04:00"},
-    {"Deal_Name":"Taj 7 Distribution Ltd. SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-03-24T11:47:14-04:00"},
-    {"Deal_Name":"India Market 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-24T11:37:08-04:00"},
-    {"Deal_Name":"Gurdial kang contracting ltd. SELR20","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-24T11:19:27-04:00"},
-    {"Deal_Name":"Canada lights SST15 or +","Stage":"Quote Sent","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-24T10:45:21-04:00"},
-    {"Deal_Name":"Canadian Zalmi Society SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"Meta","Created_Time":"2026-03-24T10:25:07-04:00"},
-    {"Deal_Name":"Soueidi 2SESR15","Stage":"Closed Lost","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-24T10:20:11-04:00"},
-    {"Deal_Name":"Abandoned Cart - brushfloors@gmail.com","Stage":"Needs Analysis","Amount":925.46,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-24T00:00:02-04:00"},
-    {"Deal_Name":"TSET","Stage":"Get Quote","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-23T22:10:08-04:00"},
-    {"Deal_Name":"Eric Cox Sanitation 4400lb.","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-23T13:07:09-04:00"},
-    {"Deal_Name":"Parc Suites Hotel SST15","Stage":"Follow up 1","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-23T12:29:46-04:00"},
-    {"Deal_Name":"14812450 Canada iNC SST15","Stage":"Follow up 1","Amount":6500,"Lead_Source":"RFQ","Created_Time":"2026-03-23T10:55:27-04:00"},
-    {"Deal_Name":"Mad Mexican Prepared Food Products SST15 and +","Stage":"Follow up 1","Amount":7000,"Lead_Source":"RFQ","Created_Time":"2026-03-23T10:44:49-04:00"},
-    {"Deal_Name":"cho america SST15","Stage":"Follow up 1","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-23T10:23:07-04:00"},
-    {"Deal_Name":"Abandoned Cart - wtuba@live.com","Stage":"Needs Analysis","Amount":1155.71,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-22T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - richard.dyck@shaw.ca","Stage":"Needs Analysis","Amount":2991.92,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-22T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - lee.cantire@gmail.com","Stage":"Needs Analysis","Amount":411.82,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-22T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - darin@daringertransport.ca","Stage":"Needs Analysis","Amount":2599,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-21T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - satwindersingh0729@gmail.com","Stage":"Needs Analysis","Amount":162.1,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-21T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - chris@whitecapfoods.com","Stage":"Needs Analysis","Amount":1921,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-21T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - scassidy@wranglertech.net","Stage":"Needs Analysis","Amount":2415,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-21T00:00:02-04:00"},
-    {"Deal_Name":"John Cgs SST15+","Stage":"Follow up 1","Amount":6500,"Lead_Source":"RFQ","Created_Time":"2026-03-20T13:11:38-04:00"},
-    {"Deal_Name":"TradeSpace 4400lb","Stage":"Follow up 2","Amount":2600,"Lead_Source":"RFQ","Created_Time":"2026-03-20T11:23:42-04:00"},
-    {"Deal_Name":"First Quality Packaging 4400lb","Stage":"Follow up 2","Amount":3200,"Lead_Source":"Meta","Created_Time":"2026-03-20T10:16:35-04:00"},
-    {"Deal_Name":"Coast Coal Harbour Hotel 4400lb","Stage":"Follow up 2","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-03-20T09:29:05-04:00"},
-    {"Deal_Name":"Abandoned Cart - gaurav23ce@gmail.com","Stage":"Needs Analysis","Amount":7350,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-20T00:00:04-04:00"},
-    {"Deal_Name":"Abandoned Cart - mary.vasilevski@flowmarketing.ca","Stage":"Closed Won","Amount":2822.01,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-20T00:00:03-04:00"},
-    {"Deal_Name":"Abandoned Cart - contact@ezbike.ca","Stage":"Needs Analysis","Amount":362.18,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-20T00:00:02-04:00"},
-    {"Deal_Name":"Abandoned Cart - john@cgstape.com","Stage":"Needs Analysis","Amount":14690,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-20T00:00:02-04:00"},
-    {"Deal_Name":"Prime Time SST15 and +","Stage":"Follow up 1","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-19T10:59:22-04:00"},
-    {"Deal_Name":"Mountain Integrated Medical Devices 4400lb","Stage":"Closed Won","Amount":2850,"Lead_Source":"RFQ","Created_Time":"2026-03-19T10:46:59-04:00"},
-    {"Deal_Name":"Pineberry Manufacturing Inc. SST15 or +","Stage":"Follow up 1","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-19T10:40:48-04:00"},
-    {"Deal_Name":"Distribution MA SST15 or +","Stage":"Follow up 1","Amount":8000,"Lead_Source":"Meta","Created_Time":"2026-03-19T10:23:47-04:00"},
-    {"Deal_Name":"Abandoned Cart - kalebschmidt@mimd.ca","Stage":"Needs Analysis","Amount":2815.06,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-19T00:00:01-04:00"},
-    {"Deal_Name":"Gass farms inc SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-18T11:38:35-04:00"},
-    {"Deal_Name":"O.C. Maillet Transport Ltd. 4400lb","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-18T09:44:13-04:00"},
-    {"Deal_Name":"Abandoned Cart - francisc.nagy@omniconvert.com","Stage":"Needs Analysis","Amount":12599.5,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-18T00:00:01-04:00"},
-    {"Deal_Name":"Moritz Schmitz 4400lb","Stage":"Follow up 2","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-03-17T10:41:31-04:00"},
-    {"Deal_Name":"Oro caffe SST15 and plus","Stage":"Closed Won","Amount":2600,"Lead_Source":"Meta","Created_Time":"2026-03-17T10:16:06-04:00"},
-    {"Deal_Name":"DARINGER TRANSPORT 4400lb","Stage":"Follow up 2","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-03-17T09:45:44-04:00"},
-    {"Deal_Name":"Justin Francois SST15+","Stage":"Closed Won","Amount":33000,"Lead_Source":"RFQ","Created_Time":"2026-03-17T09:41:16-04:00"},
-    {"Deal_Name":"Abandoned Cart - 8mx7rhspf3ow70i@gmail.com","Stage":"Needs Analysis","Amount":50.85,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-17T00:00:02-04:00"},
-    {"Deal_Name":"Bordt Stone & Tile Ltd (since 1975) 4400lb","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-16T12:19:44-04:00"},
-    {"Deal_Name":"CAME Americas SST15 or plus","Stage":"Follow up 1","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-16T12:10:54-04:00"},
-    {"Deal_Name":"Booch SELR20 or plus","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-16T11:44:51-04:00"},
-    {"Deal_Name":"Bridgepoint supply chain solutions 2*SELR20+","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-16T11:35:31-04:00"},
-    {"Deal_Name":"Larks Solar Inc SST15+","Stage":"Follow up 2","Amount":7000,"Lead_Source":"RFQ","Created_Time":"2026-03-16T11:16:25-04:00"},
-    {"Deal_Name":"Abandoned Cart - sales@kimiinc.com","Stage":"Needs Analysis","Amount":2269.95,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-14T00:00:02-04:00"},
-    {"Deal_Name":"Nanakgrocers mississauga 4400lb.","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-13T11:46:43-04:00"},
-    {"Deal_Name":"turf operations London Inc. 4400 lb.","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-13T11:29:28-04:00"},
-    {"Deal_Name":"Wallaceburg Jersey Dairy Ltd. 4400lb.","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-13T11:14:37-04:00"},
-    {"Deal_Name":"PTI SST15 or Plus","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-13T10:43:14-04:00"},
-    {"Deal_Name":"Prabhjot SESR15","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-13T09:53:32-04:00"},
-    {"Deal_Name":"Abbas Amiri SESR15","Stage":"Follow up 2","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-13T09:38:09-04:00"},
-    {"Deal_Name":"Creations Cindy Ann Inc. SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-12T11:56:43-04:00"},
-    {"Deal_Name":"Canadian tire SELR20+","Stage":"Follow up 2","Amount":2600,"Lead_Source":"RFQ","Created_Time":"2026-03-12T11:41:30-04:00"},
-    {"Deal_Name":"Goldline organic Inc SESR15","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-12T11:30:53-04:00"},
-    {"Deal_Name":"RPS INDUSTRIES SESR15","Stage":"Closed Won","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-12T11:22:32-04:00"},
-    {"Deal_Name":"Industry Diesel 4400lb","Stage":"Closed Won","Amount":3300,"Lead_Source":"RFQ","Created_Time":"2026-03-12T11:17:26-04:00"},
-    {"Deal_Name":"Paula Bruce-Redmond 4400lb","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-11T10:13:10-04:00"},
-    {"Deal_Name":"Abandoned Cart - ashasfraz@gmail.com","Stage":"Needs Analysis","Amount":67.8,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-11T00:00:01-04:00"},
-    {"Deal_Name":"Abandoned Cart - jsaini707@yahoo.ca","Stage":"Needs Analysis","Amount":1808,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-10T00:00:02-04:00"},
-    {"Deal_Name":"Zebraz SESR15","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T12:08:24-04:00"},
-    {"Deal_Name":"KMU Trading SESR15","Stage":"Closed Won","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T11:45:58-04:00"},
-    {"Deal_Name":"IVC Vitahealth Products Inc. 4400lb","Stage":"Closed Won","Amount":2300,"Lead_Source":"RFQ","Created_Time":"2026-03-09T10:46:45-04:00"},
-    {"Deal_Name":"JWG SESR15","Stage":"Follow up 2","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T10:35:16-04:00"},
-    {"Deal_Name":"We3minds Inc","Stage":"Closed Lost","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T10:20:37-04:00"},
-    {"Deal_Name":"Kenneth Hope SESR15","Stage":"Closed Lost","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T09:37:58-04:00"},
-    {"Deal_Name":"Ship tu dominican","Stage":"Closed Lost","Amount":null,"Lead_Source":"Meta","Created_Time":"2026-03-09T09:24:57-04:00"},
-    {"Deal_Name":"Abandoned Cart - olivier@jwg.ltd","Stage":"Needs Analysis","Amount":2133.1,"Lead_Source":"Shopify Abandoned Cart","Created_Time":"2026-03-08T00:00:02-05:00"},
-    {"Deal_Name":"IVC Vitahealth Products Inc.","Stage":"Closed Won","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-06T14:06:11-05:00"},
-    {"Deal_Name":"Today Delivery","Stage":"Follow up 2","Amount":1700,"Lead_Source":"RFQ","Created_Time":"2026-03-06T13:53:24-05:00"}
+    {
+      "Deal_Name": "CROPAC EQUIPMENT INC SSE15",
+      "Stage": "Quote Sent",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-15T11:55:41-04:00"
+    },
+    {
+      "Deal_Name": "TransCraft Logistics SESR15",
+      "Stage": "Quote Sent",
+      "Amount": 1750,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T12:51:56-04:00"
+    },
+    {
+      "Deal_Name": "Yasir PORT POP SELR20 & SS60",
+      "Stage": "Quote Sent",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T10:53:21-04:00"
+    },
+    {
+      "Deal_Name": "John SELR20",
+      "Stage": "Quote Sent",
+      "Amount": 4000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-14T10:23:56-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - EMILY@ALLTURF.CA",
+      "Stage": "Follow up 1",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-05-14T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Charles SS60",
+      "Stage": "Follow up 1",
+      "Amount": 4000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-13T12:41:38-04:00"
+    },
+    {
+      "Deal_Name": "ASR Cargo System Inc SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T12:24:11-04:00"
+    },
+    {
+      "Deal_Name": "Echo sales SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-12T10:40:38-04:00"
+    },
+    {
+      "Deal_Name": "Asisjot SELR20",
+      "Stage": "Quote Sent",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T16:31:02-04:00"
+    },
+    {
+      "Deal_Name": "Dianne SELR20+",
+      "Stage": "Follow up 1",
+      "Amount": 3000,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-11T12:18:31-04:00"
+    },
+    {
+      "Deal_Name": "Everest Signs SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T12:16:50-04:00"
+    },
+    {
+      "Deal_Name": "Turtle Mountain Seed SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T12:02:14-04:00"
+    },
+    {
+      "Deal_Name": "Northern Points Roofing & Exteriors. SELR20",
+      "Stage": "Closed Lost",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T11:46:08-04:00"
+    },
+    {
+      "Deal_Name": "Silverstar Automotive Solutions SS60",
+      "Stage": "Follow up 1",
+      "Amount": 4000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-11T11:40:41-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jon@seffla.com",
+      "Stage": "Follow up 1",
+      "Amount": 4226.13,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-05-09T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Beking Family Farms - 18-inch black wrap - skid",
+      "Stage": "Quote Sent",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T16:43:01-04:00"
+    },
+    {
+      "Deal_Name": "Motorola Solutions - 14- and 18-inch wrap",
+      "Stage": "Quote Sent",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T16:39:43-04:00"
+    },
+    {
+      "Deal_Name": "citypack paper limited miss Ontario L5T2G6 - 14 inch - 1500ft",
+      "Stage": "Negotiation",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T16:33:14-04:00"
+    },
+    {
+      "Deal_Name": "Launchpad-copack.com - 80 gauge - all size",
+      "Stage": "Quote Sent",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T16:28:23-04:00"
+    },
+    {
+      "Deal_Name": "Studying - 14-inch 1200 ft",
+      "Stage": "Quote Sent",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T16:09:25-04:00"
+    },
+    {
+      "Deal_Name": "Richardo SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-08T11:28:29-04:00"
+    },
+    {
+      "Deal_Name": "Abacus SESR15N",
+      "Stage": "Follow up 1",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-08T10:57:32-04:00"
+    },
+    {
+      "Deal_Name": "Mike Epp SEOR30",
+      "Stage": "PreOrder",
+      "Amount": null,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-07T09:35:10-04:00"
+    },
+    {
+      "Deal_Name": "Tylor SELR20",
+      "Stage": "Quote Sent",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-06T10:05:30-04:00"
+    },
+    {
+      "Deal_Name": "Living Green Landscaping Inc SEOR30",
+      "Stage": "Follow up 1",
+      "Amount": null,
+      "Lead_Source": "Meta Ads",
+      "Created_Time": "2026-05-05T11:18:57-04:00"
+    },
+    {
+      "Deal_Name": "Gigo sales SESR15",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T11:02:54-04:00"
+    },
+    {
+      "Deal_Name": "TWO MEN AND A TRUCK Windsor-Sarnia - Stretch Wrap",
+      "Stage": "Closed Won",
+      "Amount": 750,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-05T10:34:51-04:00"
+    },
+    {
+      "Deal_Name": "Ahmed Ali SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-05-05T09:21:36-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - Karmvirsingh2939@gmail.com",
+      "Stage": "Follow up 1",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-05-05T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Pureflow bottling and packaging SH25+",
+      "Stage": "Follow up 2",
+      "Amount": 450,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-04T12:13:01-04:00"
+    },
+    {
+      "Deal_Name": "Rubber Stone Head Office SESR15",
+      "Stage": "Quote Sent",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-05-04T10:41:33-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - awalsaibu@gmail.com",
+      "Stage": "Follow up 2",
+      "Amount": 2415,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-05-04T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Cascades Containerboard Packaging - Rexdale SESR15N",
+      "Stage": "PreOrder",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-05-01T11:01:11-04:00"
+    },
+    {
+      "Deal_Name": "Antony SH20N",
+      "Stage": "Closed Won",
+      "Amount": 350,
+      "Lead_Source": "JustCall",
+      "Created_Time": "2026-04-30T15:28:10-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - eduardo@purplefarmgenetics.com",
+      "Stage": "Quote Sent",
+      "Amount": 2275.84,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-30T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "ENTREPRISE CANADIENNE AUTO SEOR30",
+      "Stage": "PreOrder",
+      "Amount": 4500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-29T15:36:37-04:00"
+    },
+    {
+      "Deal_Name": "Inter Label Systems 2 SESR15-N",
+      "Stage": "PreOrder",
+      "Amount": 4600,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-29T11:41:05-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - eyal.geiger@3dprimetech.com",
+      "Stage": "Closed Won",
+      "Amount": 732.76,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-29T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jonathan.leslie15@gmail.com",
+      "Stage": "Follow up 1",
+      "Amount": 508.5,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-29T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Boulons Abitibi inc. SEOR30",
+      "Stage": "Follow up 1",
+      "Amount": 4500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-28T17:08:06-04:00"
+    },
+    {
+      "Deal_Name": "Dominic Provencher SEOR30",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-28T11:28:03-04:00"
+    },
+    {
+      "Deal_Name": "Flex-Pression Ltee SESR15",
+      "Stage": "Closed Lost",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-28T10:44:53-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - austin.watson@radville.crs",
+      "Stage": "Cart Abandoned",
+      "Amount": 3623.18,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-28T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - isaac.woitas@radville.crs",
+      "Stage": "Follow up 2",
+      "Amount": 3623.18,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-28T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "IFS Logistics Ltd SESR15",
+      "Stage": "Closed Lost",
+      "Amount": 1700,
+      "Lead_Source": null,
+      "Created_Time": "2026-04-27T12:56:59-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - fogoislandfreight@yahoo.ca",
+      "Stage": "Cart Abandoned",
+      "Amount": 2806.78,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-27T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - moe@apsfabricationinc.com",
+      "Stage": "Cart Abandoned",
+      "Amount": 2210.69,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-27T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - EliteEquipSolutions@gmail.com",
+      "Stage": "Cart Abandoned",
+      "Amount": 107.59,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-26T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "2 SELR20+ Jeremy",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": null,
+      "Created_Time": "2026-04-24T11:57:11-04:00"
+    },
+    {
+      "Deal_Name": "Kingston Metals & Materials Inc. SST15+",
+      "Stage": "PreOrder",
+      "Amount": 7500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-24T11:05:16-04:00"
+    },
+    {
+      "Deal_Name": "Justin Francois 4 SELR20",
+      "Stage": "Follow up 1",
+      "Amount": 9200,
+      "Lead_Source": null,
+      "Created_Time": "2026-04-24T09:53:23-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - vaibhav@eiwilliams.com",
+      "Stage": "Closed Won",
+      "Amount": 2826.82,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-24T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jnwiebe11@gmail.com",
+      "Stage": "Closed Won",
+      "Amount": 1750,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-24T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Meunerie St-Frederic SEOR30",
+      "Stage": "PreOrder",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-23T16:29:12-04:00"
+    },
+    {
+      "Deal_Name": "Alain VSA inc SST15+",
+      "Stage": "PreOrder",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-23T16:27:38-04:00"
+    },
+    {
+      "Deal_Name": "Prairie Velo Corp SEOR30",
+      "Stage": "Follow up 2",
+      "Amount": 4500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-23T12:33:01-04:00"
+    },
+    {
+      "Deal_Name": "Entreprise Jf Faucher SEOR30",
+      "Stage": "Follow up 2",
+      "Amount": 4500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-23T12:11:23-04:00"
+    },
+    {
+      "Deal_Name": "Atelier Morel Leroux inc. SST15+",
+      "Stage": "Follow up 2",
+      "Amount": 7500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-23T12:04:28-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - amantindersingh@gmail.com",
+      "Stage": "Follow up 2",
+      "Amount": 6388,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-23T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - hines.dale@tresmondia.com",
+      "Stage": "Follow up 2",
+      "Amount": 4200,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-23T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Travis Fortune SSE15",
+      "Stage": "Quote Sent",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-22T12:40:56-04:00"
+    },
+    {
+      "Deal_Name": "CRANE SUPPLY SESR15N",
+      "Stage": "Quote Sent",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-22T10:04:04-04:00"
+    },
+    {
+      "Deal_Name": "wasaga beach ministerial food bank SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-21T11:49:24-04:00"
+    },
+    {
+      "Deal_Name": "Amy SESR15-N",
+      "Stage": "Closed Lost",
+      "Amount": null,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-21T11:43:25-04:00"
+    },
+    {
+      "Deal_Name": "Sanco Supplies Ltd SEOR30",
+      "Stage": "PreOrder",
+      "Amount": 4500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-21T11:30:06-04:00"
+    },
+    {
+      "Deal_Name": "Andre Champagne SELR20 Spare battery",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Contact Us Form",
+      "Created_Time": "2026-04-21T10:40:50-04:00"
+    },
+    {
+      "Deal_Name": "Uni-Bond Lighting & Safety Products SSt15+",
+      "Stage": "Closed Lost",
+      "Amount": 7500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-21T09:55:31-04:00"
+    },
+    {
+      "Deal_Name": "Kevin Jollymore SST15-C",
+      "Stage": "PreOrder",
+      "Amount": 7000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-20T11:39:07-04:00"
+    },
+    {
+      "Deal_Name": "Billy wfti SELR20",
+      "Stage": "Closed Lost",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T11:07:41-04:00"
+    },
+    {
+      "Deal_Name": "Mountrust SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-20T09:57:58-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - debpollack65@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 44.21,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-20T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Drive Chain logistics SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T12:24:08-04:00"
+    },
+    {
+      "Deal_Name": "Amir Alberta SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-17T12:16:46-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - admin@nanocinco.com",
+      "Stage": "Follow up 2",
+      "Amount": 3021.57,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-17T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Chris Proshipper SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-16T11:52:07-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - lulogisticsolutions@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 309.75,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-16T00:00:05-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - kovacevicb@me.com",
+      "Stage": "Follow up 1",
+      "Amount": 2199.13,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-16T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - li.jeff@valnere.com",
+      "Stage": "Needs Analysis",
+      "Amount": 4600,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-16T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "India town SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-15T12:43:02-04:00"
+    },
+    {
+      "Deal_Name": "McCaine Electric SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-15T12:13:36-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - trent@nsscan.com",
+      "Stage": "Needs Analysis",
+      "Amount": 5424,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-15T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - paul@paperland.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 7345,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-15T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - paul@pallisersales.com",
+      "Stage": "Needs Analysis",
+      "Amount": 2339.38,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-15T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Angels At Work SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-14T10:10:20-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - lydia.li@tofba.com",
+      "Stage": "Needs Analysis",
+      "Amount": 1921,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-14T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Alexandr CuraleafIn SST15+",
+      "Stage": "PreOrder",
+      "Amount": 7000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-13T12:29:28-04:00"
+    },
+    {
+      "Deal_Name": "Palazzi Tile SEOR30",
+      "Stage": "PreOrder",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-13T12:28:37-04:00"
+    },
+    {
+      "Deal_Name": "EsthePodo inc. SSE15",
+      "Stage": "Closed Lost",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-13T12:24:49-04:00"
+    },
+    {
+      "Deal_Name": "Transport Louis Pouliot SEOR30",
+      "Stage": "Follow up 2",
+      "Amount": 4000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-13T11:38:20-04:00"
+    },
+    {
+      "Deal_Name": "VYAPKA SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-13T10:41:07-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - kartnika2123@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 2938,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-12T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jabbar79@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 1921,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-11T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Maple Lodge Farms SST15-C",
+      "Stage": "PreOrder",
+      "Amount": 6500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-04-10T09:58:15-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - DEEP.JAIN@DGLOGISTIC.CA",
+      "Stage": "Needs Analysis",
+      "Amount": 2237.15,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-10T00:00:05-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - pascal.bouchard@zoosauvage.org",
+      "Stage": "Needs Analysis",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-10T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - ericl@langeshow.com",
+      "Stage": "Closed Won",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-10T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Gene's Evergreen Farm Ltd SESR15",
+      "Stage": "Closed Lost",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-07T10:55:11-04:00"
+    },
+    {
+      "Deal_Name": "Sairah logistic transport SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-06T10:44:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jimmylamarche01@hotmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 4200,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-04T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - aglaee@flirtdrinks.com",
+      "Stage": "Needs Analysis",
+      "Amount": 7345,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-03T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Northern Water Service SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-02T10:56:25-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - vikrant@nuhorizonplbg.com",
+      "Stage": "Needs Analysis",
+      "Amount": 7345,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-02T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Renoliquidation SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-04-01T12:23:15-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - bakindustrial@rogers.com",
+      "Stage": "Needs Analysis",
+      "Amount": 2176.11,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-04-01T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Hybrid buys 3300/4400 lb",
+      "Stage": "Closed Won",
+      "Amount": 2850,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T12:31:03-04:00"
+    },
+    {
+      "Deal_Name": "Shrigley Trucking Ltd 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T11:16:46-04:00"
+    },
+    {
+      "Deal_Name": "Lorene Mittman SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T11:05:04-04:00"
+    },
+    {
+      "Deal_Name": "P. Ravensbergen & Sons Ltd. SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T10:56:33-04:00"
+    },
+    {
+      "Deal_Name": "Farah impex Ltd SELR20+",
+      "Stage": "Follow up 2",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-31T10:29:43-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - mecatech@videotron.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 6825,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-31T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - mpatel@novatechgroup.com",
+      "Stage": "Needs Analysis",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-31T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "IGA extra Famille Duchemin 4400lb.",
+      "Stage": "Closed Lost",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T13:15:19-04:00"
+    },
+    {
+      "Deal_Name": "Momosports SST15+",
+      "Stage": "Quote Sent",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T13:00:22-04:00"
+    },
+    {
+      "Deal_Name": "Pepco 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T12:24:10-04:00"
+    },
+    {
+      "Deal_Name": "Roseland Building Materials SH20N",
+      "Stage": "Closed Lost",
+      "Amount": 350,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-30T11:26:23-04:00"
+    },
+    {
+      "Deal_Name": "HotShot Coffee Sleeves 4400lb.",
+      "Stage": "Closed Lost",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T11:00:31-04:00"
+    },
+    {
+      "Deal_Name": "Transport Econo-Nord SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-30T10:52:38-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - shaokail@hotmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 6825,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-30T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - info@sergioolives.com",
+      "Stage": "Needs Analysis",
+      "Amount": 395.5,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-28T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Watani & Sons Corp 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T12:52:27-04:00"
+    },
+    {
+      "Deal_Name": "Altabaa 4400lb",
+      "Stage": "Closed Lost",
+      "Amount": 2000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T12:30:53-04:00"
+    },
+    {
+      "Deal_Name": "Somerled seafood inc 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T12:04:46-04:00"
+    },
+    {
+      "Deal_Name": "Model Fulfillment SST15+",
+      "Stage": "Quote Sent",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-27T11:36:38-04:00"
+    },
+    {
+      "Deal_Name": "CNC QUEBEC INC SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-27T10:30:46-04:00"
+    },
+    {
+      "Deal_Name": "Alstom SST15+",
+      "Stage": "Closed Lost",
+      "Amount": 7000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-26T09:51:16-04:00"
+    },
+    {
+      "Deal_Name": "As We Do Chocolates 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T10:55:18-04:00"
+    },
+    {
+      "Deal_Name": "Vignoble - Le Mas des Patriotes 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-25T10:25:45-04:00"
+    },
+    {
+      "Deal_Name": "Taj 7 Distribution Ltd. SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T11:47:14-04:00"
+    },
+    {
+      "Deal_Name": "India Market 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T11:37:08-04:00"
+    },
+    {
+      "Deal_Name": "Gurdial kang contracting ltd. SELR20",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T11:19:27-04:00"
+    },
+    {
+      "Deal_Name": "Canada lights SST15 or +",
+      "Stage": "Quote Sent",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T10:45:21-04:00"
+    },
+    {
+      "Deal_Name": "Canadian Zalmi Society SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T10:25:07-04:00"
+    },
+    {
+      "Deal_Name": "Soueidi 2SESR15",
+      "Stage": "Closed Lost",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-24T10:20:11-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - brushfloors@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 925.46,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-24T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "TSET",
+      "Stage": "Get Quote",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T22:10:08-04:00"
+    },
+    {
+      "Deal_Name": "Eric Cox Sanitation 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T13:07:09-04:00"
+    },
+    {
+      "Deal_Name": "Parc Suites Hotel SST15",
+      "Stage": "Follow up 1",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T12:29:46-04:00"
+    },
+    {
+      "Deal_Name": "14812450 Canada iNC SST15",
+      "Stage": "Follow up 1",
+      "Amount": 6500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-23T10:55:27-04:00"
+    },
+    {
+      "Deal_Name": "Mad Mexican Prepared Food Products SST15 and +",
+      "Stage": "Follow up 1",
+      "Amount": 7000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-23T10:44:49-04:00"
+    },
+    {
+      "Deal_Name": "cho america SST15",
+      "Stage": "Follow up 1",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-23T10:23:07-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - wtuba@live.com",
+      "Stage": "Needs Analysis",
+      "Amount": 1155.71,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-22T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - richard.dyck@shaw.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 2991.92,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-22T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - lee.cantire@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 411.82,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-22T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - darin@daringertransport.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 2599,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-21T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - satwindersingh0729@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 162.1,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-21T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - chris@whitecapfoods.com",
+      "Stage": "Needs Analysis",
+      "Amount": 1921,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-21T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - scassidy@wranglertech.net",
+      "Stage": "Needs Analysis",
+      "Amount": 2415,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-21T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "John Cgs SST15+",
+      "Stage": "Follow up 1",
+      "Amount": 6500,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-20T13:11:38-04:00"
+    },
+    {
+      "Deal_Name": "TradeSpace 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 2600,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-20T11:23:42-04:00"
+    },
+    {
+      "Deal_Name": "First Quality Packaging 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 3200,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-20T10:16:35-04:00"
+    },
+    {
+      "Deal_Name": "Coast Coal Harbour Hotel 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-20T09:29:05-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - gaurav23ce@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 7350,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-20T00:00:04-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - mary.vasilevski@flowmarketing.ca",
+      "Stage": "Closed Won",
+      "Amount": 2822.01,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-20T00:00:03-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - contact@ezbike.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 362.18,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-20T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - john@cgstape.com",
+      "Stage": "Needs Analysis",
+      "Amount": 14690,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-20T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Prime Time SST15 and +",
+      "Stage": "Follow up 1",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-19T10:59:22-04:00"
+    },
+    {
+      "Deal_Name": "Mountain Integrated Medical Devices 4400lb",
+      "Stage": "Closed Won",
+      "Amount": 2850,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-19T10:46:59-04:00"
+    },
+    {
+      "Deal_Name": "Pineberry Manufacturing Inc. SST15 or +",
+      "Stage": "Follow up 1",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-19T10:40:48-04:00"
+    },
+    {
+      "Deal_Name": "Distribution MA SST15 or +",
+      "Stage": "Follow up 1",
+      "Amount": 8000,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-19T10:23:47-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - kalebschmidt@mimd.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 2815.06,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-19T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Gass farms inc SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-18T11:38:35-04:00"
+    },
+    {
+      "Deal_Name": "O.C. Maillet Transport Ltd. 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-18T09:44:13-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - francisc.nagy@omniconvert.com",
+      "Stage": "Needs Analysis",
+      "Amount": 12599.5,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-18T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Moritz Schmitz 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-17T10:41:31-04:00"
+    },
+    {
+      "Deal_Name": "Oro caffe SST15 and plus",
+      "Stage": "Closed Won",
+      "Amount": 2600,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-17T10:16:06-04:00"
+    },
+    {
+      "Deal_Name": "DARINGER TRANSPORT 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-17T09:45:44-04:00"
+    },
+    {
+      "Deal_Name": "Justin Francois SST15+",
+      "Stage": "Closed Won",
+      "Amount": 33000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-17T09:41:16-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - 8mx7rhspf3ow70i@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 50.85,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-17T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Bordt Stone & Tile Ltd (since 1975) 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-16T12:19:44-04:00"
+    },
+    {
+      "Deal_Name": "CAME Americas SST15 or plus",
+      "Stage": "Follow up 1",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-16T12:10:54-04:00"
+    },
+    {
+      "Deal_Name": "Booch SELR20 or plus",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-16T11:44:51-04:00"
+    },
+    {
+      "Deal_Name": "Bridgepoint supply chain solutions 2*SELR20+",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-16T11:35:31-04:00"
+    },
+    {
+      "Deal_Name": "Larks Solar Inc SST15+",
+      "Stage": "Follow up 2",
+      "Amount": 7000,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-16T11:16:25-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - sales@kimiinc.com",
+      "Stage": "Needs Analysis",
+      "Amount": 2269.95,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-14T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Nanakgrocers mississauga 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-13T11:46:43-04:00"
+    },
+    {
+      "Deal_Name": "turf operations London Inc. 4400 lb.",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-13T11:29:28-04:00"
+    },
+    {
+      "Deal_Name": "Wallaceburg Jersey Dairy Ltd. 4400lb.",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-13T11:14:37-04:00"
+    },
+    {
+      "Deal_Name": "PTI SST15 or Plus",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-13T10:43:14-04:00"
+    },
+    {
+      "Deal_Name": "Prabhjot SESR15",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-13T09:53:32-04:00"
+    },
+    {
+      "Deal_Name": "Abbas Amiri SESR15",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-13T09:38:09-04:00"
+    },
+    {
+      "Deal_Name": "Creations Cindy Ann Inc. SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-12T11:56:43-04:00"
+    },
+    {
+      "Deal_Name": "Canadian tire SELR20+",
+      "Stage": "Follow up 2",
+      "Amount": 2600,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-12T11:41:30-04:00"
+    },
+    {
+      "Deal_Name": "Goldline organic Inc SESR15",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-12T11:30:53-04:00"
+    },
+    {
+      "Deal_Name": "RPS INDUSTRIES SESR15",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-12T11:22:32-04:00"
+    },
+    {
+      "Deal_Name": "Industry Diesel 4400lb",
+      "Stage": "Closed Won",
+      "Amount": 3300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-12T11:17:26-04:00"
+    },
+    {
+      "Deal_Name": "Paula Bruce-Redmond 4400lb",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-11T10:13:10-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - ashasfraz@gmail.com",
+      "Stage": "Needs Analysis",
+      "Amount": 67.8,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-11T00:00:01-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - jsaini707@yahoo.ca",
+      "Stage": "Needs Analysis",
+      "Amount": 1808,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-10T00:00:02-04:00"
+    },
+    {
+      "Deal_Name": "Zebraz SESR15",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T12:08:24-04:00"
+    },
+    {
+      "Deal_Name": "KMU Trading SESR15",
+      "Stage": "Closed Won",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T11:45:58-04:00"
+    },
+    {
+      "Deal_Name": "IVC Vitahealth Products Inc. 4400lb",
+      "Stage": "Closed Won",
+      "Amount": 2300,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-09T10:46:45-04:00"
+    },
+    {
+      "Deal_Name": "JWG SESR15",
+      "Stage": "Follow up 2",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T10:35:16-04:00"
+    },
+    {
+      "Deal_Name": "We3minds Inc",
+      "Stage": "Closed Lost",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T10:20:37-04:00"
+    },
+    {
+      "Deal_Name": "Kenneth Hope SESR15",
+      "Stage": "Closed Lost",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T09:37:58-04:00"
+    },
+    {
+      "Deal_Name": "Ship tu dominican",
+      "Stage": "Closed Lost",
+      "Amount": null,
+      "Lead_Source": "Meta",
+      "Created_Time": "2026-03-09T09:24:57-04:00"
+    },
+    {
+      "Deal_Name": "Abandoned Cart - olivier@jwg.ltd",
+      "Stage": "Needs Analysis",
+      "Amount": 2133.1,
+      "Lead_Source": "Shopify Abandoned Cart",
+      "Created_Time": "2026-03-08T00:00:02-05:00"
+    },
+    {
+      "Deal_Name": "IVC Vitahealth Products Inc.",
+      "Stage": "Closed Won",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-06T14:06:11-05:00"
+    },
+    {
+      "Deal_Name": "Today Delivery",
+      "Stage": "Follow up 2",
+      "Amount": 1700,
+      "Lead_Source": "RFQ",
+      "Created_Time": "2026-03-06T13:53:24-05:00"
+    }
   ]
 }
