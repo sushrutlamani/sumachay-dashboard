@@ -60,10 +60,9 @@ async function refreshCRM() {
     zohoGet('Leads', 'Lead_Status,Lead_Source,Created_Time'),
     zohoGet('Deals', 'Deal_Name,Stage,Amount,Lead_Source,Created_Time')
   ]);
-  if (leads && deals) {
-    crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
-    console.log(`CRM refreshed: ${leads.length} leads, ${deals.length} deals`);
-  }
+  if (!leads || !deals) throw new Error('Zoho credentials not configured — set ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN in Railway');
+  crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
+  console.log(`CRM refreshed: ${leads.length} leads, ${deals.length} deals`);
 }
 
 // Boot: load snapshot, then refresh via API if credentials exist
