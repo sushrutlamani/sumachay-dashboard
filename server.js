@@ -32,14 +32,20 @@ async function getZohoToken() {
   return zohoToken;
 }
 
-async function zohoGet(module, fields) {
+async function zohoGet(module, fields, maxPages = 3) {
   const token = await getZohoToken();
   if (!token) return null;
   const apiDomain = process.env.ZOHO_API_DOMAIN || 'https://www.zohoapis.com';
-  const qs = new URLSearchParams({ per_page: '200', sort_by: 'Created_Time', sort_order: 'desc', fields });
-  const res = await fetch(`${apiDomain}/crm/v2/${module}?${qs}`, { headers: { Authorization: `Zoho-oauthtoken ${token}` } });
-  const json = await res.json();
-  return json.data || [];
+  let allData = [];
+  for (let page = 1; page <= maxPages; page++) {
+    const qs = new URLSearchParams({ per_page: '200', page: String(page), sort_by: 'Created_Time', sort_order: 'desc', fields });
+    const res = await fetch(`${apiDomain}/crm/v2/${module}?${qs}`, { headers: { Authorization: `Zoho-oauthtoken ${token}` } });
+    const json = await res.json();
+    const data = json.data || [];
+    allData = allData.concat(data);
+    if (!json.info?.more_records) break;
+  }
+  return allData;
 }
 
 async function refreshCRM() {
