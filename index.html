@@ -440,7 +440,10 @@ async function refreshCRM() {
   hideError();
   try {
     const res = await fetch('/api/refresh');
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || res.statusText || 'Server error');
+    }
     const { leads, deals, fetchedAt } = await res.json();
     rawLeads = leads;
     rawDeals = deals;
