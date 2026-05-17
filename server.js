@@ -78,6 +78,13 @@ if (process.env.ZOHO_CLIENT_ID) {
 // ── Routes ───────────────────────────────────────────────
 app.get('/api/data', (_req, res) => res.json(crmCache));
 
+app.get('/api/debug', (_req, res) => {
+  const vars = ['ZOHO_CLIENT_ID','ZOHO_CLIENT_SECRET','ZOHO_REFRESH_TOKEN','ZOHO_TOKEN_URL','ZOHO_ACCOUNTS_URL','ZOHO_API_BASE','ZOHO_API_DOMAIN','SHOPIFY_STORE','SHOPIFY_ACCESS_TOKEN'];
+  const out = {};
+  vars.forEach(k => out[k] = process.env[k] ? `set (${process.env[k].length} chars)` : 'NOT SET');
+  res.json(out);
+});
+
 app.get('/api/refresh', async (_req, res) => {
   try {
     await refreshCRM();
