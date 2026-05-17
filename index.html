@@ -435,7 +435,25 @@ async function loadData() {
   }
 }
 
-function refreshData() { loadData(); loadShopify(); }
+async function refreshCRM() {
+  setStatus('Refreshing CRM data from Zoho…', false);
+  hideError();
+  try {
+    const res = await fetch('/api/refresh');
+    if (!res.ok) throw new Error(res.statusText);
+    const { leads, deals, fetchedAt } = await res.json();
+    rawLeads = leads;
+    rawDeals = deals;
+    applyFilter();
+    const t = fetchedAt ? new Date(fetchedAt).toLocaleTimeString('en-CA',{hour:'2-digit',minute:'2-digit'}) : '';
+    setStatus(`${leads.length} leads · ${deals.length} deals · refreshed ${t}`, true);
+  } catch(e) {
+    showError('CRM refresh failed: ' + (e.message || e));
+    setStatus('Error', false);
+  }
+}
+
+function refreshData() { refreshCRM(); loadShopify(); }
 
 // Auto-load on page open
 loadData();

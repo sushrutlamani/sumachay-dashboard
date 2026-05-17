@@ -32,17 +32,24 @@ async function getZohoToken() {
   return zohoToken;
 }
 
-async function zohoGet(module, fields, maxPages = 3) {
+async function zohoGet(module, fields) {
   const token = await getZohoToken();
   if (!token) return null;
   const apiDomain = process.env.ZOHO_API_DOMAIN || 'https://www.zohoapis.com';
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 90);
+  const cutoffStr = cutoff.toISOString().substring(0, 10);
   let allData = [];
-  for (let page = 1; page <= maxPages; page++) {
+  for (let page = 1; page <= 10; page++) {
     const qs = new URLSearchParams({ per_page: '200', page: String(page), sort_by: 'Created_Time', sort_order: 'desc', fields });
     const res = await fetch(`${apiDomain}/crm/v2/${module}?${qs}`, { headers: { Authorization: `Zoho-oauthtoken ${token}` } });
     const json = await res.json();
     const data = json.data || [];
-    allData = allData.concat(data);
+    if (!data.length) break;
+    const filtered = data.filter(r => (r.Created_Time || '').substring(0, 10) >= cutoffStr);
+    allData = allData.concat(filtered);
+    const oldest = data[data.length - 1];
+    if (!oldest || (oldest.Created_Time || '').substring(0, 10) < cutoffStr) break;
     if (!json.info?.more_records) break;
   }
   return allData;
@@ -72,6 +79,11 @@ if (process.env.ZOHO_CLIENT_ID) {
 
 // ── Routes ───────────────────────────────────────────────
 app.get('/api/data', (_req, res) => res.json(crmCache));
+
+app.get('/api/refresh', async (_req, res) => {
+  await refreshCRM();
+  res.json(crmCache);
+});
 
 async function shopifyGet(endpoint) {
   const store = process.env.SHOPIFY_STORE;
