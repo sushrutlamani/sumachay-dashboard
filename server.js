@@ -18,9 +18,12 @@ function loadDataJson() {
 
 async function getZohoToken() {
   if (zohoToken && Date.now() < zohoTokenExpiry) return zohoToken;
-  const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN, ZOHO_ACCOUNTS_URL = 'https://accounts.zoho.com' } = process.env;
+  const { ZOHO_CLIENT_ID, ZOHO_CLIENT_SECRET, ZOHO_REFRESH_TOKEN,
+          ZOHO_TOKEN_URL, ZOHO_ACCOUNTS_URL,
+          ZOHO_API_BASE, ZOHO_API_DOMAIN } = process.env;
   if (!ZOHO_CLIENT_ID) return null;
-  const res = await fetch(`${ZOHO_ACCOUNTS_URL}/oauth/v2/token`, {
+  const accountsBase = ZOHO_TOKEN_URL || ZOHO_ACCOUNTS_URL || 'https://accounts.zoho.com';
+  const res = await fetch(`${accountsBase}/oauth/v2/token`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ grant_type: 'refresh_token', client_id: ZOHO_CLIENT_ID, client_secret: ZOHO_CLIENT_SECRET, refresh_token: ZOHO_REFRESH_TOKEN })
@@ -35,7 +38,7 @@ async function getZohoToken() {
 async function zohoGet(module, fields) {
   const token = await getZohoToken();
   if (!token) return null;
-  const apiDomain = process.env.ZOHO_API_DOMAIN || 'https://www.zohoapis.com';
+  const apiDomain = process.env.ZOHO_API_BASE || process.env.ZOHO_API_DOMAIN || 'https://www.zohoapis.com';
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - 90);
   const cutoffStr = cutoff.toISOString().substring(0, 10);
