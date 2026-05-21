@@ -1,22 +1,56 @@
 require('dotenv').config();
 const express = require('express');
 const path    = require('path');
-const fs      = require('fs');
 const app     = express();
 
-// ── CRM data from snapshot ───────────────────────────────
+// ── CRM data from Zoho API ───────────────────────────────
 let crmCache = { leads: [], deals: [], fetchedAt: null };
 
-function loadDataJson() {
+async function getZohoAccessToken() {
+  const params = new URLSearchParams({
+    grant_type:    'refresh_token',
+    client_id:     process.env.ZOHO_CLIENT_ID,
+    client_secret: process.env.ZOHO_CLIENT_SECRET,
+    refresh_token: process.env.ZOHO_REFRESH_TOKEN,
+  });
+  const res = await fetch(process.env.ZOHO_TOKEN_URL, { method: 'POST', body: params });
+  const data = await res.json();
+  if (!data.access_token) throw new Error(`Zoho token error: ${JSON.stringify(data)}`);
+  return data.access_token;
+}
+
+async function zohoGetAll(token, module) {
+  const base = process.env.ZOHO_API_BASE;
+  let page = 1, records = [];
+  while (true) {
+    const res = await fetch(`${base}/${module}?per_page=200&page=${page}`, {
+      headers: { Authorization: `Zoho-oauthtoken ${token}` }
+    });
+    const data = await res.json();
+    if (!data.data || data.data.length === 0) break;
+    records = records.concat(data.data);
+    if (!data.info?.more_records) break;
+    page++;
+  }
+  return records;
+}
+
+async function fetchCrmData() {
   try {
-    crmCache = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
-    console.log(`CRM: loaded ${crmCache.leads.length} leads, ${crmCache.deals.length} deals from data.json`);
+    const token = await getZohoAccessToken();
+    const [leads, deals] = await Promise.all([
+      zohoGetAll(token, 'Leads'),
+      zohoGetAll(token, 'Deals'),
+    ]);
+    crmCache = { leads, deals, fetchedAt: new Date().toISOString() };
+    console.log(`CRM: fetched ${leads.length} leads, ${deals.length} deals from Zoho`);
   } catch(e) {
-    console.error('CRM: failed to load data.json:', e.message);
+    console.error('CRM: Zoho fetch failed:', e.message);
   }
 }
 
-loadDataJson();
+fetchCrmData();
+setInterval(fetchCrmData, 15 * 60 * 1000); // refresh every 15 min
 
 // ── Routes ───────────────────────────────────────────────
 app.get('/api/data', (_req, res) => res.json(crmCache));
