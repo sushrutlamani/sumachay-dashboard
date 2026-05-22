@@ -556,14 +556,14 @@ function processDeals(deals) {
   };
 }
 
-// Build a last-N-days date series
-function buildDateSeries(byDate, days=30) {
+// Build a date series between two YYYY-MM-DD strings
+function buildDateSeries(byDate, fromDate, toDate) {
   const labels=[], values=[];
-  for (let i=days-1;i>=0;i--) {
-    const d = new Date(); d.setDate(d.getDate()-i);
+  const end = new Date(toDate + 'T12:00:00');
+  for (let d = new Date(fromDate + 'T12:00:00'); d <= end; d.setDate(d.getDate()+1)) {
     const key = d.toISOString().substring(0,10);
-    const label = (d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getDate().toString().padStart(2,'0');
-    labels.push(label); values.push(byDate[key]||0);
+    labels.push((d.getMonth()+1).toString().padStart(2,'0')+'/'+d.getDate().toString().padStart(2,'0'));
+    values.push(byDate[key]||0);
   }
   return {labels,values};
 }
@@ -650,11 +650,12 @@ function renderLeadCharts(lp) {
     scales:{ x:{grid:{color:'#252a42'},ticks:{font:{size:10}}}, y:{grid:{display:false},ticks:{font:{size:10}}} }
   });
 
-  const today30 = new Date().toISOString().substring(0,10);
-  const ago30   = new Date(Date.now() - 29*864e5).toISOString().substring(0,10);
-  document.getElementById('leadTimelineSub').textContent = fmtDateRange(ago30, today30);
+  const today = new Date().toISOString().substring(0,10);
+  const chartFrom = drFrom || lp.dateRange.min || new Date(Date.now()-29*864e5).toISOString().substring(0,10);
+  const chartTo   = drTo   || lp.dateRange.max || today;
+  document.getElementById('leadTimelineSub').textContent = fmtDateRange(chartFrom, chartTo);
 
-  const {labels,values} = buildDateSeries(lp.byDate,30);
+  const {labels,values} = buildDateSeries(lp.byDate, chartFrom, chartTo);
   mkChart('leadsTimelineChart','line',{
     labels,
     datasets:[{ label:'New Leads', data:values,
@@ -912,12 +913,12 @@ function renderShopifyKPIs(sp) {
 
 function renderShopifyCharts(sp) {
   const shRange   = fmtDateRange(sp.dateRange.min, sp.dateRange.max);
-  const todaySh   = new Date().toISOString().substring(0,10);
-  const ago30Sh   = new Date(Date.now() - 29*864e5).toISOString().substring(0,10);
-  const win30     = fmtDateRange(ago30Sh, todaySh);
+  const todaySh     = new Date().toISOString().substring(0,10);
+  const shChartFrom = drFrom || sp.dateRange.min || new Date(Date.now()-29*864e5).toISOString().substring(0,10);
+  const shChartTo   = drTo   || sp.dateRange.max || todaySh;
 
-  setChartSubtitle('shopifyRevenueChart', win30);
-  const { labels, values } = buildDateSeries(sp.byDate, 30);
+  setChartSubtitle('shopifyRevenueChart', fmtDateRange(shChartFrom, shChartTo));
+  const { labels, values } = buildDateSeries(sp.byDate, shChartFrom, shChartTo);
   mkChart('shopifyRevenueChart', 'line', {
     labels,
     datasets: [{ label: 'Revenue', data: values,
