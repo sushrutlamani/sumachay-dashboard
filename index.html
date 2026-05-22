@@ -400,7 +400,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <th>Item</th>
         <th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span id="invSort_stock"> ↑</span></th>
-        <th>Reorder Point</th>
+        <th>Units to Buy</th>
         <th>Velocity (2yr Shopify)</th>
         <th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span id="invSort_lowRisk"></span></th>
@@ -1159,20 +1159,20 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const stock       = item.stock_on_hand || 0;
     const ltMonths    = getLeadTime(item.item_id);
     const dailyVel    = matchVelocity(item, vel);
-    const reorderPt   = calcAutoRP(dailyVel, ltMonths);
+    const orderQty    = calcAutoRP(dailyVel, ltMonths);
     const incomingQty = incoming[item.item_id] || 0;
-    const dates       = calcReorderDates(stock, dailyVel, ltMonths, reorderPt);
-    return { item, stock, reorderPt, ltMonths, dailyVel, incomingQty, ...dates };
+    const dates       = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
+    return { item, stock, orderQty, ltMonths, dailyVel, incomingQty, ...dates };
   });
 
-  const outOfStock   = invRows.filter(r => r.stock <= 0).length;
-  const belowReorder = invRows.filter(r => r.stock > 0 && r.reorderPt > 0 && r.stock <= r.reorderPt).length;
-  const reorderSoon  = invRows.filter(r => r.exact && r.exact <= new Date(Date.now() + 14*86400000)).length;
+  const outOfStock  = invRows.filter(r => r.stock <= 0).length;
+  const reorderSoon = invRows.filter(r => r.exact && r.exact <= new Date(Date.now() + 14*86400000)).length;
+  const hasVelocity = invRows.filter(r => r.dailyVel > 0).length;
   document.getElementById('inventoryKPIs').innerHTML = `
-    <div class="kpi shopify"><div class="kpi-lbl">Active Items</div>        <div class="kpi-val">${active.length}</div><div class="kpi-sub">In Zoho Inventory</div></div>
-    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>         <div class="kpi-val">${outOfStock}</div>  <div class="kpi-sub">0 units on hand</div></div>
-    <div class="kpi amber"> <div class="kpi-lbl">Below Reorder Point</div>  <div class="kpi-val">${belowReorder}</div><div class="kpi-sub">Order now</div></div>
-    <div class="kpi purple"><div class="kpi-lbl">Reorder Due ≤14 Days</div> <div class="kpi-val">${reorderSoon}</div> <div class="kpi-sub">Exact reorder date</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Active Items</div>       <div class="kpi-val">${active.length}</div><div class="kpi-sub">In Zoho Inventory</div></div>
+    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>        <div class="kpi-val">${outOfStock}</div>  <div class="kpi-sub">0 units on hand</div></div>
+    <div class="kpi green"> <div class="kpi-lbl">Have Sales Data</div>     <div class="kpi-val">${hasVelocity}</div> <div class="kpi-sub">Shopify velocity matched</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Reorder Due ≤14 Days</div><div class="kpi-val">${reorderSoon}</div><div class="kpi-sub">Exact reorder date</div></div>
   `;
   renderInvTable();
 }
@@ -1195,16 +1195,16 @@ function renderInvTable() {
     const tag   = days <= 0 ? ' (overdue)' : days <= 30 ? ` (${days}d)` : '';
     return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
   };
-  const stockColor = (s, r) => s <= 0 ? '#ef4444' : r > 0 && s <= r ? '#f59e0b' : '#10b981';
+  const stockColor = s => s <= 0 ? '#ef4444' : '#10b981';
 
   const tbody = document.getElementById('shopifyInventoryBody');
   if (!sorted.length) { tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">No active items</td></tr>'; return; }
 
-  tbody.innerHTML = sorted.map(({ item, stock, reorderPt, ltMonths, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
+  tbody.innerHTML = sorted.map(({ item, stock, orderQty, ltMonths, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
-    <td style="font-weight:700;color:${stockColor(stock, reorderPt)}">${stock}</td>
-    <td style="color:var(--sub)">${reorderPt > 0 ? reorderPt : '<span style="color:var(--muted)">—</span>'}</td>
+    <td style="font-weight:700;color:var(--text)">${stock}</td>
+    <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
     <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
@@ -1224,9 +1224,9 @@ function updateLeadTime(itemId, months) {
   localStorage.setItem('lt_' + itemId, months);
   const row = invRows.find(r => r.item.item_id === itemId);
   if (!row) return;
-  row.ltMonths  = months;
-  row.reorderPt = calcAutoRP(row.dailyVel, months);
-  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, row.reorderPt));
+  row.ltMonths = months;
+  row.orderQty = calcAutoRP(row.dailyVel, months);
+  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, row.orderQty));
   renderInvTable();
 }
 
