@@ -1241,7 +1241,7 @@ function renderInvTable() {
   const fmtDate = d => {
     if (!d) return '<span style="color:var(--muted)">—</span>';
     const days  = Math.round((d - Date.now()) / 86400000);
-    const label = d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
+    const label = d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
     const color = days <= 0 ? '#ef4444' : days <= 7 ? '#ef4444' : days <= 14 ? '#f59e0b' : days <= 30 ? '#f97316' : '#10b981';
     const tag   = days <= 0 ? ' (overdue)' : days <= 30 ? ` (${days}d)` : '';
     return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
