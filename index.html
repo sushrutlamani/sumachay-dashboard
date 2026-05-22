@@ -396,7 +396,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
       All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
     </div>
     <div class="twrap"><table>
-      <thead><tr><th>Product</th><th>Vendor</th><th>Type</th><th>Status</th><th style="text-align:right">Inventory</th></tr></thead>
+      <thead><tr><th>Item</th><th>Stock on Hand</th><th>Reorder Point</th><th>Sales Velocity</th><th>Days Left</th><th>Incoming</th></tr></thead>
       <tbody id="shopifyInventoryBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading inventory…</td></tr></tbody>
     </table></div>
 
@@ -440,6 +440,7 @@ const CHARTS = {};
 
 // ── Raw data stores + active date filter ──
 let rawLeads = [], rawDeals = [], rawOrders = [], rawProducts = [];
+let rawInvItems = [], rawInvSalesOrders = [], rawInvPurchaseOrders = [];
 let drFrom = null, drTo = null; // YYYY-MM-DD or null
 
 // ════════════════════════════════════════════════════════
@@ -474,11 +475,12 @@ async function loadData() {
   }
 }
 
-function refreshData() { loadData(); loadShopify(); }
+function refreshData() { loadData(); loadShopify(); loadInventory(); }
 
 // Auto-load on page open
 loadData();
 loadShopify();
+loadInventory();
 
 // ── Date range filtering ──────────────────────────────────
 function filterItems(items, field) {
@@ -1050,6 +1052,98 @@ function renderShopifyOrders(orders) {
       <td>${fulfBadge(o.fulfillment_status)}</td>
     </tr>`;
   }).join('');
+}
+
+// ════════════════════════════════════════════════════════
+// ZOHO INVENTORY
+// ════════════════════════════════════════════════════════
+async function loadInventory() {
+  try {
+    const res = await fetch('/api/inventory');
+    if (!res.ok) throw new Error(res.statusText);
+    const { items, salesOrders, purchaseOrders } = await res.json();
+    rawInvItems          = items          || [];
+    rawInvSalesOrders    = salesOrders    || [];
+    rawInvPurchaseOrders = purchaseOrders || [];
+    renderZohoInventory(rawInvItems, rawInvSalesOrders, rawInvPurchaseOrders);
+  } catch(e) {
+    console.error('Inventory load failed:', e);
+  }
+}
+
+function renderZohoInventory(items, salesOrders, purchaseOrders) {
+  const active = items.filter(i => i.status === 'active');
+
+  // ── Sales velocity: units sold per item over last 90 days ──
+  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
+  const velocity = {}; // item_id → units/day
+  salesOrders.forEach(so => {
+    const soDate = new Date(so.date);
+    if (soDate < cutoff) return;
+    const days = Math.max(1, (Date.now() - soDate) / 86400000);
+    (so.line_items || []).forEach(li => {
+      if (!velocity[li.item_id]) velocity[li.item_id] = { units: 0, span: 90 };
+      velocity[li.item_id].units += (li.quantity_shipped || li.quantity || 0);
+    });
+  });
+  const dailyVelocity = {};
+  Object.entries(velocity).forEach(([id, v]) => { dailyVelocity[id] = v.units / 90; });
+
+  // ── Incoming stock from open purchase orders ──
+  const incoming = {}; // item_id → qty
+  purchaseOrders.forEach(po => {
+    if (po.status === 'closed' || po.status === 'cancelled') return;
+    (po.line_items || []).forEach(li => {
+      incoming[li.item_id] = (incoming[li.item_id] || 0) + ((li.quantity || 0) - (li.quantity_received || 0));
+    });
+  });
+
+  // ── Build forecast rows ──
+  const rows = active.map(item => {
+    const stock    = item.stock_on_hand   || 0;
+    const reorder  = item.reorder_level   || 0;
+    const vel      = dailyVelocity[item.item_id] || 0;
+    const daysLeft = vel > 0 ? Math.round(stock / vel) : null;
+    const incomingQty = incoming[item.item_id] || 0;
+    return { item, stock, reorder, vel, daysLeft, incomingQty };
+  }).sort((a, b) => {
+    // Sort: out of stock first, then low stock, then by days remaining asc
+    if (a.stock <= 0 && b.stock > 0) return -1;
+    if (b.stock <= 0 && a.stock > 0) return 1;
+    if (a.daysLeft !== null && b.daysLeft !== null) return a.daysLeft - b.daysLeft;
+    return a.stock - b.stock;
+  });
+
+  // ── KPIs ──
+  const outOfStock  = rows.filter(r => r.stock <= 0).length;
+  const belowReorder = rows.filter(r => r.stock > 0 && r.reorder > 0 && r.stock <= r.reorder).length;
+  const stockoutSoon = rows.filter(r => r.daysLeft !== null && r.daysLeft <= 14).length;
+  document.getElementById('inventoryKPIs').innerHTML = `
+    <div class="kpi shopify"><div class="kpi-lbl">Active Items</div>      <div class="kpi-val">${active.length}</div>   <div class="kpi-sub">In Zoho Inventory</div></div>
+    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>       <div class="kpi-val">${outOfStock}</div>   <div class="kpi-sub">0 units on hand</div></div>
+    <div class="kpi amber"> <div class="kpi-lbl">Below Reorder Point</div><div class="kpi-val">${belowReorder}</div> <div class="kpi-sub">Order now</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Stockout in 14 Days</div><div class="kpi-val">${stockoutSoon}</div> <div class="kpi-sub">Based on 90-day velocity</div></div>
+  `;
+
+  // ── Table ──
+  const tbody = document.getElementById('shopifyInventoryBody');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:18px;color:var(--muted)">No active items found</td></tr>';
+    return;
+  }
+
+  const daysColor = d => d === null ? 'var(--muted)' : d <= 7 ? '#ef4444' : d <= 14 ? '#f59e0b' : d <= 30 ? '#f97316' : '#10b981';
+  const daysLabel = d => d === null ? '—' : d === 0 ? 'Stockout' : `${d}d`;
+  const stockColor = (s, r) => s <= 0 ? '#ef4444' : r > 0 && s <= r ? '#f59e0b' : '#10b981';
+
+  tbody.innerHTML = rows.map(({ item, stock, reorder, vel, daysLeft, incomingQty }) => `<tr>
+    <td style="font-weight:500;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
+    <td style="font-weight:700;color:${stockColor(stock, reorder)}">${stock}</td>
+    <td style="color:var(--muted)">${reorder || '—'}</td>
+    <td style="color:var(--sub)">${vel > 0 ? vel.toFixed(2)+'/day' : '—'}</td>
+    <td style="font-weight:600;color:${daysColor(daysLeft)}">${daysLabel(daysLeft)}</td>
+    <td style="color:${incomingQty > 0 ? '#10b981' : 'var(--muted)'}">${incomingQty > 0 ? '+'+incomingQty : '—'}</td>
+  </tr>`).join('');
 }
 
 function renderShopifyInventory(inventory) {

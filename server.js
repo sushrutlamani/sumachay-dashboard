@@ -52,8 +52,59 @@ async function fetchCrmData() {
 fetchCrmData();
 setInterval(fetchCrmData, 15 * 60 * 1000); // refresh every 15 min
 
+// ── Zoho Inventory ───────────────────────────────────────
+let inventoryCache = { items: [], salesOrders: [], purchaseOrders: [], fetchedAt: null };
+
+async function getInventoryToken() {
+  const params = new URLSearchParams({
+    grant_type:    'refresh_token',
+    client_id:     process.env.ZOHO_INVENTORY_CLIENT_ID,
+    client_secret: process.env.ZOHO_INVENTORY_CLIENT_SECRET,
+    refresh_token: process.env.ZOHO_INVENTORY_REFRESH_TOKEN,
+  });
+  const res = await fetch(process.env.ZOHO_TOKEN_URL, { method: 'POST', body: params });
+  const data = await res.json();
+  if (!data.access_token) throw new Error(`Inventory token error: ${JSON.stringify(data)}`);
+  return data.access_token;
+}
+
+async function inventoryGetAll(token, endpoint, key) {
+  const base = process.env.ZOHO_INVENTORY_BASE;
+  let page = 1, records = [];
+  while (true) {
+    const res = await fetch(`${base}/${endpoint}?per_page=200&page=${page}`, {
+      headers: { Authorization: `Zoho-oauthtoken ${token}` }
+    });
+    const data = await res.json();
+    if (!data[key] || data[key].length === 0) break;
+    records = records.concat(data[key]);
+    if (!data.page_context?.has_more_page) break;
+    page++;
+  }
+  return records;
+}
+
+async function fetchInventoryData() {
+  try {
+    const token = await getInventoryToken();
+    const [items, salesOrders, purchaseOrders] = await Promise.all([
+      inventoryGetAll(token, 'items',          'items'),
+      inventoryGetAll(token, 'salesorders',    'salesorders'),
+      inventoryGetAll(token, 'purchaseorders', 'purchaseorders'),
+    ]);
+    inventoryCache = { items, salesOrders, purchaseOrders, fetchedAt: new Date().toISOString() };
+    console.log(`Inventory: ${items.length} items, ${salesOrders.length} sales orders, ${purchaseOrders.length} POs`);
+  } catch(e) {
+    console.error('Inventory fetch failed:', e.message);
+  }
+}
+
+fetchInventoryData();
+setInterval(fetchInventoryData, 15 * 60 * 1000);
+
 // ── Routes ───────────────────────────────────────────────
-app.get('/api/data', (_req, res) => res.json(crmCache));
+app.get('/api/data',      (_req, res) => res.json(crmCache));
+app.get('/api/inventory', (_req, res) => res.json(inventoryCache));
 
 async function shopifyGet(endpoint) {
   const store = process.env.SHOPIFY_STORE;
