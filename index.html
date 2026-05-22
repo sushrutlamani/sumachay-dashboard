@@ -924,7 +924,7 @@ function processShopifyOrders(orders, products) {
   const topByUnits   = Object.entries(productUnits).sort((a,b) => b[1]-a[1]).slice(0, 10);
   const recentOrders = orders.slice(0, 10);
 
-  const inventory = (products || []).filter(p => p.status !== 'draft').map(p => ({
+  const inventory = (products || []).filter(p => p.status === 'active').map(p => ({
     title:     p.title,
     vendor:    p.vendor || '—',
     type:      p.product_type || '—',
