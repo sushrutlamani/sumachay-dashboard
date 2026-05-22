@@ -645,7 +645,7 @@ function renderLeadKPIs(total, lp) {
 // ── Deal KPIs ──
 function renderDealKPIs(total, dp) {
   document.getElementById('dealKPIs').innerHTML = `
-    <div class="kpi blue"  ><div class="kpi-lbl">Total Deals</div>       <div class="kpi-val">${total}+</div>           <div class="kpi-sub">Page 1 · more may exist</div></div>
+    <div class="kpi blue"  ><div class="kpi-lbl">Total Deals</div>       <div class="kpi-val">${total}</div>            <div class="kpi-sub">In selected period</div></div>
     <div class="kpi purple"><div class="kpi-lbl">Active Pipeline</div>   <div class="kpi-val">${fmt(dp.activePipeline)}</div><div class="kpi-sub">Excl. closed deals</div></div>
     <div class="kpi green" ><div class="kpi-lbl">Closed Won</div>        <div class="kpi-val">${fmt(dp.wonValue)}</div>   <div class="kpi-sub">${dp.wonCount} deals · avg ${fmt(dp.avgWon)}</div></div>
     <div class="kpi red"   ><div class="kpi-lbl">Closed Lost</div>       <div class="kpi-val">${fmt(dp.lostValue)}</div>  <div class="kpi-sub">${dp.lostCount} deals lost</div></div>
@@ -924,7 +924,7 @@ function processShopifyOrders(orders, products) {
   const topByUnits   = Object.entries(productUnits).sort((a,b) => b[1]-a[1]).slice(0, 10);
   const recentOrders = orders.slice(0, 10);
 
-  const inventory = (products || []).map(p => ({
+  const inventory = (products || []).filter(p => p.status !== 'draft').map(p => ({
     title:     p.title,
     vendor:    p.vendor || '—',
     type:      p.product_type || '—',
