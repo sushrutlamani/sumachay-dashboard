@@ -1360,8 +1360,16 @@ function renderInvTable() {
       : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
-    <td>${fmtDate(lowRisk)}</td>
-    <td>${fmtDate(exact)}</td>
+    <td>${stock <= 0 ? '<span style="color:var(--muted);font-size:11px">—</span>' : fmtDate(lowRisk)}</td>
+    <td>${(() => {
+      if (stock <= 0) {
+        const arrival = new Date();
+        arrival.setDate(arrival.getDate() + Math.round(ltMonths * 30));
+        const label = arrival.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
+        return `<span style="color:#f59e0b;font-weight:600;font-size:11px">Order now → arrives ${label}</span>`;
+      }
+      return fmtDate(exact);
+    })()}</td>
     <td style="text-align:center"><input type="checkbox" ${chk} onchange="toggleOnOrder('${item.item_id}',this.checked)"
       style="width:16px;height:16px;cursor:pointer;accent-color:var(--primary)"></td>
   </tr>`;
