@@ -1258,7 +1258,11 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const velInflated    = dailyVel > 0 && reorderTrigger0 > windowQty * 2;
     const effVel         = velInflated ? windowQty / ltDays : dailyVel;
     const effTrigger     = Math.ceil(effVel * ltDays);
-    const orderQty       = effVel > 0 ? (velInflated ? windowQty : Math.max(windowQty, reorderTrigger0)) : 0;
+    const orderQty       = effVel > 0
+      ? (velInflated
+          ? (stock > 0 ? effTrigger : windowQty)
+          : Math.max(windowQty, reorderTrigger0))
+      : 0;
     const onOrder        = localStorage.getItem('onorder_' + item.item_id) === '1';
     const income         = matchVelocity(item, incomeMap);
     const dates          = calcReorderDates(stock, effVel, ltMonths, effTrigger);
@@ -1285,7 +1289,11 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
       const mEffTrig  = Math.ceil(mEffVel * ltDaysM);
       base.effVel     = mEffVel;
       base.velInflated = mInflated;
-      base.orderQty   = mEffVel > 0 ? (mInflated ? windowSum : Math.max(windowSum, trigger)) : 0;
+      base.orderQty   = mEffVel > 0
+        ? (mInflated
+            ? (base.stock > 0 ? mEffTrig : windowSum)
+            : Math.max(windowSum, trigger))
+        : 0;
       Object.assign(base, calcReorderDates(base.stock, mEffVel, base.ltMonths, mEffTrig));
     }
   });
@@ -1416,7 +1424,11 @@ function updateLeadTime(itemId, months) {
   const uEffTrig  = Math.ceil(uEffVel * ltDaysU);
   row.effVel      = uEffVel;
   row.velInflated = uInflated;
-  row.orderQty    = uEffVel > 0 ? (uInflated ? windowQty : Math.max(windowQty, trigger)) : 0;
+  row.orderQty    = uEffVel > 0
+    ? (uInflated
+        ? (row.stock > 0 ? uEffTrig : windowQty)
+        : Math.max(windowQty, trigger))
+    : 0;
   Object.assign(row, calcReorderDates(row.stock, uEffVel, months, uEffTrig));
   renderInvTable();
 }
