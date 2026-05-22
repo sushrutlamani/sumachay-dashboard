@@ -423,6 +423,17 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
       <tbody id="invRestBody"><tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
     </table></div>
 
+    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:22px 0 6px">No Shopify Sales Yet</p>
+    <div class="twrap"><table>
+      <thead><tr>
+        <th>Item</th><th>SKU</th>
+        <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"></span></th>
+        <th>Lead Time (months)</th>
+        <th>Incoming</th>
+      </tr></thead>
+      <tbody id="invNeverBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
+    </table></div>
+
   </div><!-- /tab-inventory -->
 
 </main>
@@ -1279,12 +1290,30 @@ function renderInvTable() {
     return invSortDir * (aD - bD);
   };
 
-  const top20 = [...invRows].filter(r =>  top20Ids.has(r.item.item_id)).sort(sortFn);
-  const rest  = [...invRows].filter(r => !top20Ids.has(r.item.item_id)).sort(sortFn);
+  const top20     = [...invRows].filter(r =>  top20Ids.has(r.item.item_id)).sort(sortFn);
+  const restSold  = [...invRows].filter(r => !top20Ids.has(r.item.item_id) && r.dailyVel > 0).sort(sortFn);
+  const neverSold = [...invRows].filter(r => !top20Ids.has(r.item.item_id) && r.dailyVel === 0)
+                                .sort((a, b) => b.stock - a.stock);
 
-  const EMPTY = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
-  document.getElementById('invTop20Body').innerHTML = top20.length ? top20.map(rowHtml).join('') : EMPTY;
-  document.getElementById('invRestBody').innerHTML  = rest.length  ? rest.map(rowHtml).join('')  : EMPTY;
+  const EMPTY9 = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
+  const EMPTY5 = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
+  document.getElementById('invTop20Body').innerHTML = top20.length    ? top20.map(rowHtml).join('')    : EMPTY9;
+  document.getElementById('invRestBody').innerHTML  = restSold.length ? restSold.map(rowHtml).join('') : EMPTY9;
+  document.getElementById('invNeverBody').innerHTML = neverSold.length
+    ? neverSold.map(({ item, stock, ltMonths, onOrder }) => {
+        const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
+        const chk = onOrder ? 'checked' : '';
+        return `<tr>
+          <td style="font-weight:500;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
+          <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
+          <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
+          <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
+            style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
+          <td style="text-align:center"><input type="checkbox" ${chk} onchange="toggleOnOrder('${item.item_id}',this.checked)"
+            style="width:16px;height:16px;cursor:pointer;accent-color:var(--primary)"></td>
+        </tr>`;
+      }).join('')
+    : EMPTY5;
 
   document.querySelectorAll('.invSort').forEach(el => {
     const k = el.dataset.key;
