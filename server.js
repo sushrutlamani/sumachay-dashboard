@@ -102,9 +102,44 @@ async function fetchInventoryData() {
 fetchInventoryData();
 setInterval(fetchInventoryData, 15 * 60 * 1000);
 
+// ── Shopify order history for velocity (2 years) ─────────
+let velocityOrders = [];
+
+function parseNextUrl(linkHeader) {
+  if (!linkHeader) return null;
+  const match = linkHeader.match(/<([^>]+)>;\s*rel="next"/);
+  return match ? match[1] : null;
+}
+
+async function fetchShopifyOrderHistory() {
+  const store = process.env.SHOPIFY_STORE;
+  const token = process.env.SHOPIFY_ACCESS_TOKEN;
+  if (!store || !token) return;
+  try {
+    const since = new Date();
+    since.setFullYear(since.getFullYear() - 2);
+    let url = `https://${store}/admin/api/2024-01/orders.json?status=any&limit=250&created_at_min=${since.toISOString()}&fields=created_at,line_items`;
+    let orders = [], pages = 0;
+    while (url) {
+      const res = await fetch(url, { headers: { 'X-Shopify-Access-Token': token } });
+      const data = await res.json();
+      if (data.orders?.length) orders = orders.concat(data.orders);
+      url = parseNextUrl(res.headers.get('link'));
+      pages++;
+    }
+    velocityOrders = orders;
+    console.log(`Shopify history: ${orders.length} orders (${pages} pages, 2yr)`);
+  } catch(e) {
+    console.error('Shopify history fetch failed:', e.message);
+  }
+}
+
+fetchShopifyOrderHistory();
+setInterval(fetchShopifyOrderHistory, 6 * 60 * 60 * 1000); // refresh every 6hr
+
 // ── Routes ───────────────────────────────────────────────
 app.get('/api/data',      (_req, res) => res.json(crmCache));
-app.get('/api/inventory', (_req, res) => res.json(inventoryCache));
+app.get('/api/inventory', (_req, res) => res.json({ ...inventoryCache, velocityOrders }));
 
 async function shopifyGet(endpoint) {
   const store = process.env.SHOPIFY_STORE;

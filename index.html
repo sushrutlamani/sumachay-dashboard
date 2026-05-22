@@ -400,7 +400,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <th>Item</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span id="invSort_stock"> ↑</span></th>
         <th>Reorder Point</th>
-        <th>Velocity (90d Shopify)</th>
+        <th>Velocity (2yr Shopify)</th>
         <th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span id="invSort_lowRisk"></span></th>
         <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span id="invSort_exact"></span></th>
@@ -449,7 +449,7 @@ const CHARTS = {};
 
 // ── Raw data stores + active date filter ──
 let rawLeads = [], rawDeals = [], rawOrders = [], rawProducts = [];
-let rawInvItems = [], rawInvSalesOrders = [], rawInvPurchaseOrders = [];
+let rawInvItems = [], rawInvSalesOrders = [], rawInvPurchaseOrders = [], rawVelocityOrders = [];
 let drFrom = null, drTo = null; // YYYY-MM-DD or null
 let invRows = [], invSortKey = 'lowRisk', invSortDir = 1;
 
@@ -1071,10 +1071,11 @@ async function loadInventory() {
   try {
     const res = await fetch('/api/inventory');
     if (!res.ok) throw new Error(res.statusText);
-    const { items, salesOrders, purchaseOrders } = await res.json();
+    const { items, salesOrders, purchaseOrders, velocityOrders } = await res.json();
     rawInvItems          = items          || [];
     rawInvSalesOrders    = salesOrders    || [];
     rawInvPurchaseOrders = purchaseOrders || [];
+    rawVelocityOrders    = velocityOrders || [];
     renderZohoInventory(rawInvItems, rawInvSalesOrders, rawInvPurchaseOrders);
   } catch(e) {
     console.error('Inventory load failed:', e);
@@ -1131,7 +1132,7 @@ function calcReorderDates(stock, vel, ltMonths, reorderPt) {
 
 function renderZohoInventory(items, salesOrders, purchaseOrders) {
   const active = items.filter(i => (i.status || '').toLowerCase() === 'active');
-  const vel    = calcShopifyVelocity(rawOrders, 90);
+  const vel    = calcShopifyVelocity(rawVelocityOrders.length ? rawVelocityOrders : rawOrders, 730);
 
   const incoming = {};
   purchaseOrders.forEach(po => {
