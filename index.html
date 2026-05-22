@@ -396,7 +396,16 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
       All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
     </div>
     <div class="twrap"><table>
-      <thead><tr><th>Item</th><th>Stock on Hand</th><th>Reorder Point</th><th>Sales Velocity</th><th>Days Left</th><th>Incoming</th></tr></thead>
+      <thead><tr>
+        <th>Item</th>
+        <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span id="invSort_stock"> ↑</span></th>
+        <th>Reorder Point</th>
+        <th>Velocity (90d)</th>
+        <th>Lead Time (days)</th>
+        <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span id="invSort_lowRisk"></span></th>
+        <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span id="invSort_exact"></span></th>
+        <th>Incoming</th>
+      </tr></thead>
       <tbody id="shopifyInventoryBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading inventory…</td></tr></tbody>
     </table></div>
 
@@ -442,6 +451,7 @@ const CHARTS = {};
 let rawLeads = [], rawDeals = [], rawOrders = [], rawProducts = [];
 let rawInvItems = [], rawInvSalesOrders = [], rawInvPurchaseOrders = [];
 let drFrom = null, drTo = null; // YYYY-MM-DD or null
+let invRows = [], invSortKey = 'lowRisk', invSortDir = 1;
 
 // ════════════════════════════════════════════════════════
 // DATA LOADING — calls our own Railway backend proxy
@@ -504,6 +514,7 @@ function applyShopifyFilter() {
   renderShopifyKPIs(sp);
   renderShopifyCharts(sp);
   renderShopifyOrders(sp.recentOrders);
+  if (rawInvItems.length) renderZohoInventory(rawInvItems, rawInvSalesOrders, rawInvPurchaseOrders);
 }
 
 function setDateRange(preset) {
@@ -1070,26 +1081,55 @@ async function loadInventory() {
   }
 }
 
-function renderZohoInventory(items, salesOrders, purchaseOrders) {
-  const active = items.filter(i => i.status === 'active');
-
-  // ── Sales velocity: units sold per item over last 90 days ──
-  const cutoff = new Date(); cutoff.setDate(cutoff.getDate() - 90);
-  const velocity = {}; // item_id → units/day
-  salesOrders.forEach(so => {
-    const soDate = new Date(so.date);
-    if (soDate < cutoff) return;
-    const days = Math.max(1, (Date.now() - soDate) / 86400000);
-    (so.line_items || []).forEach(li => {
-      if (!velocity[li.item_id]) velocity[li.item_id] = { units: 0, span: 90 };
-      velocity[li.item_id].units += (li.quantity_shipped || li.quantity || 0);
+function calcShopifyVelocity(orders, days) {
+  const cutoff = new Date(Date.now() - days * 86400000);
+  const bySku = {}, byTitle = {};
+  orders.forEach(o => {
+    if (new Date(o.created_at) < cutoff) return;
+    (o.line_items || []).forEach(li => {
+      const qty = li.quantity || 0;
+      if (li.sku) bySku[li.sku] = (bySku[li.sku] || 0) + qty;
+      const t = (li.title || '').toLowerCase().trim();
+      if (t) byTitle[t] = (byTitle[t] || 0) + qty;
     });
   });
-  const dailyVelocity = {};
-  Object.entries(velocity).forEach(([id, v]) => { dailyVelocity[id] = v.units / 90; });
+  Object.keys(bySku).forEach(k => bySku[k] /= days);
+  Object.keys(byTitle).forEach(k => byTitle[k] /= days);
+  return { bySku, byTitle };
+}
 
-  // ── Incoming stock from open purchase orders ──
-  const incoming = {}; // item_id → qty
+function matchVelocity(item, vel) {
+  if (item.sku && vel.bySku[item.sku]) return vel.bySku[item.sku];
+  const name = (item.name || '').toLowerCase().trim();
+  if (vel.byTitle[name]) return vel.byTitle[name];
+  // partial match fallback
+  for (const [title, v] of Object.entries(vel.byTitle)) {
+    if (name.includes(title) || title.includes(name)) return v;
+  }
+  return 0;
+}
+
+function calcReorderDates(stock, vel, leadTime, reorderPoint) {
+  if (vel <= 0) return { exact: null, lowRisk: null };
+  const rp       = reorderPoint > 0 ? reorderPoint : vel * leadTime;
+  const rpLowRisk = rp + vel * leadTime * 0.5;
+  const toDate = d => { const dt = new Date(); dt.setDate(dt.getDate() + Math.round(d)); return dt; };
+  return {
+    exact:   toDate((stock - rp)        / vel),
+    lowRisk: toDate((stock - rpLowRisk) / vel),
+  };
+}
+
+function getLeadTime(itemId) {
+  return parseInt(localStorage.getItem('lt_' + itemId)) || 14;
+}
+
+function renderZohoInventory(items, salesOrders, purchaseOrders) {
+  const active = items.filter(i => i.status === 'active');
+  const vel    = calcShopifyVelocity(rawOrders, 90);
+
+  // Incoming stock from open POs
+  const incoming = {};
   purchaseOrders.forEach(po => {
     if (po.status === 'closed' || po.status === 'cancelled') return;
     (po.line_items || []).forEach(li => {
@@ -1097,52 +1137,89 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     });
   });
 
-  // ── Build forecast rows ──
-  const rows = active.map(item => {
-    const stock    = item.stock_on_hand   || 0;
-    const reorder  = item.reorder_level   || 0;
-    const vel      = dailyVelocity[item.item_id] || 0;
-    const daysLeft = vel > 0 ? Math.round(stock / vel) : null;
+  invRows = active.map(item => {
+    const stock      = item.stock_on_hand || 0;
+    const reorderPt  = item.reorder_level || 0;
+    const leadTime   = getLeadTime(item.item_id);
+    const dailyVel   = matchVelocity(item, vel);
     const incomingQty = incoming[item.item_id] || 0;
-    return { item, stock, reorder, vel, daysLeft, incomingQty };
-  }).sort((a, b) => {
-    // Sort: out of stock first, then low stock, then by days remaining asc
-    if (a.stock <= 0 && b.stock > 0) return -1;
-    if (b.stock <= 0 && a.stock > 0) return 1;
-    if (a.daysLeft !== null && b.daysLeft !== null) return a.daysLeft - b.daysLeft;
-    return a.stock - b.stock;
+    const dates      = calcReorderDates(stock, dailyVel, leadTime, reorderPt);
+    return { item, stock, reorderPt, leadTime, dailyVel, incomingQty, ...dates };
   });
 
-  // ── KPIs ──
-  const outOfStock  = rows.filter(r => r.stock <= 0).length;
-  const belowReorder = rows.filter(r => r.stock > 0 && r.reorder > 0 && r.stock <= r.reorder).length;
-  const stockoutSoon = rows.filter(r => r.daysLeft !== null && r.daysLeft <= 14).length;
+  // KPIs
+  const outOfStock   = invRows.filter(r => r.stock <= 0).length;
+  const belowReorder = invRows.filter(r => r.stock > 0 && r.reorderPt > 0 && r.stock <= r.reorderPt).length;
+  const reorderSoon  = invRows.filter(r => r.exact && r.exact <= new Date(Date.now() + 14*86400000)).length;
   document.getElementById('inventoryKPIs').innerHTML = `
-    <div class="kpi shopify"><div class="kpi-lbl">Active Items</div>      <div class="kpi-val">${active.length}</div>   <div class="kpi-sub">In Zoho Inventory</div></div>
-    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>       <div class="kpi-val">${outOfStock}</div>   <div class="kpi-sub">0 units on hand</div></div>
-    <div class="kpi amber"> <div class="kpi-lbl">Below Reorder Point</div><div class="kpi-val">${belowReorder}</div> <div class="kpi-sub">Order now</div></div>
-    <div class="kpi purple"><div class="kpi-lbl">Stockout in 14 Days</div><div class="kpi-val">${stockoutSoon}</div> <div class="kpi-sub">Based on 90-day velocity</div></div>
+    <div class="kpi shopify"><div class="kpi-lbl">Active Items</div>        <div class="kpi-val">${active.length}</div><div class="kpi-sub">In Zoho Inventory</div></div>
+    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>         <div class="kpi-val">${outOfStock}</div>  <div class="kpi-sub">0 units on hand</div></div>
+    <div class="kpi amber"> <div class="kpi-lbl">Below Reorder Point</div>  <div class="kpi-val">${belowReorder}</div><div class="kpi-sub">Order now</div></div>
+    <div class="kpi purple"><div class="kpi-lbl">Reorder Due ≤14 Days</div> <div class="kpi-val">${reorderSoon}</div> <div class="kpi-sub">Exact reorder date</div></div>
   `;
 
-  // ── Table ──
+  renderInvTable();
+}
+
+function renderInvTable() {
+  const sorted = [...invRows].sort((a, b) => {
+    if (invSortKey === 'stock') return invSortDir * (a.stock - b.stock);
+    const aDate = a[invSortKey], bDate = b[invSortKey];
+    if (!aDate && !bDate) return 0;
+    if (!aDate) return 1;
+    if (!bDate) return -1;
+    return invSortDir * (aDate - bDate);
+  });
+
+  const fmtDate = d => {
+    if (!d) return '<span style="color:var(--muted)">—</span>';
+    const days = Math.round((d - Date.now()) / 86400000);
+    const label = d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
+    const color = days <= 0 ? '#ef4444' : days <= 7 ? '#ef4444' : days <= 14 ? '#f59e0b' : days <= 30 ? '#f97316' : '#10b981';
+    const tag   = days <= 0 ? ' (overdue)' : days <= 30 ? ` (${days}d)` : '';
+    return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
+  };
+  const stockColor = (s, r) => s <= 0 ? '#ef4444' : r > 0 && s <= r ? '#f59e0b' : '#10b981';
+
   const tbody = document.getElementById('shopifyInventoryBody');
-  if (!rows.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:18px;color:var(--muted)">No active items found</td></tr>';
+  if (!sorted.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:18px;color:var(--muted)">No active items</td></tr>';
     return;
   }
 
-  const daysColor = d => d === null ? 'var(--muted)' : d <= 7 ? '#ef4444' : d <= 14 ? '#f59e0b' : d <= 30 ? '#f97316' : '#10b981';
-  const daysLabel = d => d === null ? '—' : d === 0 ? 'Stockout' : `${d}d`;
-  const stockColor = (s, r) => s <= 0 ? '#ef4444' : r > 0 && s <= r ? '#f59e0b' : '#10b981';
-
-  tbody.innerHTML = rows.map(({ item, stock, reorder, vel, daysLeft, incomingQty }) => `<tr>
-    <td style="font-weight:500;max-width:280px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
-    <td style="font-weight:700;color:${stockColor(stock, reorder)}">${stock}</td>
-    <td style="color:var(--muted)">${reorder || '—'}</td>
-    <td style="color:var(--sub)">${vel > 0 ? vel.toFixed(2)+'/day' : '—'}</td>
-    <td style="font-weight:600;color:${daysColor(daysLeft)}">${daysLabel(daysLeft)}</td>
-    <td style="color:${incomingQty > 0 ? '#10b981' : 'var(--muted)'}">${incomingQty > 0 ? '+'+incomingQty : '—'}</td>
+  tbody.innerHTML = sorted.map(({ item, stock, reorderPt, leadTime, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
+    <td style="font-weight:500;max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
+    <td style="font-weight:700;color:${stockColor(stock, reorderPt)}">${stock}</td>
+    <td style="color:var(--muted)">${reorderPt || '—'}</td>
+    <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(2)+'/day' : '—'}</td>
+    <td><input type="number" min="1" value="${leadTime}"
+      style="width:55px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:3px 6px;font-size:12px;text-align:center"
+      onchange="updateLeadTime('${item.item_id}',this.value)"></td>
+    <td>${fmtDate(lowRisk)}</td>
+    <td>${fmtDate(exact)}</td>
+    <td style="color:${incomingQty>0?'#10b981':'var(--muted)'}">${incomingQty>0?'+'+incomingQty:'—'}</td>
   </tr>`).join('');
+
+  // Sort indicators on headers
+  ['stock','lowRisk','exact'].forEach(k => {
+    const el = document.getElementById('invSort_'+k);
+    if (el) el.textContent = invSortKey === k ? (invSortDir === 1 ? ' ↑' : ' ↓') : '';
+  });
+}
+
+function updateLeadTime(itemId, days) {
+  days = Math.max(1, parseInt(days) || 1);
+  localStorage.setItem('lt_' + itemId, days);
+  const row = invRows.find(r => r.item.item_id === itemId);
+  if (!row) return;
+  row.leadTime = days;
+  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, days, row.reorderPt));
+  renderInvTable();
+}
+
+function sortInvBy(key) {
+  if (invSortKey === key) invSortDir *= -1; else { invSortKey = key; invSortDir = 1; }
+  renderInvTable();
 }
 
 function renderShopifyInventory(inventory) {
