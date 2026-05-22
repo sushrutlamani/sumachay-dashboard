@@ -400,12 +400,13 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <th>Item</th><th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"> ↑</span></th>
         <th>Units to Buy</th>
+        <th>Purchase Cost</th>
         <th>Velocity (since 1st sale)</th><th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span class="invSort" data-key="lowRisk"></span></th>
         <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span class="invSort" data-key="exact"></span></th>
         <th>Incoming</th>
       </tr></thead>
-      <tbody id="invRestBody"><tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
+      <tbody id="invRestBody"><tr><td colspan="10" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
     </table></div>
 
     <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:22px 0 6px">No Shopify Sales Yet</p>
@@ -1246,6 +1247,12 @@ function renderInvTable() {
     return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
   };
 
+  const fmtDollars = (rate, qty) => {
+    if (!rate || !qty) return '<span style="color:var(--muted)">—</span>';
+    const val = rate * qty;
+    return `<span style="color:var(--green);font-weight:600">$${val.toLocaleString('en-CA', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>`;
+  };
+
   const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, onOrder, exact, lowRisk }) => {
     const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
     const chk = onOrder ? 'checked' : '';
@@ -1254,6 +1261,7 @@ function renderInvTable() {
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
     <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
     <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
+    <td>${fmtDollars(item.purchase_rate, orderQty)}</td>
     <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
@@ -1274,7 +1282,7 @@ function renderInvTable() {
   const withVel   = [...invRows].filter(r => r.dailyVel > 0).sort(sortFn);
   const neverSold = [...invRows].filter(r => r.dailyVel === 0).sort((a, b) => b.stock - a.stock);
 
-  const EMPTY9 = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
+  const EMPTY9 = '<tr><td colspan="10" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
   const EMPTY5 = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
   document.getElementById('invRestBody').innerHTML  = withVel.length ? withVel.map(rowHtml).join('') : EMPTY9;
   document.getElementById('invNeverBody').innerHTML = neverSold.length
