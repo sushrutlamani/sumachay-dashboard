@@ -186,6 +186,21 @@ tbody td{padding:10px 15px;font-size:12.5px}
 
 footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:36px}
 
+/* ── Tabs ── */
+.tabs-nav{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:0 28px;display:flex;gap:0;position:sticky;top:57px;z-index:99;
+}
+.tab-btn{
+  padding:11px 20px;font-size:12.5px;font-weight:600;color:var(--muted);
+  background:transparent;border:none;border-bottom:2px solid transparent;
+  cursor:pointer;transition:all .15s;white-space:nowrap;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{color:var(--pl);border-bottom-color:var(--primary)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
 @media(max-width:900px){
   main{padding:14px}header{padding:11px 14px}
   .cgrid{grid-template-columns:1fr}.ccard.wide{grid-column:span 1}
@@ -222,8 +237,14 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
   </div>
 </header>
 
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="switchTab('dashboard',this)">CRM &amp; Sales</button>
+  <button class="tab-btn" onclick="switchTab('inventory',this)">Inventory</button>
+</nav>
+
 <main>
   <div id="errorBanner"></div>
+  <div id="tab-dashboard" class="tab-panel active">
 
   <!-- ══════════════ LEADS ══════════════ -->
   <div class="section-hdr">
@@ -351,17 +372,35 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
       <tbody id="shopifyOrdersBody"><tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">Loading orders…</td></tr></tbody>
     </table></div>
 
-    <!-- Inventory -->
+    <div id="shopifyError" style="display:none;color:var(--amber);font-size:12px;padding:12px;text-align:center;background:rgba(245,158,11,.08);border-radius:8px;margin-top:12px"></div>
+  </div>
+
+  </div><!-- /tab-dashboard -->
+
+  <!-- ══════════════ INVENTORY TAB ══════════════ -->
+  <div id="tab-inventory" class="tab-panel">
+
+    <div class="section-hdr" style="margin-top:0">
+      <div class="dot s"></div>
+      <h2>Product Inventory — Shopify</h2>
+    </div>
+
+    <div class="kpi-grid" id="inventoryKPIs">
+      <div class="kpi shopify"><div class="kpi-lbl">Total Products</div><div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">In Shopify catalog</div></div>
+      <div class="kpi green"> <div class="kpi-lbl">Active</div>         <div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">Published &amp; live</div></div>
+      <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>   <div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">0 units remaining</div></div>
+      <div class="kpi amber"> <div class="kpi-lbl">Low Stock</div>      <div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">5 or fewer units</div></div>
+    </div>
+
     <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
-      Product Inventory <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">All active products</em>
+      All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
     </div>
     <div class="twrap"><table>
       <thead><tr><th>Product</th><th>Vendor</th><th>Type</th><th>Status</th><th style="text-align:right">Inventory</th></tr></thead>
       <tbody id="shopifyInventoryBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading inventory…</td></tr></tbody>
     </table></div>
 
-    <div id="shopifyError" style="display:none;color:var(--amber);font-size:12px;padding:12px;text-align:center;background:rgba(245,158,11,.08);border-radius:8px;margin-top:12px"></div>
-  </div>
+  </div><!-- /tab-inventory -->
 
 </main>
 <footer>Business Intelligence Dashboard &nbsp;·&nbsp; Zoho CRM + Shopify &nbsp;·&nbsp; Hosted on Railway</footer>
@@ -1014,6 +1053,19 @@ function renderShopifyOrders(orders) {
 }
 
 function renderShopifyInventory(inventory) {
+  // KPIs
+  const total    = inventory.length;
+  const active   = inventory.filter(p => p.status === 'active').length;
+  const outOf    = inventory.filter(p => p.inventory <= 0).length;
+  const lowStock = inventory.filter(p => p.inventory > 0 && p.inventory <= 5).length;
+  document.getElementById('inventoryKPIs').innerHTML = `
+    <div class="kpi shopify"><div class="kpi-lbl">Total Products</div><div class="kpi-val">${total}</div><div class="kpi-sub">In Shopify catalog</div></div>
+    <div class="kpi green"> <div class="kpi-lbl">Active</div>        <div class="kpi-val">${active}</div><div class="kpi-sub">Published &amp; live</div></div>
+    <div class="kpi red">   <div class="kpi-lbl">Out of Stock</div>  <div class="kpi-val">${outOf}</div><div class="kpi-sub">0 units remaining</div></div>
+    <div class="kpi amber"> <div class="kpi-lbl">Low Stock</div>     <div class="kpi-val">${lowStock}</div><div class="kpi-sub">5 or fewer units</div></div>
+  `;
+
+  // Table
   const tbody = document.getElementById('shopifyInventoryBody');
   if (!inventory.length) {
     tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">No products found</td></tr>';
@@ -1033,6 +1085,13 @@ function renderShopifyInventory(inventory) {
       <td style="text-align:right;font-weight:700;color:${invColor}">${p.inventory}</td>
     </tr>`;
   }).join('');
+}
+
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
 }
 </script>
 </body>
