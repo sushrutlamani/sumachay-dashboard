@@ -1252,17 +1252,15 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const ltMonths   = getLeadTime(item.item_id);
     const ltDays     = Math.round(ltMonths * 30);
     const dailyVel   = matchVelocity(item, vel);
-    const unitsMap   = calcShopifyUnitsInWindow(src, ltDays);
-    const windowQty      = Math.ceil(matchVelocity(item, unitsMap)) || 0;
-    const reorderTrigger0 = Math.ceil(dailyVel * ltDays);
-    const velInflated    = dailyVel > 0 && windowQty > 0 && reorderTrigger0 > windowQty * 2;
-    const effVel         = velInflated ? windowQty / ltDays : dailyVel;
+    // Always use a fixed 180-day window for velocity estimation so orderQty
+    // scales cleanly with lead time (shorter LT → smaller order, longer → larger).
+    const refWindow      = 180;
+    const refUnitsMap    = calcShopifyUnitsInWindow(src, refWindow);
+    const refWindowQty   = Math.ceil(matchVelocity(item, refUnitsMap)) || 0;
+    const velInflated    = dailyVel > 0 && refWindowQty > 0 && Math.ceil(dailyVel * refWindow) > refWindowQty * 2;
+    const effVel         = velInflated ? refWindowQty / refWindow : dailyVel;
     const effTrigger     = Math.ceil(effVel * ltDays);
-    const orderQty       = effVel > 0
-      ? (velInflated
-          ? (stock > 0 ? effTrigger : windowQty)
-          : Math.max(windowQty, reorderTrigger0))
-      : 0;
+    const orderQty       = effVel > 0 ? effTrigger : 0;
     const onOrder        = localStorage.getItem('onorder_' + item.item_id) === '1';
     const income         = matchVelocity(item, incomeMap);
     const dates          = calcReorderDates(stock, effVel, ltMonths, effTrigger);
@@ -1280,20 +1278,15 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
       base.dailyVel += bat.dailyVel;
       base.income   += bat.income;
       const ltDaysM   = Math.round(base.ltMonths * 30);
-      const trigger   = Math.ceil(base.dailyVel * ltDaysM);
       const mergedSrc = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-      const mergedMap = calcShopifyUnitsInWindow(mergedSrc, ltDaysM);
-      const windowSum = Math.ceil(matchVelocity(base.item, mergedMap) + matchVelocity(bat.item, mergedMap)) || 0;
-      const mInflated = base.dailyVel > 0 && windowSum > 0 && trigger > windowSum * 2;
-      const mEffVel   = mInflated ? windowSum / ltDaysM : base.dailyVel;
+      const mergedRef = calcShopifyUnitsInWindow(mergedSrc, 180);
+      const refSum    = Math.ceil(matchVelocity(base.item, mergedRef) + matchVelocity(bat.item, mergedRef)) || 0;
+      const mInflated = base.dailyVel > 0 && refSum > 0 && Math.ceil(base.dailyVel * 180) > refSum * 2;
+      const mEffVel   = mInflated ? refSum / 180 : base.dailyVel;
       const mEffTrig  = Math.ceil(mEffVel * ltDaysM);
       base.effVel     = mEffVel;
       base.velInflated = mInflated;
-      base.orderQty   = mEffVel > 0
-        ? (mInflated
-            ? (base.stock > 0 ? mEffTrig : windowSum)
-            : Math.max(windowSum, trigger))
-        : 0;
+      base.orderQty   = mEffVel > 0 ? mEffTrig : 0;
       Object.assign(base, calcReorderDates(base.stock, mEffVel, base.ltMonths, mEffTrig));
     }
   });
@@ -1424,20 +1417,15 @@ function updateLeadTime(itemId, months) {
   if (!row) return;
   row.ltMonths = months;
   const src      = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-  const ltDaysU   = Math.round(months * 30);
-  const unitsMap  = calcShopifyUnitsInWindow(src, ltDaysU);
-  const windowQty = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
-  const trigger   = Math.ceil(row.dailyVel * ltDaysU);
-  const uInflated = row.dailyVel > 0 && windowQty > 0 && trigger > windowQty * 2;
-  const uEffVel   = uInflated ? windowQty / ltDaysU : row.dailyVel;
-  const uEffTrig  = Math.ceil(uEffVel * ltDaysU);
-  row.effVel      = uEffVel;
-  row.velInflated = uInflated;
-  row.orderQty    = uEffVel > 0
-    ? (uInflated
-        ? (row.stock > 0 ? uEffTrig : windowQty)
-        : Math.max(windowQty, trigger))
-    : 0;
+  const ltDaysU    = Math.round(months * 30);
+  const refMap     = calcShopifyUnitsInWindow(src, 180);
+  const refQty     = Math.ceil(matchVelocity(row.item, refMap)) || 0;
+  const uInflated  = row.dailyVel > 0 && refQty > 0 && Math.ceil(row.dailyVel * 180) > refQty * 2;
+  const uEffVel    = uInflated ? refQty / 180 : row.dailyVel;
+  const uEffTrig   = Math.ceil(uEffVel * ltDaysU);
+  row.effVel       = uEffVel;
+  row.velInflated  = uInflated;
+  row.orderQty     = uEffVel > 0 ? uEffTrig : 0;
   Object.assign(row, calcReorderDates(row.stock, uEffVel, months, uEffTrig));
   renderInvTable();
 }
