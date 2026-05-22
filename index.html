@@ -462,6 +462,15 @@ const CHARTS = {};
 let rawLeads = [], rawDeals = [], rawOrders = [], rawProducts = [];
 let rawInvItems = [], rawInvSalesOrders = [], rawInvPurchaseOrders = [], rawVelocityOrders = [];
 let shopifyCostBySku = {};
+
+function getCostPerUnit(sku, zoho_rate) {
+  if (sku && shopifyCostBySku[sku] != null) return shopifyCostBySku[sku];
+  if (sku) {
+    const override = localStorage.getItem('costOverride_' + sku);
+    if (override !== null) return parseFloat(override);
+  }
+  return zoho_rate || null;
+}
 let drFrom = null, drTo = null; // YYYY-MM-DD or null
 let invRows = [], invSortKey = 'lowRisk', invSortDir = 1;
 
@@ -1220,11 +1229,12 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const ltDays     = Math.round(ltMonths * 30);
     const dailyVel   = matchVelocity(item, vel);
     const unitsMap   = calcShopifyUnitsInWindow(src, ltDays);
-    const orderQty   = Math.ceil(matchVelocity(item, unitsMap)) || 0;
+    const windowQty      = Math.ceil(matchVelocity(item, unitsMap)) || 0;
+    const reorderTrigger0 = Math.ceil(dailyVel * ltDays);
+    const orderQty   = dailyVel > 0 ? Math.max(windowQty, reorderTrigger0) : 0;
     const onOrder    = localStorage.getItem('onorder_' + item.item_id) === '1';
     const income     = matchVelocity(item, incomeMap);
-    const reorderTrigger = Math.ceil(dailyVel * ltDays); // stock level at which to place the order
-    const dates          = calcReorderDates(stock, dailyVel, ltMonths, reorderTrigger);
+    const dates          = calcReorderDates(stock, dailyVel, ltMonths, reorderTrigger0);
     return { item, stock, orderQty, ltMonths, dailyVel, onOrder, income, ...dates };
   });
 
@@ -1237,9 +1247,12 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const base = invRows.find(r => !is2bat(r) && (r.item.sku || '').toUpperCase() === bSku);
     if (base) {
       base.dailyVel += bat.dailyVel;
-      base.orderQty += bat.orderQty;
       base.income   += bat.income;
-      const trigger = Math.ceil(base.dailyVel * base.ltMonths * 30);
+      const trigger   = Math.ceil(base.dailyVel * base.ltMonths * 30);
+      const mergedSrc = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
+      const mergedMap = calcShopifyUnitsInWindow(mergedSrc, Math.round(base.ltMonths * 30));
+      const windowSum = Math.ceil(matchVelocity(base.item, mergedMap) + matchVelocity(bat.item, mergedMap)) || 0;
+      base.orderQty   = base.dailyVel > 0 ? Math.max(windowSum, trigger) : 0;
       Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, trigger));
     }
   });
@@ -1279,12 +1292,28 @@ function renderInvTable() {
   const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, onOrder, exact, lowRisk }) => {
     const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
     const chk = onOrder ? 'checked' : '';
-    return `<tr>
+    const daysLeft = dailyVel > 0 ? stock / dailyVel : Infinity;
+    const rowBorder = stock <= 0 && !onOrder ? 'border-left:3px solid #ef4444'
+                    : stock <= 0 && onOrder   ? 'border-left:3px solid #f59e0b'
+                    : daysLeft <= 60          ? 'border-left:3px solid #f97316'
+                    : daysLeft <= 180         ? 'border-left:3px solid #f59e0b'
+                    :                           'border-left:3px solid #10b981';
+    return `<tr style="${rowBorder}">
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
     <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
     <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
-    <td>${fmtDollars(shopifyCostBySku[item.sku] ?? item.purchase_rate, orderQty)}</td>
+    <td>${(() => {
+      const cost = getCostPerUnit(item.sku, item.purchase_rate);
+      const INP_COST = 'width:68px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:3px 6px;font-size:12px;text-align:center';
+      if (cost != null && orderQty > 0) {
+        const total = cost * orderQty;
+        return `<span style="color:var(--green);font-weight:600">$${total.toLocaleString('en-CA',{minimumFractionDigits:0,maximumFractionDigits:0})}</span>`;
+      }
+      const curOverride = item.sku ? (localStorage.getItem('costOverride_' + item.sku) || '') : '';
+      return `<input type="number" min="0" step="0.01" placeholder="$/unit" value="${curOverride}"
+        style="${INP_COST}" title="Enter cost per unit" onchange="updateCostOverride('${item.sku}',this.value)">`;
+    })()}</td>
     <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
@@ -1343,10 +1372,18 @@ function updateLeadTime(itemId, months) {
   if (!row) return;
   row.ltMonths = months;
   const src      = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-  const unitsMap = calcShopifyUnitsInWindow(src, Math.round(months * 30));
-  row.orderQty = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
-  const trigger = Math.ceil(row.dailyVel * months * 30);
+  const unitsMap  = calcShopifyUnitsInWindow(src, Math.round(months * 30));
+  const windowQty = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
+  const trigger   = Math.ceil(row.dailyVel * months * 30);
+  row.orderQty    = row.dailyVel > 0 ? Math.max(windowQty, trigger) : 0;
   Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, trigger));
+  renderInvTable();
+}
+
+function updateCostOverride(sku, val) {
+  val = parseFloat(val);
+  if (!sku || isNaN(val) || val <= 0) return;
+  localStorage.setItem('costOverride_' + sku, val);
   renderInvTable();
 }
 
