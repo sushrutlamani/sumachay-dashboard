@@ -395,19 +395,28 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
     <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
       All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
     </div>
+    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin:18px 0 6px">Top 20 by Revenue (2yr)</p>
     <div class="twrap"><table>
       <thead><tr>
-        <th>Item</th>
-        <th>SKU</th>
+        <th>Item</th><th>SKU</th><th>Stock on Hand</th><th>Units to Buy</th>
+        <th>Velocity (2yr Shopify)</th><th>Lead Time (months)</th>
+        <th>Low Risk Reorder</th><th>Exact Reorder Date</th><th>Incoming</th>
+      </tr></thead>
+      <tbody id="invTop20Body"><tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
+    </table></div>
+
+    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:22px 0 6px">All Other Items</p>
+    <div class="twrap"><table>
+      <thead><tr>
+        <th>Item</th><th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span id="invSort_stock"> ↑</span></th>
         <th>Units to Buy</th>
-        <th>Velocity (2yr Shopify)</th>
-        <th>Lead Time (months)</th>
+        <th>Velocity (2yr Shopify)</th><th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span id="invSort_lowRisk"></span></th>
         <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span id="invSort_exact"></span></th>
         <th>Incoming</th>
       </tr></thead>
-      <tbody id="shopifyInventoryBody"><tr><td colspan="5" style="text-align:center;padding:20px;color:var(--muted)">Loading inventory…</td></tr></tbody>
+      <tbody id="invRestBody"><tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
     </table></div>
 
   </div><!-- /tab-inventory -->
@@ -1103,6 +1112,21 @@ function calcShopifyVelocity(orders, days) {
   return { bySku, byTitle, byFullName };
 }
 
+function calcShopifyIncome(orders, days) {
+  const cutoff = new Date(Date.now() - days * 86400000);
+  const bySku = {}, byTitle = {}, byFullName = {};
+  orders.forEach(o => {
+    if (new Date(o.created_at) < cutoff) return;
+    (o.line_items || []).forEach(li => {
+      const rev = (parseFloat(li.price) || 0) * (li.quantity || 0);
+      if (li.sku) bySku[li.sku.trim()] = (bySku[li.sku.trim()] || 0) + rev;
+      const t = norm(li.title); if (t) byTitle[t] = (byTitle[t] || 0) + rev;
+      const n = norm(li.name);  if (n) byFullName[n] = (byFullName[n] || 0) + rev;
+    });
+  });
+  return { bySku, byTitle, byFullName };
+}
+
 function matchVelocity(item, vel) {
   const zohoSku = (item.sku || '').trim();
   // 1. Exact SKU match
@@ -1144,8 +1168,10 @@ function calcReorderDates(stock, vel, ltMonths, reorderPt) {
 }
 
 function renderZohoInventory(items, salesOrders, purchaseOrders) {
-  const active = items.filter(i => (i.status || '').toLowerCase() === 'active');
-  const vel    = calcShopifyVelocity(rawVelocityOrders.length ? rawVelocityOrders : rawOrders, 730);
+  const active     = items.filter(i => (i.status || '').toLowerCase() === 'active');
+  const src        = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
+  const vel        = calcShopifyVelocity(src, 730);
+  const incomeMap  = calcShopifyIncome(src, 730);
 
   const incoming = {};
   purchaseOrders.forEach(po => {
@@ -1161,8 +1187,9 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const dailyVel    = matchVelocity(item, vel);
     const orderQty    = calcAutoRP(dailyVel, ltMonths);
     const incomingQty = incoming[item.item_id] || 0;
+    const income      = matchVelocity(item, incomeMap);
     const dates       = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
-    return { item, stock, orderQty, ltMonths, dailyVel, incomingQty, ...dates };
+    return { item, stock, orderQty, ltMonths, dailyVel, incomingQty, income, ...dates };
   });
 
   const outOfStock  = invRows.filter(r => r.stock <= 0).length;
@@ -1180,13 +1207,6 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
 const INP = 'width:58px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:3px 6px;font-size:12px;text-align:center';
 
 function renderInvTable() {
-  const sorted = [...invRows].sort((a, b) => {
-    if (invSortKey === 'stock') return invSortDir * (a.stock - b.stock);
-    const aD = a[invSortKey], bD = b[invSortKey];
-    if (!aD && !bD) return 0; if (!aD) return 1; if (!bD) return -1;
-    return invSortDir * (aD - bD);
-  });
-
   const fmtDate = d => {
     if (!d) return '<span style="color:var(--muted)">—</span>';
     const days  = Math.round((d - Date.now()) / 86400000);
@@ -1195,15 +1215,11 @@ function renderInvTable() {
     const tag   = days <= 0 ? ' (overdue)' : days <= 30 ? ` (${days}d)` : '';
     return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
   };
-  const stockColor = s => s <= 0 ? '#ef4444' : '#10b981';
 
-  const tbody = document.getElementById('shopifyInventoryBody');
-  if (!sorted.length) { tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">No active items</td></tr>'; return; }
-
-  tbody.innerHTML = sorted.map(({ item, stock, orderQty, ltMonths, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
+  const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
-    <td style="font-weight:700;color:var(--text)">${stock}</td>
+    <td style="font-weight:700;color:${stock<=0?'#ef4444':'var(--text)'}">${stock}</td>
     <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
     <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
@@ -1211,7 +1227,24 @@ function renderInvTable() {
     <td>${fmtDate(lowRisk)}</td>
     <td>${fmtDate(exact)}</td>
     <td style="color:${incomingQty>0?'#10b981':'var(--muted)'}">${incomingQty>0?'+'+incomingQty:'—'}</td>
-  </tr>`).join('');
+  </tr>`;
+
+  // Split: top 20 by income, rest sorted by invSortKey
+  const byIncome = [...invRows].sort((a, b) => b.income - a.income);
+  const top20    = byIncome.slice(0, 20);
+  const top20Ids = new Set(top20.map(r => r.item.item_id));
+  const rest     = [...invRows]
+    .filter(r => !top20Ids.has(r.item.item_id))
+    .sort((a, b) => {
+      if (invSortKey === 'stock') return invSortDir * (a.stock - b.stock);
+      const aD = a[invSortKey], bD = b[invSortKey];
+      if (!aD && !bD) return 0; if (!aD) return 1; if (!bD) return -1;
+      return invSortDir * (aD - bD);
+    });
+
+  const EMPTY = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
+  document.getElementById('invTop20Body').innerHTML = top20.length ? top20.map(rowHtml).join('') : EMPTY;
+  document.getElementById('invRestBody').innerHTML  = rest.length  ? rest.map(rowHtml).join('')  : EMPTY;
 
   ['stock','lowRisk','exact'].forEach(k => {
     const el = document.getElementById('invSort_'+k);
