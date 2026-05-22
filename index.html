@@ -419,6 +419,12 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         </div>
       </div>
     </div>
+    <div style="margin:12px 0 8px">
+      <input id="invSearch" type="text" placeholder="Search by name or SKU…"
+        oninput="invSearch=this.value.toLowerCase();renderInvTable()"
+        style="width:100%;max-width:360px;background:var(--card);border:1px solid var(--border);border-radius:7px;color:var(--text);padding:7px 12px;font-size:13px;outline:none;transition:border-color .15s"
+        onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+    </div>
     <div class="twrap"><table>
       <thead><tr>
         <th>Item</th><th>SKU</th>
@@ -496,7 +502,7 @@ function getCostPerUnit(sku, zoho_rate) {
   return zoho_rate || null;
 }
 let drFrom = null, drTo = null; // YYYY-MM-DD or null
-let invRows = [], invSortKey = 'lowRisk', invSortDir = 1;
+let invRows = [], invSortKey = 'lowRisk', invSortDir = 1, invSearch = '';
 
 // ════════════════════════════════════════════════════════
 // DATA LOADING — calls our own Railway backend proxy
@@ -1376,8 +1382,9 @@ function renderInvTable() {
     return invSortDir * (aD - bD);
   };
 
-  const withVel   = [...invRows].filter(r => r.dailyVel > 0).sort(sortFn);
-  const neverSold = [...invRows].filter(r => r.dailyVel === 0).sort((a, b) => b.stock - a.stock);
+  const matchSearch = r => !invSearch || r.item.name.toLowerCase().includes(invSearch) || (r.item.sku || '').toLowerCase().includes(invSearch);
+  const withVel   = [...invRows].filter(r => r.dailyVel > 0 && matchSearch(r)).sort(sortFn);
+  const neverSold = [...invRows].filter(r => r.dailyVel === 0 && matchSearch(r)).sort((a, b) => b.stock - a.stock);
 
   const EMPTY9 = '<tr><td colspan="10" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
   const EMPTY5 = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
