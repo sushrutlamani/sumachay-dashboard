@@ -1223,7 +1223,8 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const orderQty   = Math.ceil(matchVelocity(item, unitsMap)) || 0;
     const onOrder    = localStorage.getItem('onorder_' + item.item_id) === '1';
     const income     = matchVelocity(item, incomeMap);
-    const dates      = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
+    const reorderTrigger = Math.ceil(dailyVel * ltDays); // stock level at which to place the order
+    const dates          = calcReorderDates(stock, dailyVel, ltMonths, reorderTrigger);
     return { item, stock, orderQty, ltMonths, dailyVel, onOrder, income, ...dates };
   });
 
@@ -1238,7 +1239,8 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
       base.dailyVel += bat.dailyVel;
       base.orderQty += bat.orderQty;
       base.income   += bat.income;
-      Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, base.orderQty));
+      const trigger = Math.ceil(base.dailyVel * base.ltMonths * 30);
+      Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, trigger));
     }
   });
   invRows = invRows.filter(r => !is2bat(r));
@@ -1342,8 +1344,9 @@ function updateLeadTime(itemId, months) {
   row.ltMonths = months;
   const src      = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
   const unitsMap = calcShopifyUnitsInWindow(src, Math.round(months * 30));
-  row.orderQty   = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
-  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, row.orderQty));
+  row.orderQty = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
+  const trigger = Math.ceil(row.dailyVel * months * 30);
+  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, trigger));
   renderInvTable();
 }
 
