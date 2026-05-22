@@ -1345,15 +1345,24 @@ function renderInvTable() {
     <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
     <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
     <td>${(() => {
-      const cost = getCostPerUnit(item.sku, item.purchase_rate);
-      const INP_COST = 'width:68px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:3px 6px;font-size:12px;text-align:center';
-      if (cost != null && orderQty > 0) {
-        const total = cost * orderQty;
-        return `<span style="color:var(--green);font-weight:600">$${total.toLocaleString('en-CA',{minimumFractionDigits:0,maximumFractionDigits:0})}</span>`;
+      const shopifyCost = item.sku != null ? shopifyCostBySku[item.sku] : null;
+      const INP_COST = 'width:64px;background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);padding:3px 6px;font-size:12px;text-align:center';
+      if (shopifyCost != null) {
+        // Cost sourced from Shopify — show total only, no manual edit needed
+        if (orderQty > 0) {
+          const total = shopifyCost * orderQty;
+          return `<span style="color:var(--green);font-weight:600">$${total.toLocaleString('en-CA',{minimumFractionDigits:0,maximumFractionDigits:0})}</span>`;
+        }
+        return '<span style="color:var(--muted)">—</span>';
       }
-      const curOverride = item.sku ? (localStorage.getItem('costOverride_' + item.sku) || '') : '';
-      return `<input type="number" min="0" step="0.01" placeholder="$/unit" value="${curOverride}"
-        style="${INP_COST}" title="Enter cost per unit" onchange="updateCostOverride('${item.sku}',this.value)">`;
+      // No Shopify cost — always show editable input, prefilled with override if set
+      const overrideVal = item.sku ? (localStorage.getItem('costOverride_' + item.sku) || '') : '';
+      const overrideCost = overrideVal ? parseFloat(overrideVal) : null;
+      const totalStr = overrideCost != null && orderQty > 0
+        ? `<span style="color:var(--green);font-weight:600;font-size:12px;display:block;margin-bottom:2px">$${(overrideCost*orderQty).toLocaleString('en-CA',{minimumFractionDigits:0,maximumFractionDigits:0})}</span>`
+        : '';
+      return `${totalStr}<input type="number" min="0" step="0.01" placeholder="$/unit" value="${overrideVal}"
+        style="${INP_COST}" title="Cost per unit (manual)" onchange="updateCostOverride('${item.sku}',this.value)">`;
     })()}</td>
     <td style="color:var(--sub)">${effVel > 0
       ? effVel.toFixed(3)+'/day' + (velInflated ? ` <span title="Historical: ${dailyVel.toFixed(3)}/day — adjusted to recent window" style="color:var(--muted);font-size:10px;cursor:help">adj.</span>` : '')
