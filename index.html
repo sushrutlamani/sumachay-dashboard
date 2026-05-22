@@ -392,8 +392,32 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
       <div class="kpi amber"> <div class="kpi-lbl">Low Stock</div>      <div class="kpi-val skel" style="height:32px;width:50px;margin-bottom:5px"> </div><div class="kpi-sub">5 or fewer units</div></div>
     </div>
 
-    <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
-      All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:20px 0 14px">
+      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px">How to read this table</div>
+      <div style="display:flex;gap:32px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:var(--sub);margin-bottom:8px">Row color = stock runway</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(239,68,68,0.20);border-left:4px solid #ef4444;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#ef4444">Red</b> — out of stock, no order placed</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(245,158,11,0.20);border-left:4px solid #f59e0b;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#f59e0b">Amber</b> — out of stock, shipment on the way</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(249,115,22,0.20);border-left:4px solid #f97316;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#f97316">Orange</b> — stocks out within 60 days</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(234,179,8,0.15);border-left:4px solid #eab308;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#eab308">Yellow</b> — stocks out within 6 months</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(16,185,129,0.15);border-left:4px solid #10b981;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#10b981">Green</b> — safe for 6+ months</span></div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:280px">
+          <div style="font-size:11px;font-weight:600;color:var(--sub);margin-bottom:8px">Column guide</div>
+          <div style="display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:12px;align-items:start">
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Units to Buy</span><span style="color:var(--text)">How many to put on the next PO — at minimum enough to cover one full lead time of demand</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Purchase Cost</span><span style="color:var(--text)">Total cost of that PO (units &times; cost/unit). Click the input to enter cost if missing.</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Velocity</span><span style="color:var(--text)">Average daily Shopify sales since this product first sold</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Lead Time</span><span style="color:var(--text)">Editable — months from placing a PO to receiving stock. Drives all date calculations.</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Low Risk Reorder</span><span style="color:var(--text)">Order by this date to have a comfortable buffer before running out</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Exact Reorder Date</span><span style="color:var(--text)">Latest date to place the order — stock arrives just as you sell the last unit</span>
+            <span style="color:var(--muted);white-space:nowrap;font-weight:600">Incoming</span><span style="color:var(--text)">Check this when a PO is placed — row turns amber instead of red</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="twrap"><table>
       <thead><tr>
@@ -1293,12 +1317,12 @@ function renderInvTable() {
     const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
     const chk = onOrder ? 'checked' : '';
     const daysLeft = dailyVel > 0 ? stock / dailyVel : Infinity;
-    const rowBorder = stock <= 0 && !onOrder ? 'border-left:3px solid #ef4444'
-                    : stock <= 0 && onOrder   ? 'border-left:3px solid #f59e0b'
-                    : daysLeft <= 60          ? 'border-left:3px solid #f97316'
-                    : daysLeft <= 180         ? 'border-left:3px solid #f59e0b'
-                    :                           'border-left:3px solid #10b981';
-    return `<tr style="${rowBorder}">
+    const rowStyle = stock <= 0 && !onOrder ? 'border-left:4px solid #ef4444;background:rgba(239,68,68,0.10)'
+                   : stock <= 0 && onOrder   ? 'border-left:4px solid #f59e0b;background:rgba(245,158,11,0.10)'
+                   : daysLeft <= 60          ? 'border-left:4px solid #f97316;background:rgba(249,115,22,0.10)'
+                   : daysLeft <= 180         ? 'border-left:4px solid #eab308;background:rgba(245,158,11,0.07)'
+                   :                           'border-left:4px solid #10b981;background:rgba(16,185,129,0.06)';
+    return `<tr style="${rowStyle}">
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
     <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
