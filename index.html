@@ -401,7 +401,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <th>Item</th><th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"> ↑</span></th>
         <th>Units to Buy</th>
-        <th>Velocity (2yr Shopify)</th><th>Lead Time (months)</th>
+        <th>Velocity (since 1st sale)</th><th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span class="invSort" data-key="lowRisk"></span></th>
         <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span class="invSort" data-key="exact"></span></th>
         <th>Incoming</th>
@@ -415,7 +415,7 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <th>Item</th><th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"></span></th>
         <th>Units to Buy</th>
-        <th>Velocity (2yr Shopify)</th><th>Lead Time (months)</th>
+        <th>Velocity (since 1st sale)</th><th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span class="invSort" data-key="lowRisk"></span></th>
         <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span class="invSort" data-key="exact"></span></th>
         <th>Incoming</th>
@@ -1098,21 +1098,35 @@ async function loadInventory() {
 
 function norm(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
 
-function calcShopifyVelocity(orders, days) {
-  const cutoff = new Date(Date.now() - days * 86400000);
+function calcShopifyVelocity(orders) {
+  // Divide each item's units by days-since-first-sale, not a fixed window.
+  // This avoids stockout bias: a product that only started selling recently
+  // gets a fair velocity based on the period it was actually available.
+  const now = Date.now();
   const bySku = {}, byTitle = {}, byFullName = {};
+  const firstSku = {}, firstTitle = {}, firstFullName = {};
+
   orders.forEach(o => {
-    if (new Date(o.created_at) < cutoff) return;
+    const oMs = new Date(o.created_at).getTime();
     (o.line_items || []).forEach(li => {
       const qty = li.quantity || 0;
-      if (li.sku) bySku[li.sku.trim()] = (bySku[li.sku.trim()] || 0) + qty;
+      if (li.sku) {
+        const k = li.sku.trim();
+        bySku[k]   = (bySku[k]   || 0) + qty;
+        firstSku[k] = Math.min(firstSku[k] ?? Infinity, oMs);
+      }
       const t = norm(li.title);
-      if (t) byTitle[t] = (byTitle[t] || 0) + qty;
+      if (t) { byTitle[t]   = (byTitle[t]   || 0) + qty; firstTitle[t]    = Math.min(firstTitle[t]    ?? Infinity, oMs); }
       const n = norm(li.name);
-      if (n) byFullName[n] = (byFullName[n] || 0) + qty;
+      if (n) { byFullName[n] = (byFullName[n] || 0) + qty; firstFullName[n] = Math.min(firstFullName[n] ?? Infinity, oMs); }
     });
   });
-  [bySku, byTitle, byFullName].forEach(map => Object.keys(map).forEach(k => map[k] /= days));
+
+  const toDays = ms => Math.max(1, (now - ms) / 86400000);
+  Object.keys(bySku).forEach(k      => bySku[k]      /= toDays(firstSku[k]));
+  Object.keys(byTitle).forEach(k    => byTitle[k]    /= toDays(firstTitle[k]));
+  Object.keys(byFullName).forEach(k => byFullName[k] /= toDays(firstFullName[k]));
+
   return { bySku, byTitle, byFullName };
 }
 
@@ -1174,7 +1188,7 @@ function calcReorderDates(stock, vel, ltMonths, reorderPt) {
 function renderZohoInventory(items, salesOrders, purchaseOrders) {
   const active     = items.filter(i => (i.status || '').toLowerCase() === 'active');
   const src        = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-  const vel        = calcShopifyVelocity(src, 730);
+  const vel        = calcShopifyVelocity(src);
   const incomeMap  = calcShopifyIncome(src, 730);
 
   const incoming = {};
