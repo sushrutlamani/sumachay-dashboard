@@ -395,25 +395,10 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
     <div class="ctitle" style="margin:20px 0 6px;font-size:11px;font-weight:600;color:var(--sub);text-transform:uppercase;letter-spacing:.06em">
       All Products <em style="font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0">Sorted by inventory level</em>
     </div>
-    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--primary);margin:18px 0 6px">Top 20 by Revenue (2yr)</p>
     <div class="twrap"><table>
       <thead><tr>
         <th>Item</th><th>SKU</th>
         <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"> ↑</span></th>
-        <th>Units to Buy</th>
-        <th>Velocity (since 1st sale)</th><th>Lead Time (months)</th>
-        <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span class="invSort" data-key="lowRisk"></span></th>
-        <th style="cursor:pointer" onclick="sortInvBy('exact')">Exact Reorder Date<span class="invSort" data-key="exact"></span></th>
-        <th>Incoming</th>
-      </tr></thead>
-      <tbody id="invTop20Body"><tr><td colspan="9" style="text-align:center;padding:20px;color:var(--muted)">Loading…</td></tr></tbody>
-    </table></div>
-
-    <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:22px 0 6px">All Other Items</p>
-    <div class="twrap"><table>
-      <thead><tr>
-        <th>Item</th><th>SKU</th>
-        <th style="cursor:pointer" onclick="sortInvBy('stock')">Stock on Hand<span class="invSort" data-key="stock"></span></th>
         <th>Units to Buy</th>
         <th>Velocity (since 1st sale)</th><th>Lead Time (months)</th>
         <th style="cursor:pointer" onclick="sortInvBy('lowRisk')">Low Risk Reorder<span class="invSort" data-key="lowRisk"></span></th>
@@ -1279,10 +1264,6 @@ function renderInvTable() {
   </tr>`;
   };
 
-  // Determine top 20 by income (fixed membership), then apply active sort within each group
-  const byIncome = [...invRows].sort((a, b) => b.income - a.income);
-  const top20Ids = new Set(byIncome.slice(0, 20).map(r => r.item.item_id));
-
   const sortFn = (a, b) => {
     if (invSortKey === 'stock') return invSortDir * (a.stock - b.stock);
     const aD = a[invSortKey], bD = b[invSortKey];
@@ -1290,15 +1271,12 @@ function renderInvTable() {
     return invSortDir * (aD - bD);
   };
 
-  const top20     = [...invRows].filter(r =>  top20Ids.has(r.item.item_id)).sort(sortFn);
-  const restSold  = [...invRows].filter(r => !top20Ids.has(r.item.item_id) && r.dailyVel > 0).sort(sortFn);
-  const neverSold = [...invRows].filter(r => !top20Ids.has(r.item.item_id) && r.dailyVel === 0)
-                                .sort((a, b) => b.stock - a.stock);
+  const withVel   = [...invRows].filter(r => r.dailyVel > 0).sort(sortFn);
+  const neverSold = [...invRows].filter(r => r.dailyVel === 0).sort((a, b) => b.stock - a.stock);
 
   const EMPTY9 = '<tr><td colspan="9" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
   const EMPTY5 = '<tr><td colspan="5" style="text-align:center;padding:18px;color:var(--muted)">—</td></tr>';
-  document.getElementById('invTop20Body').innerHTML = top20.length    ? top20.map(rowHtml).join('')    : EMPTY9;
-  document.getElementById('invRestBody').innerHTML  = restSold.length ? restSold.map(rowHtml).join('') : EMPTY9;
+  document.getElementById('invRestBody').innerHTML  = withVel.length ? withVel.map(rowHtml).join('') : EMPTY9;
   document.getElementById('invNeverBody').innerHTML = neverSold.length
     ? neverSold.map(({ item, stock, ltMonths, onOrder }) => {
         const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
