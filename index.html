@@ -1360,9 +1360,9 @@ function renderInvTable() {
       : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
-    <td>${stock <= 0 ? '<span style="color:var(--muted);font-size:11px">—</span>' : fmtDate(lowRisk)}</td>
+    <td>${(!exact || exact <= new Date()) ? '<span style="color:var(--muted);font-size:11px">—</span>' : fmtDate(lowRisk)}</td>
     <td>${(() => {
-      if (stock <= 0) {
+      if (!exact || exact <= new Date()) {
         const arrival = new Date();
         arrival.setDate(arrival.getDate() + Math.round(ltMonths * 30));
         const label = arrival.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
