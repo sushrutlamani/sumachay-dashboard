@@ -1255,14 +1255,14 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const unitsMap   = calcShopifyUnitsInWindow(src, ltDays);
     const windowQty      = Math.ceil(matchVelocity(item, unitsMap)) || 0;
     const reorderTrigger0 = Math.ceil(dailyVel * ltDays);
-    // Use window sales when trigger is more than 2× window — velocity is inflated vs recent demand.
-    // Use max(window, trigger) when they're close — velocity is reliable and we need the floor.
-    const velInflated = reorderTrigger0 > windowQty * 2;
-    const orderQty   = dailyVel > 0 ? (velInflated ? windowQty : Math.max(windowQty, reorderTrigger0)) : 0;
-    const onOrder    = localStorage.getItem('onorder_' + item.item_id) === '1';
-    const income     = matchVelocity(item, incomeMap);
-    const dates          = calcReorderDates(stock, dailyVel, ltMonths, reorderTrigger0);
-    return { item, stock, orderQty, ltMonths, dailyVel, onOrder, income, ...dates };
+    const velInflated    = dailyVel > 0 && reorderTrigger0 > windowQty * 2;
+    const effVel         = velInflated ? windowQty / ltDays : dailyVel;
+    const effTrigger     = Math.ceil(effVel * ltDays);
+    const orderQty       = effVel > 0 ? (velInflated ? windowQty : Math.max(windowQty, reorderTrigger0)) : 0;
+    const onOrder        = localStorage.getItem('onorder_' + item.item_id) === '1';
+    const income         = matchVelocity(item, incomeMap);
+    const dates          = calcReorderDates(stock, effVel, ltMonths, effTrigger);
+    return { item, stock, orderQty, ltMonths, dailyVel, effVel, velInflated, onOrder, income, ...dates };
   });
 
   // Merge 2BAT variants into their base product then hide them.
@@ -1275,12 +1275,18 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     if (base) {
       base.dailyVel += bat.dailyVel;
       base.income   += bat.income;
-      const trigger   = Math.ceil(base.dailyVel * base.ltMonths * 30);
+      const ltDaysM   = Math.round(base.ltMonths * 30);
+      const trigger   = Math.ceil(base.dailyVel * ltDaysM);
       const mergedSrc = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-      const mergedMap = calcShopifyUnitsInWindow(mergedSrc, Math.round(base.ltMonths * 30));
+      const mergedMap = calcShopifyUnitsInWindow(mergedSrc, ltDaysM);
       const windowSum = Math.ceil(matchVelocity(base.item, mergedMap) + matchVelocity(bat.item, mergedMap)) || 0;
-      base.orderQty   = base.dailyVel > 0 ? (trigger > windowSum * 2 ? windowSum : Math.max(windowSum, trigger)) : 0;
-      Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, trigger));
+      const mInflated = base.dailyVel > 0 && trigger > windowSum * 2;
+      const mEffVel   = mInflated ? windowSum / ltDaysM : base.dailyVel;
+      const mEffTrig  = Math.ceil(mEffVel * ltDaysM);
+      base.effVel     = mEffVel;
+      base.velInflated = mInflated;
+      base.orderQty   = mEffVel > 0 ? (mInflated ? windowSum : Math.max(windowSum, trigger)) : 0;
+      Object.assign(base, calcReorderDates(base.stock, mEffVel, base.ltMonths, mEffTrig));
     }
   });
   invRows = invRows.filter(r => !is2bat(r));
@@ -1316,10 +1322,10 @@ function renderInvTable() {
     return `<span style="color:var(--green);font-weight:600">$${val.toLocaleString('en-CA', {minimumFractionDigits: 0, maximumFractionDigits: 0})}</span>`;
   };
 
-  const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, onOrder, exact, lowRisk }) => {
+  const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, effVel, velInflated, onOrder, exact, lowRisk }) => {
     const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
     const chk = onOrder ? 'checked' : '';
-    const daysLeft = dailyVel > 0 ? stock / dailyVel : Infinity;
+    const daysLeft = effVel > 0 ? stock / effVel : Infinity;
     const rowStyle = stock <= 0 && !onOrder ? 'border-left:4px solid #ef4444;background:rgba(239,68,68,0.10)'
                    : stock <= 0 && onOrder   ? 'border-left:4px solid #f59e0b;background:rgba(245,158,11,0.10)'
                    : daysLeft <= 60          ? 'border-left:4px solid #f97316;background:rgba(249,115,22,0.10)'
@@ -1341,7 +1347,9 @@ function renderInvTable() {
       return `<input type="number" min="0" step="0.01" placeholder="$/unit" value="${curOverride}"
         style="${INP_COST}" title="Enter cost per unit" onchange="updateCostOverride('${item.sku}',this.value)">`;
     })()}</td>
-    <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
+    <td style="color:var(--sub)">${effVel > 0
+      ? effVel.toFixed(3)+'/day' + (velInflated ? ` <span title="Historical: ${dailyVel.toFixed(3)}/day — adjusted to recent window" style="color:var(--muted);font-size:10px;cursor:help">adj.</span>` : '')
+      : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
     <td>${fmtDate(lowRisk)}</td>
@@ -1399,11 +1407,17 @@ function updateLeadTime(itemId, months) {
   if (!row) return;
   row.ltMonths = months;
   const src      = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
-  const unitsMap  = calcShopifyUnitsInWindow(src, Math.round(months * 30));
+  const ltDaysU   = Math.round(months * 30);
+  const unitsMap  = calcShopifyUnitsInWindow(src, ltDaysU);
   const windowQty = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
-  const trigger   = Math.ceil(row.dailyVel * months * 30);
-  row.orderQty    = row.dailyVel > 0 ? (trigger > windowQty * 2 ? windowQty : Math.max(windowQty, trigger)) : 0;
-  Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, trigger));
+  const trigger   = Math.ceil(row.dailyVel * ltDaysU);
+  const uInflated = row.dailyVel > 0 && trigger > windowQty * 2;
+  const uEffVel   = uInflated ? windowQty / ltDaysU : row.dailyVel;
+  const uEffTrig  = Math.ceil(uEffVel * ltDaysU);
+  row.effVel      = uEffVel;
+  row.velInflated = uInflated;
+  row.orderQty    = uEffVel > 0 ? (uInflated ? windowQty : Math.max(windowQty, trigger)) : 0;
+  Object.assign(row, calcReorderDates(row.stock, uEffVel, months, uEffTrig));
   renderInvTable();
 }
 
