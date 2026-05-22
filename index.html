@@ -1127,6 +1127,21 @@ function calcShopifyVelocity(orders) {
   return { bySku, byTitle, byFullName };
 }
 
+function calcShopifyUnitsInWindow(orders, days) {
+  const cutoff = new Date(Date.now() - days * 86400000);
+  const bySku = {}, byTitle = {}, byFullName = {};
+  (orders || []).forEach(o => {
+    if (new Date(o.created_at) < cutoff) return;
+    (o.line_items || []).forEach(li => {
+      const qty = li.quantity || 0;
+      if (li.sku) { const k = li.sku.trim(); bySku[k] = (bySku[k]||0) + qty; }
+      const t = norm(li.title); if (t) byTitle[t] = (byTitle[t]||0) + qty;
+      const n = norm(li.name);  if (n) byFullName[n] = (byFullName[n]||0) + qty;
+    });
+  });
+  return { bySku, byTitle, byFullName };
+}
+
 function calcShopifyIncome(orders, days) {
   const cutoff = new Date(Date.now() - days * 86400000);
   const bySku = {}, byTitle = {}, byFullName = {};
@@ -1199,8 +1214,10 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
   invRows = active.map(item => {
     const stock      = item.stock_on_hand || 0;
     const ltMonths   = getLeadTime(item.item_id);
+    const ltDays     = Math.round(ltMonths * 30);
     const dailyVel   = matchVelocity(item, vel);
-    const orderQty   = calcAutoRP(dailyVel, ltMonths);
+    const unitsMap   = calcShopifyUnitsInWindow(src, ltDays);
+    const orderQty   = Math.ceil(matchVelocity(item, unitsMap)) || 0;
     const onOrder    = localStorage.getItem('onorder_' + item.item_id) === '1';
     const income     = matchVelocity(item, incomeMap);
     const dates      = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
@@ -1216,8 +1233,8 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     const base = invRows.find(r => !is2bat(r) && (r.item.sku || '').toUpperCase() === bSku);
     if (base) {
       base.dailyVel += bat.dailyVel;
+      base.orderQty += bat.orderQty;
       base.income   += bat.income;
-      base.orderQty  = calcAutoRP(base.dailyVel, base.ltMonths);
       Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, base.orderQty));
     }
   });
@@ -1319,7 +1336,9 @@ function updateLeadTime(itemId, months) {
   const row = invRows.find(r => r.item.item_id === itemId);
   if (!row) return;
   row.ltMonths = months;
-  row.orderQty = calcAutoRP(row.dailyVel, months);
+  const src      = rawVelocityOrders.length ? rawVelocityOrders : rawOrders;
+  const unitsMap = calcShopifyUnitsInWindow(src, Math.round(months * 30));
+  row.orderQty   = Math.ceil(matchVelocity(row.item, unitsMap)) || 0;
   Object.assign(row, calcReorderDates(row.stock, row.dailyVel, months, row.orderQty));
   renderInvTable();
 }
