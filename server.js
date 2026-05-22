@@ -172,6 +172,36 @@ app.get('/api/shopify', async (req, res) => {
   }
 });
 
+// ── Shopify cost-of-goods by SKU ─────────────────────────
+let costCache = { costBySku: {}, fetchedAt: null };
+
+async function fetchShopifyCosts() {
+  try {
+    const productsData = await shopifyGet('/products.json?limit=250&fields=id,variants');
+    const allVariants  = (productsData.products || []).flatMap(p => p.variants || []);
+    const ids          = allVariants.map(v => v.inventory_item_id).filter(Boolean);
+
+    const costBySku = {};
+    for (let i = 0; i < ids.length; i += 100) {
+      const batch = ids.slice(i, i + 100);
+      const data  = await shopifyGet(`/inventory_items.json?ids=${batch.join(',')}`);
+      (data.inventory_items || []).forEach(ii => {
+        const variant = allVariants.find(v => v.inventory_item_id === ii.id);
+        if (variant?.sku && ii.cost != null) costBySku[variant.sku] = parseFloat(ii.cost);
+      });
+    }
+    costCache = { costBySku, fetchedAt: new Date().toISOString() };
+    console.log(`Shopify costs: loaded ${Object.keys(costBySku).length} SKUs`);
+  } catch(e) {
+    console.error('Shopify cost fetch failed:', e.message);
+  }
+}
+
+fetchShopifyCosts();
+setInterval(fetchShopifyCosts, 6 * 60 * 60 * 1000);
+
+app.get('/api/shopify-costs', (_req, res) => res.json(costCache));
+
 app.use(express.static(path.join(__dirname)));
 app.get('*', (_req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
