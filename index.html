@@ -1200,17 +1200,17 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
   });
 
   invRows = active.map(item => {
-    const stock       = item.stock_on_hand || 0;
-    const ltMonths    = getLeadTime(item.item_id);
-    const dailyVel    = matchVelocity(item, vel);
-    const orderQty    = calcAutoRP(dailyVel, ltMonths);
-    const incomingQty = incoming[item.item_id] || 0;
-    const income      = matchVelocity(item, incomeMap);
-    const dates       = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
-    return { item, stock, orderQty, ltMonths, dailyVel, incomingQty, income, ...dates };
+    const stock      = item.stock_on_hand || 0;
+    const ltMonths   = getLeadTime(item.item_id);
+    const dailyVel   = matchVelocity(item, vel);
+    const orderQty   = calcAutoRP(dailyVel, ltMonths);
+    const onOrder    = localStorage.getItem('onorder_' + item.item_id) === '1';
+    const income     = matchVelocity(item, incomeMap);
+    const dates      = calcReorderDates(stock, dailyVel, ltMonths, orderQty);
+    return { item, stock, orderQty, ltMonths, dailyVel, onOrder, income, ...dates };
   });
 
-  const outOfStock  = invRows.filter(r => r.stock <= 0).length;
+  const outOfStock  = invRows.filter(r => r.stock <= 0 && !r.onOrder).length;
   const reorderSoon = invRows.filter(r => r.exact && r.exact <= new Date(Date.now() + 14*86400000)).length;
   const hasVelocity = invRows.filter(r => r.dailyVel > 0).length;
   document.getElementById('inventoryKPIs').innerHTML = `
@@ -1234,18 +1234,23 @@ function renderInvTable() {
     return `<span style="color:${color};font-weight:600">${label}${tag}</span>`;
   };
 
-  const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, incomingQty, exact, lowRisk }) => `<tr>
+  const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, onOrder, exact, lowRisk }) => {
+    const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
+    const chk = onOrder ? 'checked' : '';
+    return `<tr>
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
     <td style="color:var(--muted);font-size:11px;font-family:monospace">${item.sku || '<span style="color:var(--border)">—</span>'}</td>
-    <td style="font-weight:700;color:${stock<=0?'#ef4444':'var(--text)'}">${stock}</td>
+    <td style="font-weight:700;color:${stockColor}">${stock}${onOrder && stock<=0 ? ' <span style="font-size:10px;font-weight:500;color:#f59e0b">on order</span>' : ''}</td>
     <td style="font-weight:600;color:var(--pl)">${orderQty > 0 ? orderQty : '<span style="color:var(--muted)">—</span>'}</td>
     <td style="color:var(--sub)">${dailyVel > 0 ? dailyVel.toFixed(3)+'/day' : '<span style="color:var(--muted)">—</span>'}</td>
     <td><input type="number" min="0.5" step="0.5" value="${ltMonths}"
       style="${INP}" onchange="updateLeadTime('${item.item_id}',this.value)"></td>
     <td>${fmtDate(lowRisk)}</td>
     <td>${fmtDate(exact)}</td>
-    <td style="color:${incomingQty>0?'#10b981':'var(--muted)'}">${incomingQty>0?'+'+incomingQty:'—'}</td>
+    <td style="text-align:center"><input type="checkbox" ${chk} onchange="toggleOnOrder('${item.item_id}',this.checked)"
+      style="width:16px;height:16px;cursor:pointer;accent-color:var(--primary)"></td>
   </tr>`;
+  };
 
   // Determine top 20 by income (fixed membership), then apply active sort within each group
   const byIncome = [...invRows].sort((a, b) => b.income - a.income);
@@ -1269,6 +1274,12 @@ function renderInvTable() {
     const k = el.dataset.key;
     el.textContent = invSortKey === k ? (invSortDir === 1 ? ' ↑' : ' ↓') : '';
   });
+}
+
+function toggleOnOrder(itemId, checked) {
+  localStorage.setItem('onorder_' + itemId, checked ? '1' : '0');
+  const row = invRows.find(r => r.item.item_id === itemId);
+  if (row) { row.onOrder = checked; renderInvTable(); }
 }
 
 function updateLeadTime(itemId, months) {
