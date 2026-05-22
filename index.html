@@ -398,11 +398,11 @@ footer{text-align:center;padding:18px;color:var(--muted);font-size:11px;border-t
         <div>
           <div style="font-size:11px;font-weight:600;color:var(--sub);margin-bottom:8px">Row color = stock runway</div>
           <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(239,68,68,0.20);border-left:4px solid #ef4444;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#ef4444">Red</b> — out of stock, no order placed</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(239,68,68,0.20);border-left:4px solid #ef4444;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#ef4444">Red</b> — out of stock or reorder overdue</span></div>
             <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(245,158,11,0.20);border-left:4px solid #f59e0b;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#f59e0b">Amber</b> — out of stock, shipment on the way</span></div>
-            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(249,115,22,0.20);border-left:4px solid #f97316;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#f97316">Orange</b> — stocks out within 60 days</span></div>
-            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(234,179,8,0.15);border-left:4px solid #eab308;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#eab308">Yellow</b> — stocks out within 6 months</span></div>
-            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(16,185,129,0.15);border-left:4px solid #10b981;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#10b981">Green</b> — safe for 6+ months</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(249,115,22,0.20);border-left:4px solid #f97316;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#f97316">Orange</b> — order within 14 days</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(234,179,8,0.15);border-left:4px solid #eab308;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#eab308">Yellow</b> — order within 60 days</span></div>
+            <div style="display:flex;align-items:center;gap:9px"><span style="display:inline-block;width:16px;height:16px;border-radius:3px;background:rgba(16,185,129,0.15);border-left:4px solid #10b981;flex-shrink:0"></span><span style="font-size:12px;color:var(--text)"><b style="color:#10b981">Green</b> — reorder more than 60 days away</span></div>
           </div>
         </div>
         <div style="flex:1;min-width:280px">
@@ -1333,11 +1333,12 @@ function renderInvTable() {
   const rowHtml = ({ item, stock, orderQty, ltMonths, dailyVel, effVel, velInflated, onOrder, exact, lowRisk }) => {
     const stockColor = stock <= 0 ? (onOrder ? '#f59e0b' : '#ef4444') : 'var(--text)';
     const chk = onOrder ? 'checked' : '';
-    const daysLeft = effVel > 0 ? stock / effVel : Infinity;
+    const daysToOrder = exact ? Math.round((exact - Date.now()) / 86400000) : Infinity;
     const rowStyle = stock <= 0 && !onOrder ? 'border-left:4px solid #ef4444;background:rgba(239,68,68,0.10)'
                    : stock <= 0 && onOrder   ? 'border-left:4px solid #f59e0b;background:rgba(245,158,11,0.10)'
-                   : daysLeft <= 60          ? 'border-left:4px solid #f97316;background:rgba(249,115,22,0.10)'
-                   : daysLeft <= 180         ? 'border-left:4px solid #eab308;background:rgba(245,158,11,0.07)'
+                   : daysToOrder <= 0        ? 'border-left:4px solid #ef4444;background:rgba(239,68,68,0.10)'
+                   : daysToOrder <= 14       ? 'border-left:4px solid #f97316;background:rgba(249,115,22,0.10)'
+                   : daysToOrder <= 60       ? 'border-left:4px solid #eab308;background:rgba(245,158,11,0.07)'
                    :                           'border-left:4px solid #10b981;background:rgba(16,185,129,0.06)';
     return `<tr style="${rowStyle}">
     <td style="font-weight:500;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${item.name}">${item.name}</td>
