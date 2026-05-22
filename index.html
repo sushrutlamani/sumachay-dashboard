@@ -1210,6 +1210,22 @@ function renderZohoInventory(items, salesOrders, purchaseOrders) {
     return { item, stock, orderQty, ltMonths, dailyVel, onOrder, income, ...dates };
   });
 
+  // Merge 2BAT variants into their base product then hide them.
+  // SKU pattern: BASE-2BAT or BASE-2BAT-suffix  →  base SKU = BASE
+  const is2bat  = r => /-2bat\b/i.test(r.item.sku || '') || /\b2.?bat\b/i.test(r.item.name);
+  const baseSku = r => (r.item.sku || '').replace(/-2BAT.*/i, '').trim().toUpperCase();
+  invRows.filter(is2bat).forEach(bat => {
+    const bSku = baseSku(bat);
+    const base = invRows.find(r => !is2bat(r) && (r.item.sku || '').toUpperCase() === bSku);
+    if (base) {
+      base.dailyVel += bat.dailyVel;
+      base.income   += bat.income;
+      base.orderQty  = calcAutoRP(base.dailyVel, base.ltMonths);
+      Object.assign(base, calcReorderDates(base.stock, base.dailyVel, base.ltMonths, base.orderQty));
+    }
+  });
+  invRows = invRows.filter(r => !is2bat(r));
+
   const outOfStock  = invRows.filter(r => r.stock <= 0 && !r.onOrder).length;
   const reorderSoon = invRows.filter(r => r.exact && r.exact <= new Date(Date.now() + 14*86400000)).length;
   const hasVelocity = invRows.filter(r => r.dailyVel > 0).length;
